@@ -16,7 +16,9 @@ import org.json.JSONObject;
 import dataAccessPackage.JSONParser;
 import dataAccessPackage.LoginSession;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -87,11 +89,13 @@ public class LoginActivity extends Activity{
 	private static final String emailKey  = "email";
 	private static final String nameKey  = "name";
     private static final String loginTag = "login";
+    ProgressDialog dialog;
     JSONParser jsonParser;
 	
     //Before starting background thread show progress dailog
 	@Override
 	protected void onPreExecute() {
+		dialog = ProgressDialog.show( LoginActivity.this, "Wait..", "Logging In", true, false);
 		jsonParser = new JSONParser();
 		loginErrorMsg.setText(" ");
 	}
@@ -157,7 +161,16 @@ public class LoginActivity extends Activity{
 	protected void onPostExecute(String result) {
 		// display message if error occurred while login 
 		if(result != null){
-			loginErrorMsg.setText(result);
+			dialog.dismiss();
+			AlertDialog builder = new AlertDialog.Builder(LoginActivity.this)
+			.setTitle("Incorrect Password")
+			.setMessage("The Password you entered is incorrect. Please try again.")
+			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			    public void onClick(DialogInterface dialog, int which) { 
+			        // Your code
+			    }
+			 }).show();
+			//loginErrorMsg.setText(result);
 		}		
 	}
    }	
