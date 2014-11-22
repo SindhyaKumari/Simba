@@ -163,8 +163,8 @@ public class LoginActivity extends Activity{
 		if(result != null){
 			dialog.dismiss();
 			AlertDialog builder = new AlertDialog.Builder(LoginActivity.this)
-			.setTitle("Incorrect Password")
-			.setMessage("The Password you entered is incorrect. Please try again.")
+			.setTitle("Incorrect Username or Password")
+			.setMessage("The Username or Password you entered is incorrect. Please try again.")
 			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int which) { 
 			        // Your code

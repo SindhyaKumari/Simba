@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.SIMBA.Welcome.LoginActivity;
 import com.SIMBA.Welcome.StartupActivity;
 
 import dataAccessPackage.LoginSession;
@@ -333,7 +334,7 @@ public class MainActivity extends FragmentActivity implements
         return true;
     }
 
-/*
+
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		// checking which item is being selected
@@ -345,7 +346,7 @@ public class MainActivity extends FragmentActivity implements
 			loginObj.checkLoginStatus();
 			
 			//calling login activity
-			Intent startUpIntent = new Intent(MainActivity.this, StartupActivity.class);
+			Intent startUpIntent = new Intent(MainActivity.this, LoginActivity.class);
 			startActivity(startUpIntent);
 			
 	       //closing main activity			
@@ -354,6 +355,5 @@ public class MainActivity extends FragmentActivity implements
 		}
 		return super.onMenuItemSelected(featureId, item);
 	}
-	*/
 
 }
