@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@drawable/main_page">
+   
+    <TextView
+        android:id="@+id/notetxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:layout_marginTop="26dp"
+        android:text="@string/note"
+        android:textColor="#FFFFFF"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/welcomenotetxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/notetxt"
+        android:layout_marginTop="18dp"
+        android:gravity="center"
+        android:text="@string/welcomenote"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF" />
+
+    <EditText
+        android:id="@+id/emailedittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/emailbtn"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/emailbtn"
+        android:layout_toRightOf="@+id/emailbtn"
+        android:ems="10"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:textColor="#FFFFFF" />
+
+    <ImageView
+        android:id="@+id/emailbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/welcomenotetxt"
+        android:layout_marginLeft="29dp"
+        android:layout_marginTop="72dp"
+        android:src="@drawable/emailicon"/>
+
+    <EditText
+        android:id="@+id/passwordedittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/passwordbtn"
+        android:layout_alignLeft="@+id/emailedittext"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/passwordbtn"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF" >
+
+    </EditText>
+
+    <Button
+        android:id="@+id/loggedinbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/passwordedittext"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/fbutton"
+        android:gravity="center"
+        android:text="@string/loggedin"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/forgotbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/loggedinbtn"
+        android:layout_alignRight="@+id/loggedinbtn"
+        android:layout_below="@+id/loggedinbtn"
+        android:background="@drawable/forgoticon"
+        android:text="@string/forgot"
+        android:textColor="#FFFFFF" />
+
+    <ImageView
+        android:id="@+id/passwordbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/emailbtn"
+        android:layout_below="@+id/emailbtn"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/passwordicon" />
+
+    <TextView
+        android:id="@+id/errortextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/emailedittext"
+        android:layout_alignLeft="@+id/emailedittext"
+        android:layout_marginBottom="19dp"
+        android:textColor="#000000" /> 
+
+</RelativeLayout>

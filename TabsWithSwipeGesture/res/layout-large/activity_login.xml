@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@drawable/main_page">
+    
+    
+    
+    <TextView
+        android:id="@+id/notetxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:layout_marginTop="26dp"
+        android:text="@string/note"
+        android:textColor="#FFFFFF"
+        android:textSize="32sp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+    <EditText
+        android:id="@+id/emailedittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/emailview"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/emailview"
+        android:layout_toRightOf="@+id/emailview"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:hint="@string/email"
+        android:textColor="#FFFFFF" >
+
+        <requestFocus />
+    </EditText>
+
+
+
+    <EditText
+        android:id="@+id/passwordedittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/passwordview"
+        android:layout_alignLeft="@+id/emailedittext"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/passwordview"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"/>
+
+    <ImageView
+        android:id="@+id/passwordview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/emailview"
+        android:layout_centerVertical="true"
+        android:src="@drawable/passwordicon" />
+
+    <TextView
+        android:id="@+id/welcomenotetxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/notetxt"
+        android:layout_marginTop="52dp"
+        android:gravity="center"
+        android:text="@string/welcomenote"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF"
+        android:textSize="32sp" />
+
+    <ImageView
+        android:id="@+id/emailview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/passwordedittext"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="37dp"
+        android:layout_marginLeft="35dp"
+        android:src="@drawable/emailicon" />
+
+    <TextView
+        android:id="@+id/errortextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/emailedittext"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp"
+        android:textColor="#000000"
+        android:textSize="28sp" />
+
+    <Button
+        android:id="@+id/loggedinbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/passwordedittext"
+        android:layout_marginTop="82dp"
+        android:background="@drawable/fbutton"
+        android:gravity="center"
+        android:text="@string/loggedin"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/forgotbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/loggedinbtn"
+        android:background="@drawable/forgoticon"
+        android:text="@string/forgot"
+        android:textColor="#FFFFFF"  />
+
+</RelativeLayout>

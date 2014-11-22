@@ -273,7 +273,7 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		apiKey = "t6kPZC2xau";
+		apiKey = "89EzYZTSxr";
 		langCode = "en";
 		
 		// Checking are all fields set

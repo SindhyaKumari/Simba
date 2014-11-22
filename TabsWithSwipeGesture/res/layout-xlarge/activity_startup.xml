@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_page" >
+
+    <Button
+        android:id="@+id/singupbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="389dp"
+        android:background="@drawable/fbutton"
+        android:text="@string/signup"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/signinbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/fbutton"
+        android:text="@string/signin"
+        android:textColor="#FFFFFF" />
+
+    <ImageView
+        android:id="@+id/logoview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="73dp"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/simbatext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/signinbtn"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="90dp"
+        android:gravity="center"
+        android:text="@string/simba"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#C2996B"
+        android:textSize="48dp" />
+
+</RelativeLayout>

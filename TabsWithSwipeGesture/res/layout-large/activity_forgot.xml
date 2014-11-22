@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@drawable/main_page">
+
+       <ImageView
+           android:id="@+id/unlockview"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_above="@+id/emaillabel"
+           android:layout_alignParentLeft="true"
+           android:layout_marginBottom="41dp"
+           android:layout_marginLeft="53dp"
+           android:src="@drawable/unlockicon" />
+
+       <TextView
+           android:id="@+id/forgotlabel"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignBottom="@+id/unlockview"
+           android:layout_toRightOf="@+id/unlockview"
+           android:text="@string/forgotlabel"
+           android:textAppearance="?android:attr/textAppearanceLarge"
+           android:textSize="32sp" />
+
+       <EditText
+           android:id="@+id/confirmPassword"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignLeft="@+id/unlockview"
+           android:layout_alignRight="@+id/passwordupdate"
+           android:layout_below="@+id/retypepasswordlabel"
+           android:ems="10"
+           android:inputType="textPassword" />
+
+       <Button
+           android:id="@+id/confirmbtn"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignLeft="@+id/confirmPassword"
+           android:layout_alignRight="@+id/confirmPassword"
+           android:layout_below="@+id/confirmPassword"
+           android:layout_marginTop="70dp"
+           android:background="@drawable/fbutton"
+           android:text="@string/confirmlabel"
+           android:textSize="28sp"
+           android:textColor="#FFFFFF" />
+
+       <TextView
+           android:id="@+id/retypepasswordlabel"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignLeft="@+id/unlockview"
+           android:layout_centerVertical="true"
+           android:text="@string/RetypePassword"
+           android:textAppearance="?android:attr/textAppearanceMedium"
+           android:textColor="#FFFFFF"
+           android:textSize="28sp" />
+
+       <EditText
+           android:id="@+id/passwordupdate"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_above="@+id/retypepasswordlabel"
+           android:layout_alignLeft="@+id/retypepasswordlabel"
+           android:layout_alignRight="@+id/forgotlabel"
+           android:layout_marginBottom="47dp"
+           android:ems="10"
+           android:inputType="textPassword" >
+
+           <requestFocus />
+       </EditText>
+
+       <TextView
+           android:id="@+id/password"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_above="@+id/passwordupdate"
+           android:layout_alignLeft="@+id/passwordupdate"
+           android:text="@string/password"
+           android:textAppearance="?android:attr/textAppearanceMedium"
+           android:textColor="#FFFFFF"
+           android:textSize="28sp" />
+
+       <EditText
+           android:id="@+id/emailupdate"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_above="@+id/password"
+           android:layout_alignLeft="@+id/password"
+           android:layout_alignRight="@+id/forgotlabel"
+           android:layout_marginBottom="30dp"
+           android:ems="10"
+           android:inputType="textEmailAddress" />
+
+       <TextView
+           android:id="@+id/emaillabel"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_above="@+id/emailupdate"
+           android:layout_alignLeft="@+id/emailupdate"
+           android:text="@string/email"
+           android:textAppearance="?android:attr/textAppearanceMedium"
+           android:textColor="#FFFFFF"
+           android:textSize="28sp" />
+
+</RelativeLayout>
