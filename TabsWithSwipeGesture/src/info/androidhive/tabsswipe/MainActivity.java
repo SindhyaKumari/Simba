@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.SIMBA.Welcome.StartupActivity;
+
+import dataAccessPackage.LoginSession;
 import info.androidhive.tabsswipe.OCRServiceAPI;
 import info.androidhive.tabsswipe.adapter.TabsPagerAdapter;
 import android.app.ActionBar;
@@ -28,6 +31,8 @@ import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -319,5 +324,36 @@ public class MainActivity extends FragmentActivity implements
 			Toast.makeText(MainActivity.this, "All data are required.", Toast.LENGTH_SHORT).show();
 		}	
 	} // End of onClick
+	
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+/*
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		// checking which item is being selected
+
+		LoginSession loginObj = new LoginSession(getApplicationContext());
+		String str = (String) item.getTitle();
+		if(str.equals("Logout")){
+			Toast.makeText(MainActivity.this, "Logout!", Toast.LENGTH_SHORT).show();
+			loginObj.checkLoginStatus();
+			
+			//calling login activity
+			Intent startUpIntent = new Intent(MainActivity.this, StartupActivity.class);
+			startActivity(startUpIntent);
+			
+	       //closing main activity			
+			finish();
+			
+		}
+		return super.onMenuItemSelected(featureId, item);
+	}
+	*/
 
 }

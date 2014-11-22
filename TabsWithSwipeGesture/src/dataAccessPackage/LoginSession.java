@@ -1,4 +1,4 @@
-package com.SIMBA.Welcome;
+package dataAccessPackage;
 
 import java.util.HashMap;
 

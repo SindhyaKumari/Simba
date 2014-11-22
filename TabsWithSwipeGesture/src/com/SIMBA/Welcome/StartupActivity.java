@@ -2,6 +2,7 @@ package com.SIMBA.Welcome;
 
 
 
+import dataAccessPackage.LoginSession;
 import info.androidhive.tabsswipe.R;
 import android.app.Activity;
 import android.content.Intent;
