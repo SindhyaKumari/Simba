@@ -21,4 +21,6 @@
     <string name="forgotlabel">Unlock your Account !</string>
     <string name="RetypePassword">Confirm Password</string>
     <string name="confirmlabel">Confirm</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_results">Results</string>
 </resources>

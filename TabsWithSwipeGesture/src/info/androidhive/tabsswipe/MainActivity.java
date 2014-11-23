@@ -44,6 +44,7 @@ public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener, MyDialog.Communicator,OnClickListener {
 
 	Uri contentUri;
+	private String resultUrl = "result.txt";
 	static final int REQUEST_TAKE_PHOTO = 2;
 	private static final int CAMERA_REQUEST = 1888;
 	private final int RESPONSE_OK = 200;
@@ -278,8 +279,12 @@ public class MainActivity extends FragmentActivity implements
 	
 	@Override
 	public void onClick(View v) {
+		Intent results = new Intent(this, ResultsActivity.class);
+    	results.putExtra("IMAGE_PATH", fileName);
+    	results.putExtra("RESULT_PATH", resultUrl);
+    	startActivity(results);
 		// TODO Auto-generated method stub
-		apiKey = "89EzYZTSxr";
+		/*apiKey = "89EzYZTSxr";
 		langCode = "en";
 		
 		// Checking are all fields set
@@ -323,7 +328,8 @@ public class MainActivity extends FragmentActivity implements
 			thread.start();
 		} else {
 			Toast.makeText(MainActivity.this, "All data are required.", Toast.LENGTH_SHORT).show();
-		}	
+		}*/	
+		
 	} // End of onClick
 	
 
@@ -355,5 +361,4 @@ public class MainActivity extends FragmentActivity implements
 		}
 		return super.onMenuItemSelected(featureId, item);
 	}
-
 }

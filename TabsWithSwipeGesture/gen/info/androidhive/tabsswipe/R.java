@@ -32,7 +32,7 @@ public final class R {
         public static final int unlockicon=0x7f020008;
     }
     public static final class id {
-        public static final int action_settings=0x7f080029;
+        public static final int action_settings=0x7f08002a;
         public static final int camera=0x7f080027;
         public static final int cancel=0x7f080028;
         public static final int confirmPassword=0x7f080006;
@@ -49,6 +49,7 @@ public final class R {
         public static final int imgView=0x7f080022;
         public static final int loggedinbtn=0x7f08000f;
         public static final int logoview=0x7f08001e;
+        public static final int menu_settings=0x7f080029;
         public static final int notetxt=0x7f080009;
         public static final int pager=0x7f080014;
         public static final int password=0x7f080002;
@@ -80,14 +81,17 @@ public final class R {
         public static final int activity_login=0x7f030001;
         public static final int activity_main=0x7f030002;
         public static final int activity_register=0x7f030003;
-        public static final int activity_startup=0x7f030004;
-        public static final int fragment_promotionaloffers=0x7f030005;
-        public static final int fragment_shoppinglist=0x7f030006;
-        public static final int fragment_uploadreceipt=0x7f030007;
-        public static final int my_dialog=0x7f030008;
+        public static final int activity_results=0x7f030004;
+        public static final int activity_startup=0x7f030005;
+        public static final int fragment_promotionaloffers=0x7f030006;
+        public static final int fragment_shoppinglist=0x7f030007;
+        public static final int fragment_uploadreceipt=0x7f030008;
+        public static final int my_dialog=0x7f030009;
     }
     public static final class menu {
-        public static final int main=0x7f070000;
+        public static final int activity_main=0x7f070000;
+        public static final int activity_results=0x7f070001;
+        public static final int main=0x7f070002;
     }
     public static final class string {
         public static final int RetypePassword=0x7f050013;
@@ -102,6 +106,7 @@ public final class R {
         public static final int forgotlabel=0x7f050012;
         public static final int hello_world=0x7f050001;
         public static final int loggedin=0x7f05000a;
+        public static final int menu_settings=0x7f050015;
         public static final int name=0x7f05000e;
         public static final int note=0x7f050006;
         public static final int password=0x7f050009;
@@ -110,6 +115,7 @@ public final class R {
         public static final int signuplabel=0x7f05000d;
         public static final int signupnote=0x7f05000c;
         public static final int simba=0x7f050003;
+        public static final int title_activity_results=0x7f050016;
         public static final int welcomenote=0x7f050007;
     }
     public static final class style {
