@@ -11,6 +11,7 @@ package com.abbyy.ocrsdk;
  */
 public class BarcodeSettings {
 
+	int unit ;
 	public String asUrlParams() {
 		return "barcodeType=" + barcodeType;
 	}
