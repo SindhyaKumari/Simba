@@ -18,10 +18,14 @@ import dataAccessPackage.LoginSession;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,14 +33,14 @@ import android.widget.TextView;
 
 public class LoginActivity extends Activity{
 
-	private Button loggedInButton;
+	private Button loginButton;
 	private Button forgotButton;
 	private EditText emailAddress;
 	private EditText password;
 	private TextView loginErrorMsg;
 	
 	// using  http://eblueberry.hostoi.com/blueberry/
-	private static String loginURL_ = "http://eblueberry.hostoi.com/blueberry/";
+	private static String loginURL_ = "http://eblueberry.hostoi.com/simba/";
 
 	
 	@Override
@@ -46,17 +50,21 @@ public class LoginActivity extends Activity{
 		setContentView(R.layout.activity_login);
 		
 		//Passing reference to layout resources
-		loggedInButton = (Button)findViewById(R.id.loggedinbtn);
+		loginButton = (Button)findViewById(R.id.loggedinbtn);
 		forgotButton = (Button)findViewById(R.id.forgotbtn);
 		emailAddress = (EditText)findViewById(R.id.emailedittext);
 		password = (EditText)findViewById(R.id.passwordedittext);
 		loginErrorMsg = (TextView)findViewById(R.id.errortextview);
 		
 		/* Login Button  ClickListener  */
-		loggedInButton.setOnClickListener(new View.OnClickListener() {		
+		loginButton.setOnClickListener(new View.OnClickListener() {		
 			@Override
-			public void onClick(View v) {
-				new LoginTask().execute(loginURL_);
+			public void onClick(View v){	
+				if(isNetworkAvailable()){
+       				new LoginTask().execute(loginURL_);
+				}else{
+					setLoginErrorMsg("No Internet Connection Available... Please check your settings");
+				}
 			}
 		});
 		
@@ -69,11 +77,23 @@ public class LoginActivity extends Activity{
                 	Intent forgotIntent = new Intent(LoginActivity.this,ForgotActivity.class);
                 	startActivity(forgotIntent);				
 			}
-		});
-		
-		
-				
+		});						
    }
+	
+	//Function for connection whether internet connection is avaiable or not
+	private boolean isNetworkAvailable(){
+		 boolean isConnected = false;
+		 
+		 ConnectivityManager connectManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+		 NetworkInfo networkInfo = connectManager.getActiveNetworkInfo();
+		 
+		 //if no network is available networkInfo will be null else it will be connected
+		 if(networkInfo != null && networkInfo.isConnected()){
+			   isConnected = true;
+		 }
+		
+		 return isConnected;		 
+	}
 	
 	 void setLoginErrorMsg(String message_){
 		  loginErrorMsg.setText(message_);

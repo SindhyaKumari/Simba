@@ -52,7 +52,7 @@ public class StartupActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				//Calling signup activity by using intent functionality
-				Intent signupIntent = new Intent(StartupActivity.this,RegistrationActivity.class);
+				Intent signupIntent = new Intent(StartupActivity.this,UserNameActivity.class);
 				startActivity(signupIntent);					
 			}
 		});

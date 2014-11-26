@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.SIMBA.Welcome.StartupActivity"
-    android:background="@drawable/main_page"
+    android:background="#3B5998"
      >
 
     <ImageView
@@ -27,7 +27,7 @@
         android:gravity="center"
         android:text="@string/simba"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#C2996B" />
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/signinbtn"
@@ -36,7 +36,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/simbatext"
         android:layout_marginTop="93sp"
-        android:background="@drawable/fbutton"
+        android:background="@drawable/loginbtn"
         android:textColor="#FFFFFF"
         android:text="@string/signin" />
 
@@ -47,7 +47,7 @@
         android:layout_alignLeft="@+id/signinbtn"
         android:layout_below="@+id/signinbtn"
         android:layout_marginTop="30sp"
-        android:background="@drawable/fbutton"
+        android:background="@drawable/loginbtn"
         android:textColor="#FFFFFF"
         android:text="@string/signup" />
 

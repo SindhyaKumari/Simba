@@ -26,7 +26,7 @@ public class ForgotActivity  extends Activity{
 	EditText retypePassword;
 	Button confirmButton;
 	private String pass_,email_,repass_;
-	private static String updateURL_ = "http://eblueberry.hostoi.com/blueberry/";
+	private static String updateURL_ = "http://eblueberry.hostoi.com/simba/";
 	private static final String successKey  = "success";
 	private static final String errorKey  = "error_msg";
     private static final String updateTag = "update";
