@@ -72,7 +72,6 @@
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="dddddd"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#FF0000" />
 

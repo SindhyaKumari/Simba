@@ -10,11 +10,10 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.SIMBA.Welcome.RegistrationActivity.RegistrationTask;
 
 import dataAccessPackage.JSONParser;
 
-import android.annotation.SuppressLint;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -57,10 +56,10 @@ public class SignUpActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				//Checking whether input is null or not
-				 if(!(answer_.equals(" "))){
+				 if(!(secret_answer.getText().toString().equals(""))){
 					 new RegistrationTask().execute(registerURL_);	 
 				 }else{
-					 errorMsg.setText("answer is empty.. Do fill it");
+					 errorMsg.setText("Answer is empty.. Do fill it!");
 				 }
 			}
 		});
@@ -144,7 +143,7 @@ public class SignUpActivity extends Activity{
 	
     @Override
 	protected void onPostExecute(String result) {
-		// dismiss the dialog on  uupdated
+		// dismiss the dialog on  updated
 		pDialog.dismiss();
 		if(result != null){
 			Toast.makeText(getApplicationContext(),result, Toast.LENGTH_LONG).show();
@@ -159,7 +158,4 @@ public class SignUpActivity extends Activity{
 		}
 	}
    }	
-
-    
-
 }

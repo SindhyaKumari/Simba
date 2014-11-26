@@ -128,52 +128,56 @@ public class LoginActivity extends Activity{
 		String email_ = emailAddress.getText().toString();
         String password_ = password.getText().toString();
         String message = null;
-       
-        
-        // Building Parameters
-        List<NameValuePair> loginParams_ = new ArrayList<NameValuePair>();
-        loginParams_.add(new BasicNameValuePair("tag", loginTag));
-        loginParams_.add(new BasicNameValuePair("email", email_));
-        loginParams_.add(new BasicNameValuePair("password", password_));
-        JSONObject json = jsonParser.getJSONFromUrl("POST",params[0], loginParams_);
-
-
-        // check for login response
-        try {
-            if (json.getString(successKey) != null) {               
-                String res = json.getString(successKey); 
-                
-                if(Integer.parseInt(res) == 1){ 
-                 
-                 // Store user details in shared preferences
-                 LoginSession loginSession = new LoginSession(LoginActivity.this);
-                 JSONObject jsonUser = json.getJSONObject("user");
-                 
-                 
-                 // Clear all previous data in sharedpreferences
-                 loginSession.clearDataAfterLogout();
-                 loginSession.createLoginSession(jsonUser.getString(emailKey),jsonUser.getString(nameKey));
-                 
-                 
-                 // Launch Dashboard Screen
-                 Intent dashBoardIntent = new Intent(LoginActivity.this,MainActivity.class);
-            	 startActivity(dashBoardIntent);
-                    // Close all views before launching Dashboard
-                  //  dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                  //  startActivity(dashboard);
-                     
-                    // Close Login Screen
-                 finish();
-                }else{
-                   // Error in login
-                   message = json.getString(errorKey) ;
-              }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+       if (!((emailAddress.getText().toString().equals("")) && (password.getText().toString().equals("")))){
+    	   // Building Parameters
+	        List<NameValuePair> loginParams_ = new ArrayList<NameValuePair>();
+	        loginParams_.add(new BasicNameValuePair("tag", loginTag));
+	        loginParams_.add(new BasicNameValuePair("email", email_));
+	        loginParams_.add(new BasicNameValuePair("password", password_));
+	        JSONObject json = jsonParser.getJSONFromUrl("POST",params[0], loginParams_);
+	
+	
+	        // check for login response
+	        try {
+	            if (json.getString(successKey) != null) {               
+	                String res = json.getString(successKey); 
+	                
+	                if(Integer.parseInt(res) == 1){ 
+	                 
+	                 // Store user details in shared preferences
+	                 LoginSession loginSession = new LoginSession(LoginActivity.this);
+	                 JSONObject jsonUser = json.getJSONObject("user");
+	                 
+	                 
+	                 // Clear all previous data in sharedpreferences
+	                 loginSession.clearDataAfterLogout();
+	                 loginSession.createLoginSession(jsonUser.getString(emailKey),jsonUser.getString(nameKey));
+	                 
+	                 
+	                 // Launch Dashboard Screen
+	                 Intent dashBoardIntent = new Intent(LoginActivity.this,MainActivity.class);
+	            	 startActivity(dashBoardIntent);
+	                    // Close all views before launching Dashboard
+	                  //  dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	                  //  startActivity(dashboard);
+	                     
+	                    // Close Login Screen
+	                 finish();
+	                }else{
+	                   // Error in login
+	                   message = json.getString(errorKey) ;
+	              }
+	            }
+	        } catch (JSONException e) {
+	            e.printStackTrace();
+	       }
+	        
+	        return message;
+       }else{
+    	   dialog.dismiss();
+    	   loginErrorMsg.setText("Please enter Username and Password!");
+    	   return null;
        }
-        
-        return message;
 	}
 	   
 	
