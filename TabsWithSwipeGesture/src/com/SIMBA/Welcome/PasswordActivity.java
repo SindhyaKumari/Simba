@@ -41,7 +41,7 @@ public class PasswordActivity  extends Activity{
 			public void onClick(View v) {
 				//Checking whether input is null or not
 				 if(password.length() > 5){
-				
+					 errorMsg.setVisibility(View.GONE);
 					 //Calling password activity intent
 					 Intent signUpIntent = new Intent(PasswordActivity.this,SignUpActivity.class);
 					 signUpIntent.putExtra("username",username_);
@@ -51,7 +51,8 @@ public class PasswordActivity  extends Activity{
 					 
 					 finish();
 				 }else{
-					 errorMsg.setText("Password should be at least 6 letters / numbers ");
+					 errorMsg.setVisibility(View.VISIBLE);
+					 errorMsg.setText("Your password must have atleast 6 characters.");
 				 }
 			}
 		});

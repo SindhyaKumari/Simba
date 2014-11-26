@@ -31,23 +31,23 @@ public class UserNameActivity extends Activity {
 		continueUsername = (Button)findViewById(R.id.continue_username);
 		errorMsg = (TextView)findViewById(R.id.usernameError);
 		
-		firstname = firstName.getText().toString();
-		lastname = lastName.getText().toString();
-		
 		continueUsername.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				//Checking whether input is null or not
-				 if(!(firstname.equals(" "))  &&  !(lastname.equals(" "))){
-					
+				 if(!(firstName.getText().toString().equals(""))  &&  !(lastName.getText().toString().equals(""))){
+					 errorMsg.setVisibility(View.GONE);
+					 firstname = firstName.getText().toString();
+					 lastname = lastName.getText().toString();
 					 name = firstname + lastname;
 					 //Calling email activity intent
 					 Intent emailIntent = new Intent(UserNameActivity.this,EmailActivity.class);
 					 emailIntent.putExtra("name", name);
 					 startActivity(emailIntent);	 
 				 }else{
-					 errorMsg.setText("firstname or lastname is empty ..Do fill it");
+					 errorMsg.setVisibility(View.VISIBLE);
+					 errorMsg.setText("Please enter your first and last name");
 				 }
 			}
 		});
