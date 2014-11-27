@@ -62,22 +62,13 @@ public class SignUpActivity extends Activity{
 				//Checking whether input is null or not
 				if (isNetworkAvailable()){
 					if(!(secret_answer.getText().toString().equals(""))){
-						try {   
-		                    GMailSender sender = new GMailSender("fasihtt@gmail.com", "esfj00244f@$!h");
-		                    sender.sendMail("This is Subject",   
-		                            "This is Body",   
-		                            "fasihtt@gmail.com",   
-		                            "fasihtt@yahoo.com");   
-		                } catch (Exception e) {   
-		                    Log.e("SendMail", e.getMessage(), e);   
-		                } 
 						new RegistrationTask().execute(registerURL_);
 					}else{
 						errorMsg.setText("Answer is empty.. Do fill it!");
 					}
 				}
 				else{
-					errorMsg.setText("No Internet Connection Available... Please check your settings");
+					errorMsg.setText("No Internet Connection!");
 				}
 			}
 		});

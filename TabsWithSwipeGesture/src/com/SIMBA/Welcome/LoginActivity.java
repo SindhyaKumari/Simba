@@ -63,7 +63,7 @@ public class LoginActivity extends Activity{
 				if(isNetworkAvailable()){
        				new LoginTask().execute(loginURL_);
 				}else{
-					setLoginErrorMsg("No Internet Connection Available... Please check your settings");
+					setLoginErrorMsg("No Internet Connection!");
 				}
 			}
 		});
