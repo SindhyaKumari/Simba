@@ -36,7 +36,7 @@
         android:layout_marginTop="31dp"
         android:ems="10"
         android:hint= "@string/firstname"
-        android:inputType="textPersonName" >
+        android:inputType="textCapSentences" >
 
         <requestFocus />
     </EditText>
@@ -50,7 +50,7 @@
         android:layout_marginTop="29dp"
         android:ems="10"
         android:hint= "@string/lastname"
-        android:inputType="textPersonName" />
+        android:inputType="textCapSentences" />
 
     <Button
         android:id="@+id/continue_username"

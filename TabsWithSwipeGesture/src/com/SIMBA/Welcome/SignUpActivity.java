@@ -11,12 +11,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+
 import dataAccessPackage.JSONParser;
 
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,13 +60,32 @@ public class SignUpActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				//Checking whether input is null or not
-				 if(!(secret_answer.getText().toString().equals(""))){
-					 new RegistrationTask().execute(registerURL_);	 
-				 }else{
-					 errorMsg.setText("Answer is empty.. Do fill it!");
-				 }
+				if (isNetworkAvailable()){
+					if(!(secret_answer.getText().toString().equals(""))){
+						new RegistrationTask().execute(registerURL_);
+					}else{
+						errorMsg.setText("Answer is empty.. Do fill it!");
+					}
+				}
+				else{
+					errorMsg.setText("No Internet Connection Available... Please check your settings");
+				}
 			}
 		});
+	}
+	
+	private boolean isNetworkAvailable(){
+		 boolean isConnected = false;
+		 
+		 ConnectivityManager connectManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+		 NetworkInfo networkInfo = connectManager.getActiveNetworkInfo();
+		 
+		 //if no network is available networkInfo will be null else it will be connected
+		 if(networkInfo != null && networkInfo.isConnected()){
+			   isConnected = true;
+		 }
+		
+		 return isConnected;		 
 	}
 	
 	/*
