@@ -128,7 +128,7 @@ public class LoginActivity extends Activity{
 		String email_ = emailAddress.getText().toString();
         String password_ = password.getText().toString();
         String message = null;
-       if (!((emailAddress.getText().toString().equals("")) && (password.getText().toString().equals("")))){
+       if (!((email_.equals("")) && !(password_.equals("")))){
     	   // Building Parameters
 	        List<NameValuePair> loginParams_ = new ArrayList<NameValuePair>();
 	        loginParams_.add(new BasicNameValuePair("tag", loginTag));

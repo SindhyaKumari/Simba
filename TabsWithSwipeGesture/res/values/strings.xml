@@ -23,7 +23,7 @@
     <string name="confirmlabel">Confirm</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_results">Results</string>
-    <string name="name_comments">Using your real name with be appreciated.</string>
+    <string name="name_comments">Using your real name will be appreciated.</string>
     <string name="firstname">First Name</string>
     <string name="lastname">Last Name</string>
     <string name="continue_">Continue</string>

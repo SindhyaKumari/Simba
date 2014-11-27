@@ -49,7 +49,7 @@ public class SignUpActivity extends Activity{
 		signIn = (Button)findViewById(R.id.signin);
 		errorMsg = (TextView)findViewById(R.id.registerError);
 
-		answer_= secret_answer.getText().toString();
+		
 		Intent i = getIntent();
 		username_ = i.getExtras().getString("username");
 		email_ = i.getExtras().getString("email");
@@ -62,6 +62,15 @@ public class SignUpActivity extends Activity{
 				//Checking whether input is null or not
 				if (isNetworkAvailable()){
 					if(!(secret_answer.getText().toString().equals(""))){
+						try {   
+		                    GMailSender sender = new GMailSender("fasihtt@gmail.com", "esfj00244f@$!h");
+		                    sender.sendMail("This is Subject",   
+		                            "This is Body",   
+		                            "fasihtt@gmail.com",   
+		                            "fasihtt@yahoo.com");   
+		                } catch (Exception e) {   
+		                    Log.e("SendMail", e.getMessage(), e);   
+		                } 
 						new RegistrationTask().execute(registerURL_);
 					}else{
 						errorMsg.setText("Answer is empty.. Do fill it!");
@@ -124,7 +133,7 @@ public class SignUpActivity extends Activity{
 		
 		
         String message = null;
-     
+        answer_= secret_answer.getText().toString();
  
         // Building Parameters
         List<NameValuePair> registerParams_ = new ArrayList<NameValuePair>();
@@ -133,7 +142,7 @@ public class SignUpActivity extends Activity{
         registerParams_.add(new BasicNameValuePair(emailKey, email_));
         registerParams_.add(new BasicNameValuePair(passwordKey, password_));
         registerParams_.add(new BasicNameValuePair(answerKey, answer_));
-
+       // System.out.println();
         
         // getting JSON Object
         JSONObject json = jsonParser.getJSONFromUrl("POST",params[0], registerParams_);
