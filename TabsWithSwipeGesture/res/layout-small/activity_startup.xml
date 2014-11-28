@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_page" >
+     android:background="#3B5998">
 
     <ImageView
         android:id="@+id/logoview"
@@ -22,7 +22,7 @@
         android:gravity="center"
         android:text="@string/simba"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#C2996B" />
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/signinbtn"
@@ -31,7 +31,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/simbatext"
         android:layout_marginTop="56dp"
-        android:background="@drawable/fbutton"
+        android:background="@drawable/loginbtn"
         android:text="@string/signin"
         android:textColor="#FFFFFF" />
 
@@ -42,7 +42,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/signinbtn"
         android:layout_marginTop="45dp"
-        android:background="@drawable/fbutton"
+        android:background="@drawable/loginbtn"
         android:text="@string/signup"
         android:textColor="#FFFFFF" />
 
