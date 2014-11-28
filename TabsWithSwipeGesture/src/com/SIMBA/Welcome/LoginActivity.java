@@ -25,11 +25,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity{
 
@@ -126,7 +126,8 @@ public class LoginActivity extends Activity{
 			loginErrorMsg.setText(" ");
 			found = false;
 		}else{
-			  loginErrorMsg.setText("Please enter Username and Password!");
+			  Toast.makeText(getApplicationContext(), "Please enter Username and Password!", Toast.LENGTH_LONG).show();
+			  //loginErrorMsg.setText("Please enter Username and Password!");
 			  found = true;
 		}
 		
