@@ -38,7 +38,9 @@ public class LoginActivity extends Activity{
 	private EditText emailAddress;
 	private EditText password;
 	private TextView loginErrorMsg;
-	
+	String email_ ;
+	String password_;
+	boolean found = false;
 	// using  http://eblueberry.hostoi.com/blueberry/
 	private static String loginURL_ = "http://eblueberry.hostoi.com/simba/";
 
@@ -115,9 +117,19 @@ public class LoginActivity extends Activity{
     //Before starting background thread show progress dailog
 	@Override
 	protected void onPreExecute() {
-		dialog = ProgressDialog.show( LoginActivity.this, "Wait..", "Logging In", true, false);
-		jsonParser = new JSONParser();
-		loginErrorMsg.setText(" ");
+		
+		email_ = emailAddress.getText().toString();
+        password_ = password.getText().toString();
+        if (!(email_.equals("")) && !(password_.equals(""))){
+			dialog = ProgressDialog.show( LoginActivity.this, "Wait..", "Logging In", true, false);
+			jsonParser = new JSONParser();
+			loginErrorMsg.setText(" ");
+			found = false;
+		}else{
+			  loginErrorMsg.setText("Please enter Username and Password!");
+			  found = true;
+		}
+		
 	}
 
 	
@@ -125,11 +137,11 @@ public class LoginActivity extends Activity{
 	@Override
 	protected String doInBackground(String... params) {
 		
-		String email_ = emailAddress.getText().toString();
-        String password_ = password.getText().toString();
+		
         String message = null;
-       if (!((email_.equals("")) && !(password_.equals("")))){
+       if (found == false){
     	   // Building Parameters
+    	  // System.out.println("name: " + password_ + email_);
 	        List<NameValuePair> loginParams_ = new ArrayList<NameValuePair>();
 	        loginParams_.add(new BasicNameValuePair("tag", loginTag));
 	        loginParams_.add(new BasicNameValuePair("email", email_));
@@ -174,10 +186,9 @@ public class LoginActivity extends Activity{
 	        
 	        return message;
        }else{
-    	   dialog.dismiss();
-    	   loginErrorMsg.setText("Please enter Username and Password!");
+    	 //  dialog.dismiss();
     	   return null;
-       }
+      }
 	}
 	   
 	
