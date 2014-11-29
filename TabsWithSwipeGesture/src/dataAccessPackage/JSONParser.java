@@ -80,6 +80,7 @@ public class JSONParser {
             String line = null;
             while ((line = reader.readLine()) != null) {
                       sb.append(line + "\n");
+                      Log.d("fffff", sb.toString());
             }
             inputStream.close();
          

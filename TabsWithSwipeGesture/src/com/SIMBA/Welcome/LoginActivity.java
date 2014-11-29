@@ -142,7 +142,7 @@ public class LoginActivity extends Activity{
         String message = null;
        if (found == false){
     	   // Building Parameters
-    	  // System.out.println("name: " + password_ + email_);
+    	    System.out.println("name: " + password_ + email_);
 	        List<NameValuePair> loginParams_ = new ArrayList<NameValuePair>();
 	        loginParams_.add(new BasicNameValuePair("tag", loginTag));
 	        loginParams_.add(new BasicNameValuePair("email", email_));
