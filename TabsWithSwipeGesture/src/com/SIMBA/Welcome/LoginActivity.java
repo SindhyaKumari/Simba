@@ -126,7 +126,7 @@ public class LoginActivity extends Activity{
 			loginErrorMsg.setText(" ");
 			found = false;
 		}else{
-			  Toast.makeText(getApplicationContext(), "Please enter Username and Password!", Toast.LENGTH_LONG).show();
+			  Toast.makeText(getApplicationContext(), "Please enter Username and Password!", Toast.LENGTH_SHORT).show();
 			  //loginErrorMsg.setText("Please enter Username and Password!");
 			  found = true;
 		}
