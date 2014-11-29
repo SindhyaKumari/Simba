@@ -36,10 +36,11 @@ public class UserNameActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				//Checking whether input is null or not
-				 if(!(firstName.getText().toString().equals(""))  &&  !(lastName.getText().toString().equals(""))){
+				 firstname = firstName.getText().toString();
+				 lastname = lastName.getText().toString();
+				 if(!(firstname.equals(""))  &&  !(lastname.equals(""))){
 					 errorMsg.setVisibility(View.GONE);
-					 firstname = firstName.getText().toString();
-					 lastname = lastName.getText().toString();
+					
 					 name = firstname + lastname;
 					 //Calling email activity intent
 					 Intent emailIntent = new Intent(UserNameActivity.this,EmailActivity.class);

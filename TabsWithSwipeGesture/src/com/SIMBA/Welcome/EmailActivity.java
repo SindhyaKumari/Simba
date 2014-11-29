@@ -12,6 +12,7 @@ import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -98,8 +99,9 @@ public class EmailActivity extends Activity{
 		    // values.
 			possibleEmails.add(account.name);
 		}
-		if (!possibleEmails.isEmpty() && possibleEmails.get(0) != null) {
+		if (!(possibleEmails.isEmpty()) && possibleEmails.get(0) != null) {
 			String email = possibleEmails.get(0);
+			Log.e("ffff hyey getemailid", email);
 		        return email;
 		    } else
 		        return null;
