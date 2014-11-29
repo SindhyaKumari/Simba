@@ -3,7 +3,7 @@
     <string name="app_name">SIMBA</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_logout">Logout</string>
-    <string name="simba">Shopping-cart Insights by Market Basket Analysis</string>
+    <string name="simba">Shopping-cart Insights through Market Basket Analysis</string>
     <string name="signin">Sign In</string>
     <string name="signup">Create your account</string>
     <string name="note">GOOD TO SEE YOU</string>
