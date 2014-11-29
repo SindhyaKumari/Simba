@@ -138,9 +138,14 @@ public class LoginActivity extends Activity{
     //Login request is being passed to global database
 	@Override
 	protected String doInBackground(String... params) {
-		
-		
-        String message = null;
+		Intent dashBoardIntent = new Intent(LoginActivity.this,MainActivity.class);
+   	 startActivity(dashBoardIntent);
+       
+            
+           // Close Login Screen
+        finish();
+        return null;
+        /*String message = null;
        if (found == false){
     	   // Building Parameters
     	    System.out.println("name: " + password_ + email_);
@@ -188,7 +193,8 @@ public class LoginActivity extends Activity{
        }else{
     	 //  dialog.dismiss();
     	   return null;
-      }
+      }*/
+        
 	}
 	   
 	
