@@ -25,6 +25,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -120,7 +121,7 @@ public class LoginActivity extends Activity{
 		
 		email_ = emailAddress.getText().toString();
         password_ = password.getText().toString();
-        if (!(email_.equals("")) && !(password_.equals(""))){
+        if (!(email_.equals(" ")) && !(password_.equals(" "))){
 			dialog = ProgressDialog.show( LoginActivity.this, "Wait..", "Logging In", true, false);
 			jsonParser = new JSONParser();
 			loginErrorMsg.setText(" ");
@@ -154,7 +155,7 @@ public class LoginActivity extends Activity{
 	        try {
 	            if (json.getString(successKey) != null) {               
 	                String res = json.getString(successKey); 
-	                
+	              
 	                if(Integer.parseInt(res) == 1){ 
 	                 
 	                 // Store user details in shared preferences
@@ -170,9 +171,7 @@ public class LoginActivity extends Activity{
 	                 // Launch Dashboard Screen
 	                 Intent dashBoardIntent = new Intent(LoginActivity.this,MainActivity.class);
 	            	 startActivity(dashBoardIntent);
-	                    // Close all views before launching Dashboard
-	                  //  dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	                  //  startActivity(dashboard);
+	                
 	                     
 	                    // Close Login Screen
 	                 finish();
