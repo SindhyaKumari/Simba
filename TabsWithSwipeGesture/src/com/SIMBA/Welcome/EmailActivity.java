@@ -12,6 +12,7 @@ import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +38,7 @@ public class EmailActivity extends Activity{
 		
 		email_ = getEmailID();
 		email.setText(email_, TextView.BufferType.EDITABLE);
-		//email_= email.getText().toString();
+		email_= email.getText().toString();
 		
 		Intent i = getIntent();
 		username_ = i.getExtras().getString("name");
@@ -49,7 +50,7 @@ public class EmailActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				//Checking whether input is null or not
-				 email_= email.getText().toString();
+				
 				 if(isEmailValid(email_)){
 					 errorMsg.setVisibility(View.GONE);
 					 //Calling password activity intent
@@ -98,8 +99,9 @@ public class EmailActivity extends Activity{
 		    // values.
 			possibleEmails.add(account.name);
 		}
-		if (!possibleEmails.isEmpty() && possibleEmails.get(0) != null) {
+		if (!(possibleEmails.isEmpty()) && possibleEmails.get(0) != null) {
 			String email = possibleEmails.get(0);
+			Log.e("ffff hyey getemailid", email);
 		        return email;
 		    } else
 		        return null;
