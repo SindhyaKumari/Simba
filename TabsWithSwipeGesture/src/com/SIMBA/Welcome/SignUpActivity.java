@@ -12,6 +12,10 @@ import org.json.JSONObject;
 
 
 
+
+import com.kristijandraca.backgroundmaillibrary.BackgroundMail;
+import com.kristijandraca.backgroundmaillibrary.Utils;
+
 import dataAccessPackage.JSONParser;
 
 
@@ -25,6 +29,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -32,23 +37,22 @@ import android.widget.Toast;
 
 public class SignUpActivity extends Activity{
 	
-	private Button signIn;
+	private Button signIn, verify;
 	private EditText secret_answer;
 	private TextView errorMsg;
 	private String email_,username_,password_, answer_;
 	private static String registerURL_ = "http://eblueberry.hostoi.com/simba/";
-	
+	Context context;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_secret_question);
-		
+		context = this;
 
 		secret_answer = (EditText)findViewById(R.id.answer);
 		signIn = (Button)findViewById(R.id.signin);
 		errorMsg = (TextView)findViewById(R.id.registerError);
-
 		
 		Intent i = getIntent();
 		username_ = i.getExtras().getString("username");
@@ -62,6 +66,16 @@ public class SignUpActivity extends Activity{
 				//Checking whether input is null or not
 				if (isNetworkAvailable()){
 					if(!(secret_answer.getText().toString().equals(""))){
+						//Email Verification
+						BackgroundMail bm = new BackgroundMail(context);
+						bm.setGmailUserName("simba.nuces@gmail.com");
+		                //"V8Y3TPndPfWYKh/I0BanRg==" is crypted "password"
+						bm.setGmailPassword(Utils.decryptIt("TOLzqeBD151kRsyLSEVvLg==")); 
+						bm.setMailTo(email_);
+						bm.setFormSubject("SIMBA Account Verification");
+						bm.setFormBody("Your PIN is: 12345");
+						bm.send();
+						//End of Email Verification
 						new RegistrationTask().execute(registerURL_);
 					}else{
 						errorMsg.setText("Answer is empty.. Do fill it!");

@@ -33,7 +33,7 @@ public class PasswordActivity  extends Activity{
 		Intent i = getIntent();
 		username_ = i.getExtras().getString("username");
 		email_ = i.getExtras().getString("email");
-		Log.e("user name", username_ + email_);
+		//Log.e("user name", username_ + email_);
 		
 		continuePassword.setOnClickListener(new View.OnClickListener() {
 			

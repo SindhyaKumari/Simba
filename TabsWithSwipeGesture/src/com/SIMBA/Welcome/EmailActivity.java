@@ -38,21 +38,22 @@ public class EmailActivity extends Activity{
 		
 		email_ = getEmailID();
 		email.setText(email_, TextView.BufferType.EDITABLE);
-		email_= email.getText().toString();
+		
 		
 		Intent i = getIntent();
 		username_ = i.getExtras().getString("name");
 		username_ = getUsername(email_);
-		//Log.e("user name", username_);
+		
 		
 		continueEmail.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				//Checking whether input is null or not
-				
+				email_= email.getText().toString();
 				 if(isEmailValid(email_)){
 					 errorMsg.setVisibility(View.GONE);
+					 Log.e("user name", email_);
 					 //Calling password activity intent
 					 Intent passwordIntent = new Intent(EmailActivity.this,PasswordActivity.class);
 					 passwordIntent.putExtra("username",username_);

@@ -6,6 +6,7 @@ import info.androidhive.tabsswipe.MainActivity;
 import info.androidhive.tabsswipe.R;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -15,6 +16,8 @@ import org.json.JSONObject;
 
 import dataAccessPackage.JSONParser;
 import dataAccessPackage.LoginSession;
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -59,6 +62,9 @@ public class LoginActivity extends Activity{
 		password = (EditText)findViewById(R.id.passwordedittext);
 		loginErrorMsg = (TextView)findViewById(R.id.errortextview);
 		
+		email_ = getEmailID();
+		emailAddress.setText(email_, TextView.BufferType.EDITABLE);
+		
 		/* Login Button  ClickListener  */
 		loginButton.setOnClickListener(new View.OnClickListener() {		
 			@Override
@@ -98,6 +104,24 @@ public class LoginActivity extends Activity{
 		 return isConnected;		 
 	}
 	
+	public String getEmailID() {
+		AccountManager manager = AccountManager.get(this);
+		Account[] accounts = manager.getAccountsByType("com.google");
+		List<String> possibleEmails = new LinkedList<String>();
+		
+		for (Account account : accounts) {
+			// TODO: Check possibleEmail against an email regex or treat
+		    // account.name as an email address only for certain account.type
+		    // values.
+			possibleEmails.add(account.name);
+		}
+		if (!(possibleEmails.isEmpty()) && possibleEmails.get(0) != null) {
+			String email = possibleEmails.get(0);
+		        return email;
+		    } else
+		        return null;
+	}
+	
 	 void setLoginErrorMsg(String message_){
 		  loginErrorMsg.setText(message_);
 	}
@@ -121,7 +145,7 @@ public class LoginActivity extends Activity{
 		
 		email_ = emailAddress.getText().toString();
         password_ = password.getText().toString();
-        if (!(email_.equals(" ")) && !(password_.equals(" "))){
+        if (!(email_.equals("")) && !(password_.equals(""))){
 			dialog = ProgressDialog.show( LoginActivity.this, "Wait..", "Logging In", true, false);
 			jsonParser = new JSONParser();
 			loginErrorMsg.setText(" ");
@@ -138,14 +162,14 @@ public class LoginActivity extends Activity{
     //Login request is being passed to global database
 	@Override
 	protected String doInBackground(String... params) {
-		Intent dashBoardIntent = new Intent(LoginActivity.this,MainActivity.class);
+		/*Intent dashBoardIntent = new Intent(LoginActivity.this,MainActivity.class);
    	 startActivity(dashBoardIntent);
        
             
            // Close Login Screen
         finish();
-        return null;
-        /*String message = null;
+        return null;*/
+       String message = null;
        if (found == false){
     	   // Building Parameters
     	    System.out.println("name: " + password_ + email_);
@@ -193,7 +217,7 @@ public class LoginActivity extends Activity{
        }else{
     	 //  dialog.dismiss();
     	   return null;
-      }*/
+      }
         
 	}
 	   
@@ -214,6 +238,7 @@ public class LoginActivity extends Activity{
 			//loginErrorMsg.setText(result);
 		}		
 	}
+	
    }	
 
 }
