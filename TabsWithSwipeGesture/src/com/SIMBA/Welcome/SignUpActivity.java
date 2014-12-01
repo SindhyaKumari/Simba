@@ -4,6 +4,7 @@ import info.androidhive.tabsswipe.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -13,8 +14,10 @@ import org.json.JSONObject;
 
 
 
-import com.kristijandraca.backgroundmaillibrary.BackgroundMail;
-import com.kristijandraca.backgroundmaillibrary.Utils;
+
+
+import com.email.backgroundmaillibrary.BackgroundMail;
+import com.email.backgroundmaillibrary.Utils;
 
 import dataAccessPackage.JSONParser;
 
@@ -66,14 +69,18 @@ public class SignUpActivity extends Activity{
 				//Checking whether input is null or not
 				if (isNetworkAvailable()){
 					if(!(secret_answer.getText().toString().equals(""))){
+						
+						//random number
+						Random r = new Random();
+						int PIN = r.nextInt(50000 - 10000) + 10000;
 						//Email Verification
 						BackgroundMail bm = new BackgroundMail(context);
 						bm.setGmailUserName("simba.nuces@gmail.com");
 		                //"V8Y3TPndPfWYKh/I0BanRg==" is crypted "password"
 						bm.setGmailPassword(Utils.decryptIt("TOLzqeBD151kRsyLSEVvLg==")); 
 						bm.setMailTo(email_);
-						bm.setFormSubject("SIMBA Account Verification");
-						bm.setFormBody("Your PIN is: 12345");
+						bm.setFormSubject("SIMBA Account: Email Confirmation");
+						bm.setFormBody("Dear Sir/Madam,\n Welcome to the SIMBA community! \n\n Your account details:\n\n  Your login is: " + email_ + "\n  Your Secert Answer is: " + secret_answer.getText().toString() + "\n\n  To verify your e-mail address, please enter the following pin number: \n  " + PIN + "\n\nThank you for registering!\n\nBest Regards,\nThe SIMBA Team" );
 						bm.send();
 						//End of Email Verification
 						new RegistrationTask().execute(registerURL_);
