@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    android:background="#3B5998">
-
+    android:layout_height="match_parent"
+    android:background="#3B5998" >
+    
     <ImageView
         android:id="@+id/unlockview"
         android:layout_width="wrap_content"
@@ -25,45 +25,25 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/password"
+        android:id="@+id/secret_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/emailupdate"
         android:layout_below="@+id/emailupdate"
         android:layout_marginTop="23sp"
-        android:text="@string/password"
-        android:textColor="#FFFFFF"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/retypepasswordlabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/passwordupdate"
-        android:layout_below="@+id/passwordupdate"
-        android:layout_marginTop="23sp"
-        android:text="@string/RetypePassword"
+        android:text="@string/secret_question"
         android:textColor="#FFFFFF"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
   
 
-    <EditText
-        android:id="@+id/passwordupdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/password"
-        android:layout_below="@+id/password"
-        android:ems="10"
-        android:layout_centerInParent="true"
-        android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/confirmPassword"
+        android:id="@+id/enteranswer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/retypepasswordlabel"
-        android:layout_below="@+id/retypepasswordlabel"
+        android:layout_alignLeft="@+id/answer"
+        android:layout_below="@+id/answer"
         android:ems="10"
         android:layout_centerInParent="true"
         android:inputType="textPassword" />
@@ -89,17 +69,38 @@
         android:text="@string/email"
         android:textColor="#FFFFFF"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-    
+
+       <TextView
+           android:id="@+id/question"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignLeft="@+id/secret_question"
+           android:layout_below="@+id/secret_question"
+           android:text="@string/question"
+           android:textAppearance="?android:attr/textAppearanceLarge"
+           />
+
+       <TextView
+           android:id="@+id/answer"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignLeft="@+id/question"
+           android:layout_below="@+id/question"
+           android:layout_marginTop="19dp"
+           android:text="@string/answer"
+           android:textAppearance="?android:attr/textAppearanceMedium"
+           android:textColor="#FFFFFF" />
+
        <Button
-        android:id="@+id/confirmbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/confirmPassword"
-        android:layout_alignRight="@+id/confirmPassword"
-        android:layout_below="@+id/confirmPassword"
-        android:layout_marginTop="24sp"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/loginbtn"
-        android:text="@string/confirmlabel" />
+           android:id="@+id/confirmbtn"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignLeft="@+id/forgotlabel"
+           android:layout_alignRight="@+id/enteranswer"
+           android:layout_below="@+id/answer"
+           android:layout_marginTop="44dp"
+           android:background="@drawable/loginbtn"
+           android:text="@string/confirmlabel"
+           android:textColor="#FFFFFF" />
 
 </RelativeLayout>
