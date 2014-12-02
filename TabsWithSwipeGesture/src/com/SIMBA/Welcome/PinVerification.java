@@ -11,11 +11,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.email.backgroundmaillibrary.BackgroundMail;
-import com.email.backgroundmaillibrary.Utils;
-
-import dataAccessPackage.JSONParser;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -26,39 +21,40 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SignUpActivity extends Activity
+import com.SIMBA.Welcome.SignUpActivity.RegistrationTask;
+import com.email.backgroundmaillibrary.BackgroundMail;
+import com.email.backgroundmaillibrary.Utils;
+
+import dataAccessPackage.JSONParser;
+
+public class PinVerification extends Activity
 {
-	private Button signIn, verify;
-	private EditText secret_answer;
+	private Button btverify_;
+	private EditText useremail_, pinuser_;
 	private TextView errorMsg;
-	private String email_,username_,password_, answer_, pin_, verify_ = "No";
+	private String email_, pin_, verify_;
 	private static String registerURL_ = "http://eblueberry.hostoi.com/simba/";
-	private int PIN;
+	//private int PIN;
 	Context context;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_secret_question);
+		setContentView(R.layout.activity_verification);
 		context = this;
 
-		secret_answer = (EditText)findViewById(R.id.answer);
-		signIn = (Button)findViewById(R.id.signin);
-		errorMsg = (TextView)findViewById(R.id.registerError);
-		
-		Intent i = getIntent();
-		username_ = i.getExtras().getString("username");
-		email_ = i.getExtras().getString("email");
-		password_ = i.getExtras().getString("password");
-		
-		signIn.setOnClickListener(new View.OnClickListener()
+		pinuser_ = (EditText)findViewById(R.id.pin);
+		useremail_ = (EditText)findViewById(R.id.email);
+		btverify_ = (Button)findViewById(R.id.verify_pin);
+		errorMsg = (TextView)findViewById(R.id.usernameError);
+				
+		btverify_.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
@@ -66,27 +62,13 @@ public class SignUpActivity extends Activity
 				//Checking whether input is null or not
 				if (isNetworkAvailable())
 				{
-					if(!(secret_answer.getText().toString().equals("")))
+					if(!(pinuser_.getText().toString().equals("")) && !(useremail_.getText().toString().equals("")))
 					{
-						//random number
-						Random r = new Random();
-						PIN = r.nextInt(50000 - 10000) + 10000;
-						pin_ = String.valueOf(PIN);
-						//Email Verification
-						BackgroundMail bm = new BackgroundMail(context);
-						bm.setGmailUserName("simba.nuces@gmail.com");
-		                //"V8Y3TPndPfWYKh/I0BanRg==" is crypted "password"
-						bm.setGmailPassword(Utils.decryptIt("TOLzqeBD151kRsyLSEVvLg==")); 
-						bm.setMailTo(email_);
-						bm.setFormSubject("SIMBA Account: Email Confirmation");
-						bm.setFormBody("Dear Sir/Madam,\n Welcome to the SIMBA community! \n\n Your account details:\n\n  Your login is: " + email_ + "\n  Your Secert Answer is: " + secret_answer.getText().toString() + "\n\n  To verify your e-mail address, please enter the following pin number: \n  " + PIN + "\n\nThank you for registering!\n\nBest Regards,\nThe SIMBA Team" );
-						bm.send();
-						//End of Email Verification
 						new RegistrationTask().execute(registerURL_);
 					}
 					else
 					{
-						errorMsg.setText("Answer is empty.. Do fill it!");
+						errorMsg.setText("Enter the PIN and Email!");
 					}
 				}
 				else
@@ -125,7 +107,7 @@ public class SignUpActivity extends Activity
 	   private static final String nameKey  = "name";
 	   private static final String passwordKey  = "password";
 	   private static final String answerKey  = "answer";
-	   private static final String registerTag = "register";
+	   private static final String registerTag = "verify";
 	   private static final String pinnumber = "pin_number";
 	   private static final String verify = "verification";
 	   private boolean checkFlag = false;
@@ -138,7 +120,7 @@ public class SignUpActivity extends Activity
 		   if (isNetworkAvailable())
 		   {
 			   jsonParser = new JSONParser();
-			   pDialog = new ProgressDialog(SignUpActivity.this);
+			   pDialog = new ProgressDialog(PinVerification.this);
 			   pDialog.setMessage("Please wait...");
 			   pDialog.setIndeterminate(false);
 			   pDialog.setCancelable(false);
@@ -158,15 +140,13 @@ public class SignUpActivity extends Activity
 		   if (isNetworkAvailable())
 		   {
 			   String message = null;
-			   answer_= secret_answer.getText().toString();
+			   email_= useremail_.getText().toString();
+			   pin_= pinuser_.getText().toString();
  
 			   // Building Parameters
 			   List<NameValuePair> registerParams_ = new ArrayList<NameValuePair>();
 			   registerParams_.add(new BasicNameValuePair("tag", registerTag));
-		       registerParams_.add(new BasicNameValuePair(nameKey, username_));
 		       registerParams_.add(new BasicNameValuePair(emailKey, email_));
-		       registerParams_.add(new BasicNameValuePair(passwordKey, password_));
-		       registerParams_.add(new BasicNameValuePair(answerKey, answer_));
 		       registerParams_.add(new BasicNameValuePair(pinnumber, pin_));
 		       registerParams_.add(new BasicNameValuePair(verify, verify_));
 		       // System.out.println();
@@ -222,9 +202,9 @@ public class SignUpActivity extends Activity
 			   }
 			   else
 			   {
-				   Toast.makeText(getApplicationContext(), "Your account has been created , please login", Toast.LENGTH_LONG).show();
+				   Toast.makeText(getApplicationContext(), "Your account has been verified , please login", Toast.LENGTH_LONG).show();
 				   //Opening login activity after successful registration
-				   Intent registerIntent = new Intent(SignUpActivity.this,PinVerification.class);
+				   Intent registerIntent = new Intent(PinVerification.this,LoginActivity.class);
 				   startActivity(registerIntent);
 				   // Close Registration Activity
 				   finish();
@@ -236,5 +216,5 @@ public class SignUpActivity extends Activity
 			   errorMsg.setText("No Internet Connection!");
 		   }
 	   }
-   }	
+   }
 }
