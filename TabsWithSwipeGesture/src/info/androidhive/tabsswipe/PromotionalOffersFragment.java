@@ -26,7 +26,7 @@ public class PromotionalOffersFragment extends Fragment implements OnClickListen
     private int[] gallery = {R.drawable.splash0, R.drawable.splash1, R.drawable.splash2, R.drawable.splash3, R.drawable.splash5, R.drawable.splash6};
      
     private int position = 0;
-     
+    boolean found = false;
     private Timer timer = null;
 	
 	@Override
@@ -61,6 +61,7 @@ public class PromotionalOffersFragment extends Fragment implements OnClickListen
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if(v.getId()== R.id.buttonStart){
+			found = true;
 			timer = new Timer();
 		    timer.scheduleAtFixedRate(new TimerTask() {
 		    	public void run() {
@@ -80,7 +81,9 @@ public class PromotionalOffersFragment extends Fragment implements OnClickListen
 		   }, 0, 2500);
 		}
 		else if(v.getId() == R.id.buttonStop){
-			timer.cancel();
+			if (found == true){
+				timer.cancel();
+			}
 		}
 	}
 } 
