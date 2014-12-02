@@ -51,7 +51,7 @@ public class EmailActivity extends Activity{
 			public void onClick(View v) {
 				//Checking whether input is null or not
 				email_= email.getText().toString();
-				 if(isEmailValid(email_)){
+				 if(isEmailValid(email_) && !(email_.equals(""))){
 					 errorMsg.setVisibility(View.GONE);
 					 Log.e("user name", email_);
 					 //Calling password activity intent
