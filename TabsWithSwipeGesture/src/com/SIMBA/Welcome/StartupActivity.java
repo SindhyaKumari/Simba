@@ -1,7 +1,5 @@
 package com.SIMBA.Welcome;
 
-
-
 import dataAccessPackage.LoginSession;
 import info.androidhive.tabsswipe.R;
 import android.app.Activity;
@@ -11,18 +9,16 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
-
-
-public class StartupActivity extends Activity {
-    private Button loginButton;
+public class StartupActivity extends Activity
+{
+	private Button loginButton;
     private Button signupButton;
     LoginSession loginObj;
     
-    
-    
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState)
+    {
+    	super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startup);
         
         //Passing reference to layout resources
@@ -38,26 +34,29 @@ public class StartupActivity extends Activity {
         */
                 
         /*Performing action on login button */
-        loginButton.setOnClickListener(new View.OnClickListener() {			
-			@Override
-			public void onClick(View v) {
-				//Calling login activity by using intent functionality
+        loginButton.setOnClickListener(new View.OnClickListener()
+        {
+        	@Override
+			public void onClick(View v)
+        	{
+        		//Calling login activity by using intent functionality
 				Intent loginIntent = new Intent(StartupActivity.this,LoginActivity.class);
 				startActivity(loginIntent);								
 			}
 		});
         
         /*Performing action on sign up button */
-        signupButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				//Calling signup activity by using intent functionality
+        signupButton.setOnClickListener(new View.OnClickListener()
+        {
+        	@Override
+			public void onClick(View v)
+        	{
+        		//Calling signup activity by using intent functionality
 				Intent signupIntent = new Intent(StartupActivity.this,UserNameActivity.class);
 				startActivity(signupIntent);					
 			}
 		});
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -65,6 +64,5 @@ public class StartupActivity extends Activity {
         //getMenuInflater().inflate(R.menu.startup, menu);
         return true;
     }
-
-   
+  
 }

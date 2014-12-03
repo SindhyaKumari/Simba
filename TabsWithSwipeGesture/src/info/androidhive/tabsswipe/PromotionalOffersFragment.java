@@ -5,7 +5,6 @@ import java.util.TimerTask;
 
 import info.androidhive.tabsswipe.R;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,21 +17,18 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.ViewSwitcher.ViewFactory;
 
-public class PromotionalOffersFragment extends Fragment implements OnClickListener {
-
-
+public class PromotionalOffersFragment extends Fragment implements OnClickListener
+{
 	private ImageSwitcher imageSwitcher;
-	 Button bStart, bStop ;
+	Button bStart, bStop ;
     private int[] gallery = {R.drawable.splash0, R.drawable.splash1, R.drawable.splash2, R.drawable.splash3, R.drawable.splash5, R.drawable.splash6};
-     
     private int position = 0;
     boolean found = false;
     private Timer timer = null;
 	
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		View rootView = inflater.inflate(R.layout.fragment_promotionaloffers, container, false);
 		imageSwitcher = (ImageSwitcher) rootView.findViewById(R.id.imageSwitcher);
@@ -41,33 +37,39 @@ public class PromotionalOffersFragment extends Fragment implements OnClickListen
 		bStop = (Button) rootView.findViewById(R.id.buttonStop);
 		bStop.setOnClickListener(this);
 		
-        imageSwitcher.setFactory(new ViewFactory() {
-              
-             public View makeView() 
-             {
-                 return new ImageView(getActivity());
-             } 
-         });
- 
-         // Set animations http://danielme.com/2013/08/18/diseno-android-transiciones-entre-activities/
-         Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
-         Animation fadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in2);
-         imageSwitcher.setInAnimation(fadeIn);
-         imageSwitcher.setOutAnimation(fadeOut);
-		return rootView;
+        imageSwitcher.setFactory(new ViewFactory()
+        {
+        	public View makeView() 
+            {
+        		return new ImageView(getActivity());
+            } 
+        });
+        
+        // Set animations http://danielme.com/2013/08/18/diseno-android-transiciones-entre-activities/
+        Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
+        Animation fadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in2);
+        imageSwitcher.setInAnimation(fadeIn);
+        imageSwitcher.setOutAnimation(fadeOut);
+        return rootView;
 	}
 
 	@Override
-	public void onClick(View v) {
+	public void onClick(View v)
+	{
 		// TODO Auto-generated method stub
-		if(v.getId()== R.id.buttonStart){
+		if(v.getId()== R.id.buttonStart)
+		{
 			found = true;
 			timer = new Timer();
-		    timer.scheduleAtFixedRate(new TimerTask() {
-		    	public void run() {
+		    timer.scheduleAtFixedRate(new TimerTask()
+		    {
+		    	public void run()
+		    	{
 		    		// avoid exception: "Only the original thread that created a view hierarchy can touch its views"
-		            getActivity().runOnUiThread(new Runnable() {
-		            	public void run() {
+		            getActivity().runOnUiThread(new Runnable()
+		            {
+		            	public void run()
+		            	{
 		            		imageSwitcher.setImageResource(gallery[position]);
 		                    position++;
 		                    if (position == 6)
@@ -75,16 +77,17 @@ public class PromotionalOffersFragment extends Fragment implements OnClickListen
 		                    	position = 0;
 		                    }
 		                }
-		           });
-		       }
+		            });
+		    	}
 		  
-		   }, 0, 2500);
+		    }, 0, 2500);
 		}
-		else if(v.getId() == R.id.buttonStop){
-			if (found == true){
+		else if(v.getId() == R.id.buttonStop)
+		{
+			if (found == true)
+			{
 				timer.cancel();
 			}
 		}
 	}
-} 
-
+}

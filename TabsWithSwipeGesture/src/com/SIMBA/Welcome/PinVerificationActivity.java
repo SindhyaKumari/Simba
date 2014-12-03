@@ -37,7 +37,7 @@ import dataAccessPackage.JSONParser;
 
 public class PinVerificationActivity extends Activity
 {
-	private Button btverify_;
+	private Button btverify_, btcancel_;
 	private EditText useremail_, pinuser_;
 	private TextView errorMsg;
 	private String email_, pin_, verify_;
@@ -56,9 +56,20 @@ public class PinVerificationActivity extends Activity
 		useremail_ = (EditText)findViewById(R.id.email);
 		btverify_ = (Button)findViewById(R.id.verify_pin);
 		errorMsg = (TextView)findViewById(R.id.usernameError);
+		btcancel_ = (Button)findViewById(R.id.cancel_verify);
 		
 		email_ = getEmailID();
 		useremail_.setText(email_, TextView.BufferType.EDITABLE);
+		
+		btcancel_.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				Intent passwordIntent = new Intent(PinVerificationActivity.this,LoginActivity.class);
+				startActivity(passwordIntent);
+			}
+		});
 		
 		btverify_.setOnClickListener(new View.OnClickListener()
 		{
@@ -74,7 +85,7 @@ public class PinVerificationActivity extends Activity
 					}
 					else
 					{
-						errorMsg.setText("Enter the PIN and Email!");
+						errorMsg.setText("Please enter the PIN and Email!");
 					}
 				}
 				else

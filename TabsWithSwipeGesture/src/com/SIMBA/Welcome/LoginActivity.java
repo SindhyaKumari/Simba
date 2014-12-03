@@ -147,6 +147,7 @@ public class LoginActivity extends Activity
 	   private static final String successKey  = "success";
 	   private static final String errorKey  = "error_msg";
 	   private static final String emailKey  = "email";
+	   private static final String passwordKey  = "password";
 	   private static final String nameKey  = "name";
 	   private static final String loginTag = "login";
 	   ProgressDialog dialog;
@@ -195,8 +196,8 @@ public class LoginActivity extends Activity
 				   System.out.println("name: " + password_ + email_);
 				   List<NameValuePair> loginParams_ = new ArrayList<NameValuePair>();
 				   loginParams_.add(new BasicNameValuePair("tag", loginTag));
-				   loginParams_.add(new BasicNameValuePair("email", email_));
-				   loginParams_.add(new BasicNameValuePair("password", password_));
+				   loginParams_.add(new BasicNameValuePair(emailKey, email_));
+				   loginParams_.add(new BasicNameValuePair(passwordKey, password_));
 				   JSONObject json = jsonParser.getJSONFromUrl("POST",params[0], loginParams_);
 				   
 				   // check for login response

@@ -69,9 +69,21 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/pin"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="18dp"
         android:background="@drawable/continuebtn"
         android:text="@string/verify_"
+        android:textColor="#409ed3" />
+
+    <Button
+        android:id="@+id/cancel_verify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/verify_pin"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/continuebtn"
+        android:text="@string/cancelverify_"
         android:textColor="#409ed3" />
 
 </RelativeLayout>

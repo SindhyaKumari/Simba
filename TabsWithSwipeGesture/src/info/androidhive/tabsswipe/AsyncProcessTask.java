@@ -9,9 +9,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
-public class AsyncProcessTask extends AsyncTask<String, String, Boolean> {
-
-	public AsyncProcessTask(ResultsActivity activity) {
+public class AsyncProcessTask extends AsyncTask<String, String, Boolean>
+{
+	public AsyncProcessTask(ResultsActivity activity)
+	{
 		this.activity = activity;
 		dialog = new ProgressDialog(activity);
 	}
@@ -20,15 +21,18 @@ public class AsyncProcessTask extends AsyncTask<String, String, Boolean> {
 	/** application context. */
 	private final ResultsActivity activity;
 
-	protected void onPreExecute() {
+	protected void onPreExecute()
+	{
 		dialog.setMessage("Processing");
 		dialog.setCancelable(false);
 		dialog.setCanceledOnTouchOutside(false);
 		dialog.show();
 	}
 
-	protected void onPostExecute(Boolean result) {
-		if (dialog.isShowing()) {
+	protected void onPostExecute(Boolean result)
+	{
+		if (dialog.isShowing())
+		{
 			dialog.dismiss();
 		}
 		
@@ -36,12 +40,13 @@ public class AsyncProcessTask extends AsyncTask<String, String, Boolean> {
 	}
 
 	@Override
-	protected Boolean doInBackground(String... args) {
-
+	protected Boolean doInBackground(String... args)
+	{
 		String inputFile = args[0];
 		String outputFile = args[1];
 
-		try {
+		try 
+		{
 			Client restClient = new Client();
 			
 			//!!! Please provide application id and password and remove this line. !!!
@@ -58,10 +63,10 @@ public class AsyncProcessTask extends AsyncTask<String, String, Boolean> {
 			// Obtain installation id when running the application for the first time
 			SharedPreferences settings = activity.getPreferences(Activity.MODE_PRIVATE);
 			String instIdName = "installationId";
-			if( !settings.contains(instIdName)) {
+			if( !settings.contains(instIdName))
+			{
 				// Get installation id from server using device id
-				String deviceId = android.provider.Settings.Secure.getString(activity.getContentResolver(), 
-						android.provider.Settings.Secure.ANDROID_ID);
+				String deviceId = android.provider.Settings.Secure.getString(activity.getContentResolver(),android.provider.Settings.Secure.ANDROID_ID);
 				
 				// Obtain installation id from server
 				publishProgress( "First run: obtaining installation id..");
@@ -95,7 +100,8 @@ public class AsyncProcessTask extends AsyncTask<String, String, Boolean> {
 			*/
 			Task task = restClient.processImage(inputFile, processingSettings);
 			
-			while( task.isTaskActive() ) {
+			while( task.isTaskActive() ) 
+			{
 				// Note: it's recommended that your application waits
 				// at least 2 seconds before making the first getTaskStatus request
 				// and also between such requests for the same task.
@@ -109,25 +115,35 @@ public class AsyncProcessTask extends AsyncTask<String, String, Boolean> {
 				task = restClient.getTaskStatus(task.Id);
 			}
 			
-			if( task.Status == Task.TaskStatus.Completed ) {
+			if( task.Status == Task.TaskStatus.Completed )
+			{
 				publishProgress( "Downloading.." );
 				FileOutputStream fos = activity.openFileOutput(outputFile,Context.MODE_PRIVATE);
 				
-				try {
+				try
+				{
 					restClient.downloadResult(task, fos);
-				} finally {
+				}
+				finally
+				{
 					fos.close();
 				}
 				
 				publishProgress( "Ready" );
-			} else if( task.Status == Task.TaskStatus.NotEnoughCredits ) {
+			}
+			else if( task.Status == Task.TaskStatus.NotEnoughCredits )
+			{
 				throw new Exception( "Not enough credits to process task. Add more pages to your application's account." );
-			} else {
+			}
+			else
+			{
 				throw new Exception( "Task failed" );
 			}
 			
 			return true;
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			final String message = "Error: " + e.getMessage();
 			publishProgress( message);
 			activity.displayMessage(message);
@@ -136,11 +152,12 @@ public class AsyncProcessTask extends AsyncTask<String, String, Boolean> {
 	}
 
 	@Override
-	protected void onProgressUpdate(String... values) {
+	protected void onProgressUpdate(String... values)
+	{
 		// TODO Auto-generated method stub
 		String stage = values[0];
 		dialog.setMessage(stage);
 		// dialog.setProgress(values[0]);
 	}
-
+	
 }

@@ -6,9 +6,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-public class LoginSession {
-
-	
+public class LoginSession
+{
 	private  SharedPreferences prefLogin; //Shared preferences for login
 	private Editor editorLogin;   //Editor for shared preferences of login
 	Context context;
@@ -18,18 +17,17 @@ public class LoginSession {
 	private static final String emailKey = "email" ; //SharedPreference email key
 	private static final String passwordKey = "password"; //SharedPreference password key
 	
-	
 	//Login Session Constructor
-	public LoginSession(Context context_){
+	public LoginSession(Context context_)
+	{
 		context = context_;
 		prefLogin = context.getSharedPreferences(loginFile_, PRIVATE_MODE);
 		editorLogin = prefLogin.edit();		
 	}
 	
-	
 	//Storing login status, email and password in sharedpreferences
-	public void createLoginSession(String email_, String password_){
-		
+	public void createLoginSession(String email_, String password_)
+	{
 		editorLogin.putBoolean(loginKey, true);
 		editorLogin.putString(emailKey, email_);
 		editorLogin.putString(passwordKey, password_);
@@ -37,31 +35,30 @@ public class LoginSession {
 	}
 	
 	//Checking user login status
-	public boolean checkLoginStatus(){
+	public boolean checkLoginStatus()
+	{
 		return prefLogin.getBoolean(loginKey, false);
 	}
 	
 	//Get stored session data
-	public HashMap<String , String> getUserDetails(){
+	public HashMap<String , String> getUserDetails()
+	{
 		HashMap<String,String> user = new HashMap<String,String>();
-		
 		user.put(emailKey, prefLogin.getString(emailKey, null));
 		user.put(passwordKey, prefLogin.getString(passwordKey, null));
-		
 		return user;
 	}
 	
 	//Get editor
-	Editor getLoginEditor(){
+	Editor getLoginEditor()
+	{
 		return editorLogin;
 	}
 	
 	//Clear editor data after logout
-	public void clearDataAfterLogout(){
-		
+	public void clearDataAfterLogout()
+	{
 		editorLogin.clear();
 		editorLogin.commit();
-		
-		
 	}
 }

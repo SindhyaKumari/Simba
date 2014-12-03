@@ -19,8 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class ForgotActivity  extends Activity{
-
+public class ForgotActivity  extends Activity
+{
 	EditText emailAddress;
 	EditText password;
 	EditText retypePassword;
@@ -34,9 +34,9 @@ public class ForgotActivity  extends Activity{
 	private static final String passwordKey  = "password";
 	JSONParser jsonParser;
 
-	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_resetpassword);
 		
@@ -47,15 +47,16 @@ public class ForgotActivity  extends Activity{
 		confirmButton  = (Button)findViewById(R.id.confirmbtn);
 		jsonParser = new JSONParser();
 		
-		confirmButton.setOnClickListener(new View.OnClickListener() {
-			
+		confirmButton.setOnClickListener(new View.OnClickListener()
+		{
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v)
+			{
 				email_  = emailAddress.getText().toString();
 			    pass_   = password.getText().toString(); 
 				repass_ = retypePassword.getText().toString();
-				if(pass_.equals(retypePassword.getText().toString())){
-					
+				if(pass_.equals(retypePassword.getText().toString()))
+				{
 					// Building Parameters
 			        List<NameValuePair> updateParams_ = new ArrayList<NameValuePair>();
 			        updateParams_.add(new BasicNameValuePair("tag", updateTag));
@@ -66,12 +67,13 @@ public class ForgotActivity  extends Activity{
 			        JSONObject json = jsonParser.getJSONFromUrl("POST",updateURL_, updateParams_);
 
 			        // check for register response
-			        try {
-			            if (json.getString(successKey) != null) {
-			       	        
-			                String res = json.getString(successKey); 
-			                if(Integer.parseInt(res) == 1){
-			                    
+			        try
+			        {
+			        	if (json.getString(successKey) != null)
+			        	{
+			        		String res = json.getString(successKey); 
+			                if(Integer.parseInt(res) == 1)
+			                {
 			                	// user successfully updated
 			                    Toast.makeText(getApplicationContext(), "your password has been  reset", Toast.LENGTH_LONG).show();
 			                    
@@ -81,21 +83,22 @@ public class ForgotActivity  extends Activity{
 			    	    		
 			    	    	    // Close Forgot Activity
 			                    finish();
-			  
-			                }else{
-			                    // Error in updation
-			                	 Toast.makeText(getApplicationContext(), json.getString(errorKey)+ "has been  updated", Toast.LENGTH_LONG).show();
+			                }
+			                else
+			                {
+			                	// Error in updation
+			                	Toast.makeText(getApplicationContext(), json.getString(errorKey)+ "has been  updated", Toast.LENGTH_LONG).show();
 			                }
 			            
 			            }
-			         }catch (JSONException e) {
-			            e.printStackTrace();
-			      }
-			    }     
+			        }
+			        catch (JSONException e)
+			        {
+			        	e.printStackTrace();
+			        }
+				}     
 			}
 		});
 	}
 	
-	
-
 }

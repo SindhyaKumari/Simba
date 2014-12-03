@@ -25,12 +25,13 @@
     <string name="menu_settings">Settings</string>
     <string name="title_activity_results">Results</string>
     <string name="verify_comments">PIN number has been send to your email.</string>
+    <string name="cancelverify_">Verify Later</string>
     <string name="name_comments">Using your real name will be appreciated.</string>
     <string name="firstname">First Name</string>
     <string name="lastname">Last Name</string>
     <string name="pinname">PIN Number</string>
     <string name="continue_">Continue</string>
-    <string name="verify_">Verify</string>
+    <string name="verify_">Verify Now</string>
     <string name="email_address">Enter Your Email Address</string>
     <string name="email_comments">You will use this email when you log in and if you ever need to reset your password</string>
     <string name="enter_password">Enter your password</string>
