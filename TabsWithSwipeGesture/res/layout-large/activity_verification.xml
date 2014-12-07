@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#f7f7f7" >
+    android:layout_height="match_parent" 
+    android:background="#f7f7f7">
+    
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="95dp"
+        android:text="@string/verify"
+        android:textSize="42sp"
+        android:textColor="#3B5998"
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/textView2"
@@ -12,17 +25,19 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
         android:gravity="center"
+        android:textSize="18sp"
         android:text="@string/verify_comments" />
 
     <EditText
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignRight="@+id/textView1"
         android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp"
+        android:layout_marginTop="54dp"
         android:ems="10"
-        android:hint= "@string/email"
+        android:hint="@string/email"
         android:inputType="textCapSentences" >
 
         <requestFocus />
@@ -43,8 +58,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/email"
-        android:layout_below="@+id/email"
-        android:layout_marginTop="38dp"
+        android:layout_alignRight="@+id/email"
+        android:layout_centerVertical="true"
         android:ems="10"
         android:hint="@string/pinname"
         android:inputType="textCapSentences" />
@@ -56,7 +71,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/pin"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="47dp"
         android:background="@drawable/continuebtn"
         android:text="@string/verify_"
         android:textColor="#409ed3" />
@@ -68,22 +83,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/verify_pin"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="31dp"
         android:background="@drawable/continuebtn"
         android:text="@string/cancelverify_"
         android:textColor="#409ed3" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="68dp"
-        android:text="@string/verify"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#3B5998"
-        android:textSize="32sp"
-        android:textStyle="bold" />
 
 </RelativeLayout>
