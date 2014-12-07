@@ -383,6 +383,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		return super.onMenuItemSelected(featureId, item);
 	}
 	
+	
+
 	void createDeleteAccountAlertDailog(final String email){
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
  

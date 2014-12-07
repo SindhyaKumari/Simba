@@ -5,6 +5,7 @@ import java.util.HashMap;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.provider.SyncStateContract.Constants;
 
 public class LoginSession
 {
@@ -37,7 +38,7 @@ public class LoginSession
 	//Checking user login status
 	public boolean checkLoginStatus()
 	{
-		return prefLogin.getBoolean(loginKey, false);
+		return prefLogin.getBoolean(loginKey,false);
 	}
 	
 	//Get stored session data
@@ -58,7 +59,13 @@ public class LoginSession
 	//Clear editor data after logout
 	public void clearDataAfterLogout()
 	{
+		editorLogin.remove(emailKey);
+		editorLogin.remove(loginKey);
+		editorLogin.remove(passwordKey);
+		editorLogin.remove(loginFile_);
 		editorLogin.clear();
 		editorLogin.commit();
 	}
+	
+	
 }

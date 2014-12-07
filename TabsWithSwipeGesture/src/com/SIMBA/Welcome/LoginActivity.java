@@ -95,6 +95,11 @@ public class LoginActivity extends Activity
 		});						
    }
 	
+	@Override
+	public void onBackPressed() {
+		LoginActivity.this.finish();
+	}
+	
 	//Function for connection whether internet connection is avaiable or not
 	private boolean isNetworkAvailable(){
 		 boolean isConnected = false;
@@ -223,8 +228,8 @@ public class LoginActivity extends Activity
 				               Intent mainIntent = new Intent(LoginActivity.this,MainActivity.class);
 				               mainIntent.putExtra("email",email_);
 				               startActivity(mainIntent);
+				               
 				               // Close Login Screen
-				             
 				               finish();
 						   }
 						   else {
