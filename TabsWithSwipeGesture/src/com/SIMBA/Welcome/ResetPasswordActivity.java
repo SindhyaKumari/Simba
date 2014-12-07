@@ -169,10 +169,13 @@ public class ResetPasswordActivity  extends Activity{
 		@Override
 		protected void onPostExecute(String result) {
 			
-			if(result!= null){
-				errorMsg.setText(result);
+			if (isNetworkAvailable())
+		    {
+			    if(result!= null){
+				   errorMsg.setText(result);
+			}
 			}else{
-				
+				errorMsg.setText("No internet connection");
 			}
 		}
    	
