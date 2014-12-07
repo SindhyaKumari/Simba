@@ -73,7 +73,7 @@
        </EditText>
 
        <Button
-           android:id="@+id/confirmbtn"
+           android:id="@+id/continuebtn"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_alignParentLeft="true"
@@ -83,5 +83,15 @@
            android:background="@drawable/continuebtn"
            android:text="@string/continue_"
            android:textColor="#409ed3" />
+
+       <TextView
+           android:id="@+id/error"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignLeft="@+id/emailupdate"
+           android:layout_alignRight="@+id/emailupdate"
+           android:layout_below="@+id/forgotlabel"
+           android:layout_marginTop="22dp"
+           android:textColor="#FF0000"/>
 
 </RelativeLayout>

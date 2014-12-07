@@ -89,7 +89,7 @@ public class LoginActivity extends Activity
 			public void onClick(View v)
 			{
 				// Forgot intent created
-                Intent forgotIntent = new Intent(LoginActivity.this,ForgotActivity.class);
+                Intent forgotIntent = new Intent(LoginActivity.this,CheckUserActivity.class);
                 startActivity(forgotIntent);				
 			}
 		});						
