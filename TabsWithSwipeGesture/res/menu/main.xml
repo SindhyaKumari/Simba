@@ -8,5 +8,16 @@
         android:orderInCategory="100"
         android:showAsAction= "ifRoom"
         android:title="@string/action_logout"/>
+    
+     <item
+        android:id="@+id/action_resetpassword"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/change_password"/>
+      <item
+        android:id="@+id/action_deleteaccount"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/delete_account"/>
 
 </menu>

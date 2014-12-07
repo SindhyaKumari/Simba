@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="#f7f7f7">
+    
+
+     <ImageView
+        android:id="@+id/unlockview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="23sp"
+        android:layout_marginTop="28sp"
+        android:src="@drawable/unlockicon" />
+
+    <TextView
+        android:id="@+id/forgotlabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/unlockview"
+        android:layout_toRightOf="@+id/unlockview"
+        android:text="@string/forgotlabel"
+        android:textColor="#3B5998"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/secret_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/emailupdate"
+        android:layout_below="@+id/emailupdate"
+        android:layout_marginTop="23sp"
+        android:text="@string/secret_question"
+        android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+       <TextView
+           android:id="@+id/question"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignLeft="@+id/secret_question"
+           android:layout_alignRight="@+id/emailupdate"
+           android:layout_below="@+id/secret_question"
+           android:text="@string/question"
+           android:textAppearance="?android:attr/textAppearanceMedium"
+           android:textColor="#3B5998" />
+
+       <EditText
+           android:id="@+id/emailupdate"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignLeft="@+id/unlockview"
+           android:layout_alignRight="@+id/forgotlabel"
+           android:layout_below="@+id/unlockview"
+           android:layout_marginTop="46dp"
+           android:ems="10"
+           android:hint="@string/email"
+           android:inputType="textEmailAddress" />
+
+       <EditText
+           android:id="@+id/enteranswer"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignLeft="@+id/question"
+           android:layout_alignRight="@+id/question"
+           android:layout_below="@+id/question"
+           android:layout_marginTop="15dp"
+           android:ems="10"
+           android:hint="@string/answer" >
+
+           <requestFocus />
+       </EditText>
+
+       <Button
+           android:id="@+id/continuebtn"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentRight="true"
+           android:layout_below="@+id/enteranswer"
+           android:layout_marginTop="47dp"
+           android:background="@drawable/continuebtn"
+           android:text="@string/continue_"
+           android:textColor="#409ed3" />
+
+       <TextView
+           android:id="@+id/error"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignLeft="@+id/emailupdate"
+           android:layout_alignRight="@+id/emailupdate"
+           android:layout_below="@+id/forgotlabel"
+           android:layout_marginTop="22dp"
+           android:textColor="#FF0000"/>
+</RelativeLayout>

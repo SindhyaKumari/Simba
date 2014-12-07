@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#f7f7f7" >
-
+    android:layout_height="match_parent" 
+    android:background="#f7f7f7">
+    
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -18,11 +18,12 @@
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignRight="@+id/textView2"
         android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp"
         android:ems="10"
-        android:hint= "@string/email"
+        android:hint="@string/email"
         android:inputType="textCapSentences" >
 
         <requestFocus />
@@ -42,7 +43,8 @@
         android:id="@+id/pin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/email"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignRight="@+id/textView2"
         android:layout_below="@+id/email"
         android:layout_marginTop="38dp"
         android:ems="10"
@@ -85,5 +87,5 @@
         android:textColor="#3B5998"
         android:textSize="32sp"
         android:textStyle="bold" />
-
+    
 </RelativeLayout>
