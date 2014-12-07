@@ -223,7 +223,7 @@ public class SignUpActivity extends Activity
 			   }
 			   else
 			   {
-				   Toast.makeText(getApplicationContext(), "Your account has been created , please login", Toast.LENGTH_LONG).show();
+				   Toast.makeText(getApplicationContext(), "Your account has been created , please verify", Toast.LENGTH_LONG).show();
 				   //Opening login activity after successful registration
 				   Intent registerIntent = new Intent(SignUpActivity.this,PinVerificationActivity.class);
 				   startActivity(registerIntent);

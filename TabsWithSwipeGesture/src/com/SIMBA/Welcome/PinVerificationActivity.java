@@ -59,8 +59,9 @@ public class PinVerificationActivity extends Activity
 		btcancel_ = (Button)findViewById(R.id.cancel_verify);
 		
 		email_ = getEmailID();
+		if(email_!=null){
 		useremail_.setText(email_, TextView.BufferType.EDITABLE);
-		
+		}
 		btcancel_.setOnClickListener(new View.OnClickListener()
 		{
 			@Override

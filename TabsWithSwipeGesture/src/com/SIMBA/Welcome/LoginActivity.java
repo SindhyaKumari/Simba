@@ -215,6 +215,7 @@ public class LoginActivity extends Activity
 							   // Store user details in shared preferences
 							   LoginSession loginSession = new LoginSession(LoginActivity.this);
 							   JSONObject jsonUser = json.getJSONObject("user");
+							   
 							   // Clear all previous data in sharedpreferences
 							   loginSession.clearDataAfterLogout();
 				               loginSession.createLoginSession(jsonUser.getString(emailKey),jsonUser.getString(passwordKey)); 
@@ -222,27 +223,22 @@ public class LoginActivity extends Activity
 				               Intent dashBoardIntent = new Intent(LoginActivity.this,MainActivity.class);
 				               startActivity(dashBoardIntent);
 				               // Close Login Screen
+				               dialog.dismiss();
 				               finish();
 						   }
-						   else
-						   {
+						   else {
 							   // Error in login
 							   message = json.getString(errorKey) ;
 						   }
 					   }
-					   else
-					   {
-						   return message;
+					   else{
+						   message = json.getString(errorKey);
 					   }
-				   }
-				   catch (JSONException e)
-				   {
+				   }catch (JSONException e){
 					   e.printStackTrace();
 				   }
 				   return message;
-			   }
-			   else
-			   {
+			   } else{
 				   dialog.dismiss();
 				   setLoginErrorMsg("No Internet Connection!");
 				   return null;
@@ -259,9 +255,19 @@ public class LoginActivity extends Activity
 	   {
 		   if (isNetworkAvailable())
 		   {
-			   if(result != null)
-			   {
+			   if(result != null && (result.equals("Please Verify Your Account"))){
 				   dialog.dismiss();
+				   setLoginErrorMsg(result);
+				   Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+				   
+				   //pinVerification intent created for calling Pin Verification activity
+				   Intent pinVerificationIntent = new Intent(LoginActivity.this,PinVerificationActivity.class);
+				   startActivity(pinVerificationIntent);
+				   
+				   //close login activity
+				   finish();   
+		   }else {
+				  dialog.dismiss();
 				   AlertDialog builder = new AlertDialog.Builder(LoginActivity.this)
 				   .setTitle("Incorrect Username or Password")
 				   .setMessage("The Username or Password you entered is incorrect. Please try again.")
@@ -271,12 +277,10 @@ public class LoginActivity extends Activity
 					   {
 						   dialog.dismiss();
 					   }
-				   }).show();
-				   //loginErrorMsg.setText(result);
-			   }
+				   }).show(); 
+			  }
 		   }
-		   else
-		   {
+		   else{
 			   dialog.dismiss();
 			   setLoginErrorMsg("No Internet Connection!");
 		   }
