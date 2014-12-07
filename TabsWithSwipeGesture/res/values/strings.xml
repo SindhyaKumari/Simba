@@ -44,5 +44,8 @@
     <string name="answer">Enter answer</string>
     <string name="secret_question_comments">This question will be asked from you along with email address if you forgot your password</string>
     <string name="resetpassword">Reset your Password by entering new one ....</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="change_password">Change Password</string>
+    <string name="resetpasswordlabel">Reset your Password</string>
     
 </resources>

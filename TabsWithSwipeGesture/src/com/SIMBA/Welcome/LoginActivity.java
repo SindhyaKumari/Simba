@@ -219,9 +219,10 @@ public class LoginActivity extends Activity
 							   // Clear all previous data in sharedpreferences
 							   loginSession.clearDataAfterLogout();
 				               loginSession.createLoginSession(jsonUser.getString(emailKey),jsonUser.getString(passwordKey)); 
-				               // Launch Dashboard Screen
-				               Intent dashBoardIntent = new Intent(LoginActivity.this,MainActivity.class);
-				               startActivity(dashBoardIntent);
+				               // Launch Main Screen
+				               Intent mainIntent = new Intent(LoginActivity.this,MainActivity.class);
+				               mainIntent.putExtra("email",email_);
+				               startActivity(mainIntent);
 				               // Close Login Screen
 				             
 				               finish();
@@ -258,7 +259,6 @@ public class LoginActivity extends Activity
 			   if(result != null && (result.equals("Please Verify Your Account"))){
 				   dialog.dismiss();
 				   setLoginErrorMsg(result);
-				//   Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
 				   
 				   //pinVerification intent created for calling Pin Verification activity
 				   Intent pinVerificationIntent = new Intent(LoginActivity.this,PinVerificationActivity.class);
@@ -266,7 +266,7 @@ public class LoginActivity extends Activity
 				   
 				   //close login activity
 				   finish();   
-		   }else {
+		   }else if(result != null && (result.equals("Incorrect Email or Password"))){
 				  dialog.dismiss();
 				   AlertDialog builder = new AlertDialog.Builder(LoginActivity.this)
 				   .setTitle("Incorrect Username or Password")

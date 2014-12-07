@@ -6,13 +6,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.SIMBA.Welcome.LoginActivity;
+import com.SIMBA.Welcome.ResetPasswordActivity;
 
 import dataAccessPackage.LoginSession;
 import info.androidhive.tabsswipe.adapter.TabsPagerAdapter;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -351,6 +354,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item)
 	{
+		//get intent 
+		Intent i = getIntent();
+		final String email = i.getExtras().getString("email");
 		// checking which item is being selected
 		LoginSession loginObj = new LoginSession(getApplicationContext());
 		String str = (String) item.getTitle();
@@ -365,7 +371,46 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			
 	       //closing main activity			
 			finish();
+		}else if(str.equals("Delete Account")){
+			  createDeleteAccountAlertDailog(email);			
+		}else if(str.equals("Change Password")){
+			//calling login activity
+			
+			Intent resetPasswordIntent = new Intent(MainActivity.this,ResetPasswordActivity.class);
+			resetPasswordIntent.putExtra("email", email);
+			startActivity(resetPasswordIntent);
 		}
 		return super.onMenuItemSelected(featureId, item);
+	}
+	
+	void createDeleteAccountAlertDailog(final String email){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+ 
+			// set title
+			alertDialogBuilder.setTitle("Delete Account");
+ 
+			// set dialog message
+			alertDialogBuilder
+				.setMessage("Are you sure you want to delete your account")
+				.setCancelable(false)
+				.setPositiveButton("Cancel",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						// if this button is clicked, just close
+						// the dialog box and do nothing
+						dialog.cancel();
+					}
+				  })
+				.setNegativeButton("OK",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						new DeleteAccountTask().execute(email);
+						 dialog.dismiss();
+					}
+				});
+ 
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+ 
+				// show it
+				alertDialog.show();
 	}
 }
