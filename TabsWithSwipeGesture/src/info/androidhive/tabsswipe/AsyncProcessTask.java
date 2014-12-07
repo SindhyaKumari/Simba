@@ -56,8 +56,10 @@ public class AsyncProcessTask extends AsyncTask<String, String, Boolean>
 			// http://ocrsdk.com/documentation/faq/#faq3
 			
 			// Name of application you created
+			// sindhya name of application: SIMBA NUCES
 			restClient.applicationId = "Shopping Cart Insight through MBA";
 			// You should get e-mail from ABBYY Cloud OCR SDK service with the application password
+			//sindhya id key = vwUDXNNm9rekWBJ89zWm+UQh
 			restClient.password = "jzJSUuMdJvw06+0nF6b8ybjl";
 			
 			// Obtain installation id when running the application for the first time

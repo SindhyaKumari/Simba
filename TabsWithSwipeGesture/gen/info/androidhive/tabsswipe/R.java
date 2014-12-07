@@ -73,7 +73,7 @@ public final class R {
         public static final int emailaddress=0x7f090009;
         public static final int emailbtn=0x7f090010;
         public static final int emailedittext=0x7f09000f;
-        public static final int emaillabel=0x7f090029;
+        public static final int emaillabel=0x7f09002a;
         public static final int emailupdate=0x7f090003;
         public static final int emailview=0x7f090016;
         public static final int enteranswer=0x7f090005;
@@ -109,7 +109,7 @@ public final class R {
         public static final int registerbtn=0x7f090024;
         public static final int regname=0x7f09001e;
         public static final int regpassword=0x7f090020;
-        public static final int retypepasswordlabel=0x7f09002a;
+        public static final int retypepasswordlabel=0x7f090029;
         public static final int secret_question=0x7f090002;
         public static final int signin=0x7f09002d;
         public static final int signinbtn=0x7f090031;
