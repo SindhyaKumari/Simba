@@ -101,14 +101,16 @@ public class LoginActivity extends Activity
 	}
 	
 	//Function for connection whether internet connection is avaiable or not
-	private boolean isNetworkAvailable(){
+	private boolean isNetworkAvailable()
+	{
 		 boolean isConnected = false;
 		 
 		 ConnectivityManager connectManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
 		 NetworkInfo networkInfo = connectManager.getActiveNetworkInfo();
 		 
 		 //if no network is available networkInfo will be null else it will be connected
-		 if(networkInfo != null && networkInfo.isConnected()){
+		 if(networkInfo != null && networkInfo.isConnected())
+		 {
 			   isConnected = true;
 		 }
 		
@@ -184,7 +186,6 @@ public class LoginActivity extends Activity
 		   }
 		   else
 		   {
-			   System.out.println("main aya hun");
 			   dialog.dismiss();
 			   setLoginErrorMsg("No Internet Connection!");
 		   }
@@ -200,7 +201,6 @@ public class LoginActivity extends Activity
 			   if (isNetworkAvailable())
 			   {
 				   // Building Parameters
-				   
 				   System.out.println("name: " + password_ + email_);
 				   List<NameValuePair> loginParams_ = new ArrayList<NameValuePair>();
 				   loginParams_.add(new BasicNameValuePair("tag", loginTag));
@@ -224,27 +224,41 @@ public class LoginActivity extends Activity
 							   // Clear all previous data in sharedpreferences
 							   loginSession.clearDataAfterLogout();
 				               loginSession.createLoginSession(jsonUser.getString(emailKey),jsonUser.getString(passwordKey)); 
+<<<<<<< HEAD
 				               // Launch Main Screen
 				               Intent mainIntent = new Intent(LoginActivity.this,MainActivity.class);
 				               mainIntent.putExtra("email",email_);
 				               startActivity(mainIntent);
 				               
 				               // Close Login Screen
+=======
+				               // Launch Dashboard Screen
+				               Intent dashBoardIntent = new Intent(LoginActivity.this,MainActivity.class);
+				               startActivity(dashBoardIntent);
+				               // Close Login Screen
+				               dialog.dismiss();
+>>>>>>> origin/master
 				               finish();
 						   }
-						   else {
+						   else
+						   {
 							   // Error in login
 							   message = json.getString(errorKey) ;
 						   }
 					   }
-					   else{
+					   else
+					   {
 						   message = json.getString(errorKey);
 					   }
-				   }catch (JSONException e){
+				   }
+				   catch (JSONException e)
+				   {
 					   e.printStackTrace();
 				   }
 				   return message;
-			   } else{
+			   }
+			   else
+			   {
 				   dialog.dismiss();
 				   setLoginErrorMsg("No Internet Connection!");
 				   return null;
@@ -261,18 +275,21 @@ public class LoginActivity extends Activity
 	   {
 		   if (isNetworkAvailable())
 		   {
-			   if(result != null && (result.equals("Please Verify Your Account"))){
+			   if(result != null && (result.equals("Please Verify Your Account")))
+			   {
 				   dialog.dismiss();
 				   setLoginErrorMsg(result);
-				   
+				   //Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
 				   //pinVerification intent created for calling Pin Verification activity
 				   Intent pinVerificationIntent = new Intent(LoginActivity.this,PinVerificationActivity.class);
 				   startActivity(pinVerificationIntent);
 				   
 				   //close login activity
-				   finish();   
-		   }else if(result != null && (result.equals("Incorrect Email or Password"))){
-				  dialog.dismiss();
+				   finish();
+			   }
+			   else if(result != null && (result.equals("Incorrect Email or Password")))
+			   {
+				   dialog.dismiss();
 				   AlertDialog builder = new AlertDialog.Builder(LoginActivity.this)
 				   .setTitle("Incorrect Username or Password")
 				   .setMessage("The Username or Password you entered is incorrect. Please try again.")
@@ -285,7 +302,8 @@ public class LoginActivity extends Activity
 				   }).show(); 
 			  }
 		   }
-		   else{
+		   else
+		   {
 			   dialog.dismiss();
 			   setLoginErrorMsg("No Internet Connection!");
 		   }
