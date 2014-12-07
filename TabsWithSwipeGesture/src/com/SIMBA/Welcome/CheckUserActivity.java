@@ -150,10 +150,12 @@ public class CheckUserActivity  extends Activity
 		@Override
 		protected void onPostExecute(String result) {
 			
-			if(result!= null){
-				checkUserError.setText(result);
+			if (isNetworkAvailable()){
+			    if(result!= null){
+			    	checkUserError.setText(result);
+			}
 			}else{
-				
+				checkUserError.setText("No internet connection");
 			}
 		}
     	
