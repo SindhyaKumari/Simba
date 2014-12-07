@@ -40,7 +40,7 @@ public class LoginActivity extends Activity
 	private EditText emailAddress;
 	private EditText password;
 	private TextView loginErrorMsg;
-	String email_ ;
+	String email_, check_ ;
 	String password_;
 	boolean found = false;
 	// using  http://eblueberry.hostoi.com/blueberry/
@@ -59,10 +59,12 @@ public class LoginActivity extends Activity
 		emailAddress = (EditText)findViewById(R.id.emailedittext);
 		password = (EditText)findViewById(R.id.passwordedittext);
 		loginErrorMsg = (TextView)findViewById(R.id.errortextview);
-		
-		email_ = getEmailID();
-		emailAddress.setText(email_, TextView.BufferType.EDITABLE);
-		
+		check_ = getEmailID();
+		if (check_ != null)
+		{
+			email_ = getEmailID();
+			emailAddress.setText(email_, TextView.BufferType.EDITABLE);
+		}
 		/* Login Button  ClickListener  */
 		loginButton.setOnClickListener(new View.OnClickListener()
 		{
