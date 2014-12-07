@@ -67,7 +67,10 @@
             android:name="com.SIMBA.Welcome.RegistrationActivity"
             android:label="@string/app_name" /> 
         <activity
-            android:name="com.SIMBA.Welcome.ForgotActivity"
+            android:name="com.SIMBA.Welcome.CheckUserActivity"
+            android:label="@string/app_name" />
+         <activity
+            android:name="com.SIMBA.Welcome.ResetPasswordActivity"
             android:label="@string/app_name" />
          <activity
             android:name="com.SIMBA.Welcome.PinVerificationActivity"
