@@ -56,7 +56,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/emailaddress"
         android:layout_centerHorizontal="true"
-        android:textColor="#FF0000"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#FF0000" 
+ />
 
 </RelativeLayout>

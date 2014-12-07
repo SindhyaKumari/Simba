@@ -223,7 +223,7 @@ public class LoginActivity extends Activity
 				               Intent dashBoardIntent = new Intent(LoginActivity.this,MainActivity.class);
 				               startActivity(dashBoardIntent);
 				               // Close Login Screen
-				               dialog.dismiss();
+				             
 				               finish();
 						   }
 						   else {
@@ -258,7 +258,7 @@ public class LoginActivity extends Activity
 			   if(result != null && (result.equals("Please Verify Your Account"))){
 				   dialog.dismiss();
 				   setLoginErrorMsg(result);
-				   Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+				//   Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
 				   
 				   //pinVerification intent created for calling Pin Verification activity
 				   Intent pinVerificationIntent = new Intent(LoginActivity.this,PinVerificationActivity.class);
