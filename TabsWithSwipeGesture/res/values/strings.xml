@@ -43,5 +43,6 @@
     <string name="question">Whats your grandfather home town ?</string>
     <string name="answer">Enter answer</string>
     <string name="secret_question_comments">This question will be asked from you along with email address if you forgot your password</string>
+    <string name="resetpassword">Reset your Password by entering new one ....</string>
     
 </resources>
