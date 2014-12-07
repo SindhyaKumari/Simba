@@ -195,6 +195,7 @@ public class LoginActivity extends Activity
 			   if (isNetworkAvailable())
 			   {
 				   // Building Parameters
+				   
 				   System.out.println("name: " + password_ + email_);
 				   List<NameValuePair> loginParams_ = new ArrayList<NameValuePair>();
 				   loginParams_.add(new BasicNameValuePair("tag", loginTag));
@@ -210,6 +211,7 @@ public class LoginActivity extends Activity
 						   String res = json.getString(successKey);
 						   if(Integer.parseInt(res) == 1)
 						   {
+							   dialog.dismiss();
 							   // Store user details in shared preferences
 							   LoginSession loginSession = new LoginSession(LoginActivity.this);
 							   JSONObject jsonUser = json.getJSONObject("user");
@@ -267,7 +269,7 @@ public class LoginActivity extends Activity
 				   {
 					   public void onClick(DialogInterface dialog, int which)
 					   {
-						   dialog.cancel();
+						   dialog.dismiss();
 					   }
 				   }).show();
 				   //loginErrorMsg.setText(result);
