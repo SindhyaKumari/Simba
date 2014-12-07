@@ -1,4 +1,5 @@
-/com
-/dataAccessPackage
 /info
-/org
+/.gitignore
+/com/
+/dataAccessPackage/
+/org/
