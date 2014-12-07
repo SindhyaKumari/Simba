@@ -196,7 +196,7 @@ public class LoginActivity extends Activity
 			   {
 				   // Building Parameters
 				   
-				   System.out.println("name: " + password_ + email_);
+				   Log.e("checker",password_ + email_);
 				   List<NameValuePair> loginParams_ = new ArrayList<NameValuePair>();
 				   loginParams_.add(new BasicNameValuePair("tag", loginTag));
 				   loginParams_.add(new BasicNameValuePair(emailKey, email_));
@@ -223,7 +223,7 @@ public class LoginActivity extends Activity
 				               startActivity(dashBoardIntent);
 				               // Close Login Screen
 				               finish();
-						   }
+						  }
 						   else
 						   {
 							   // Error in login
