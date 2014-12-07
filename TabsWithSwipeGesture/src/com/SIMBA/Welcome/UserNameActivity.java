@@ -39,7 +39,7 @@ public class UserNameActivity extends Activity
 				if(!(firstname.equals(""))  &&  !(lastname.equals("")))
 				{
 					errorMsg.setVisibility(View.GONE);
-					name = firstname + lastname;
+					name = firstname + " " +lastname;
 					//Calling email activity intent
 					Intent emailIntent = new Intent(UserNameActivity.this,EmailActivity.class);
 					emailIntent.putExtra("name", name);

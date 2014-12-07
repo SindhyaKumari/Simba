@@ -22,7 +22,7 @@ public class EmailActivity extends Activity
 	private Button continueEmail;
 	private EditText email;
 	private TextView errorMsg;
-	private String email_,username_;
+	private String email_,username_, name_;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -38,7 +38,7 @@ public class EmailActivity extends Activity
 		email.setText(email_, TextView.BufferType.EDITABLE);
 		
 		Intent i = getIntent();
-		username_ = i.getExtras().getString("name");
+		name_ = i.getExtras().getString("name");
 		username_ = getUsername(email_);
 		
 		continueEmail.setOnClickListener(new View.OnClickListener()
@@ -54,6 +54,7 @@ public class EmailActivity extends Activity
 					Log.e("user name", email_);
 					//Calling password activity intent
 					Intent passwordIntent = new Intent(EmailActivity.this,PasswordActivity.class);
+					passwordIntent.putExtra("name", name_);
 					passwordIntent.putExtra("username",username_);
 					passwordIntent.putExtra("email",email_);
 					startActivity(passwordIntent);	 

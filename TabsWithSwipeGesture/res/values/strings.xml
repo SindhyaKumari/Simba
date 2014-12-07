@@ -9,8 +9,11 @@
     <string name="note">GOOD TO SEE YOU</string>
     <string name="welcomenote">Welcome, please login below</string>
     <string name="email">Email address</string>
+    <string name="continueshopping_"> Show Shopping List </string>
+    <string name="createshopping_"> Create Shopping List </string>
     <string name="password">Password</string>
     <string name="loggedin">Log In</string>
+    <string name="shoppinglist_comments">SIMBA provides you a easy shopping list manager!</string>
     <string name="forgot">Forgot your password?</string>
     <string name="signupnote">Fill in your info to sign up</string>
     <string name="signuplabel">Sign Up</string>

@@ -37,7 +37,7 @@ public class SignUpActivity extends Activity
 	private Button signIn, verify;
 	private EditText secret_answer;
 	private TextView errorMsg;
-	private String email_,username_,password_, answer_, pin_, verify_ = "No";
+	private String email_,username_,password_, answer_, pin_, verify_ = "No", name_;
 	private static String registerURL_ = "http://eblueberry.hostoi.com/simba/";
 	private int PIN;
 	Context context;
@@ -54,6 +54,7 @@ public class SignUpActivity extends Activity
 		errorMsg = (TextView)findViewById(R.id.registerError);
 		
 		Intent i = getIntent();
+		name_ = i.getExtras().getString("name");
 		username_ = i.getExtras().getString("username");
 		email_ = i.getExtras().getString("email");
 		password_ = i.getExtras().getString("password");
@@ -79,7 +80,7 @@ public class SignUpActivity extends Activity
 						bm.setGmailPassword(Utils.decryptIt("TOLzqeBD151kRsyLSEVvLg==")); 
 						bm.setMailTo(email_);
 						bm.setFormSubject("SIMBA Account: Email Confirmation");
-						bm.setFormBody("Dear Sir/Madam,\n Welcome to the SIMBA community! \n\n Your account details:\n\n  Your login is: " + email_ + "\n  Your Secert Answer is: " + secret_answer.getText().toString() + "\n\n  To verify your e-mail address, please enter the following pin number: \n  " + PIN + "\n\nThank you for registering!\n\nBest Regards,\nThe SIMBA Team" );
+						bm.setFormBody("Dear " + name_ +",\n Welcome to the SIMBA community! \n\n Your account details:\n\n  Your login is: " + email_ + "\n  Your Password is: " + password_ + "\n  Your Secert Answer is: " + secret_answer.getText().toString() + "\n\n  To verify your e-mail address, please enter the following pin number: \n  " + PIN + "\n\nThank you for registering!\n\nBest Regards,\nThe SIMBA Team" );
 						bm.send();
 						//End of Email Verification
 						new RegistrationTask().execute(registerURL_);
@@ -128,7 +129,6 @@ public class SignUpActivity extends Activity
 	   private static final String registerTag = "register";
 	   private static final String pinnumber = "pin_number";
 	   private static final String verify = "verification";
-	   private boolean checkFlag = false;
 	   JSONParser jsonParser;
 	   
 	   //Before starting background thread show progress dailog
@@ -169,12 +169,13 @@ public class SignUpActivity extends Activity
 		       registerParams_.add(new BasicNameValuePair(answerKey, answer_));
 		       registerParams_.add(new BasicNameValuePair(pinnumber, pin_));
 		       registerParams_.add(new BasicNameValuePair(verify, verify_));
-		       // System.out.println();
+		       //System.out.println("all things: " + username_ + email_ + password_ + answer_ + pin_ + verify_);
         
 		       // getting JSON Object
 		       JSONObject json = jsonParser.getJSONFromUrl("POST",params[0], registerParams_);
         
-		       Log.e("json",json.toString());
+		       System.out.println("json: " + json.toString());
+		       //Log.e("json",json.toString());
 
 		       // check for register response
 		       try

@@ -15,7 +15,7 @@ public class PasswordActivity  extends Activity
 	private Button continuePassword;
 	private EditText password;
 	private TextView errorMsg;
-	private String email_,username_,password_;
+	private String email_, username_, password_, name_;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -29,8 +29,10 @@ public class PasswordActivity  extends Activity
 
 		password_= password.getText().toString();
 		Intent i = getIntent();
+		name_ = i.getExtras().getString("name");
 		username_ = i.getExtras().getString("username");
 		email_ = i.getExtras().getString("email");
+		
 		//Log.e("user name", username_ + email_);
 		
 		continuePassword.setOnClickListener(new View.OnClickListener()
@@ -41,9 +43,11 @@ public class PasswordActivity  extends Activity
 				//Checking whether input is null or not
 				if(password.length() > 5)
 				{
+					password_= password.getText().toString();
 					errorMsg.setVisibility(View.GONE);
 					//Calling password activity intent
 					Intent signUpIntent = new Intent(PasswordActivity.this,SignUpActivity.class);
+					signUpIntent.putExtra("name",name_);
 					signUpIntent.putExtra("username",username_);
 					signUpIntent.putExtra("email",email_);
 					signUpIntent.putExtra("password",password_);

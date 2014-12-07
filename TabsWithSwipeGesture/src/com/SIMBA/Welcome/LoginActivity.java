@@ -213,7 +213,7 @@ public class LoginActivity extends Activity
 							   JSONObject jsonUser = json.getJSONObject("user");
 							   // Clear all previous data in sharedpreferences
 							   loginSession.clearDataAfterLogout();
-				               loginSession.createLoginSession(jsonUser.getString(emailKey),jsonUser.getString(nameKey)); 
+				               loginSession.createLoginSession(jsonUser.getString(emailKey),jsonUser.getString(passwordKey)); 
 				               // Launch Dashboard Screen
 				               Intent dashBoardIntent = new Intent(LoginActivity.this,MainActivity.class);
 				               startActivity(dashBoardIntent);

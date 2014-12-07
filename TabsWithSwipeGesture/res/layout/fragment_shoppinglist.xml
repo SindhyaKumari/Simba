@@ -4,5 +4,52 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#f7f7f7" >
+
+     <Button
+         android:id="@+id/button1"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_above="@+id/button2"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentRight="true"
+         android:layout_marginBottom="22dp"
+         android:background="@drawable/continuebtn"
+         android:text="@string/continueshopping_"
+         android:textColor="#409ed3" />
+
+     <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="66dp"
+        android:text="Shopping List Manager"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#3B5998"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+     <Button
+         android:id="@+id/button2"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentRight="true"
+         android:layout_marginBottom="48dp"
+         android:background="@drawable/continuebtn"
+         android:text="@string/createshopping_"
+         android:textColor="#409ed3" />
+
+     <TextView
+         android:id="@+id/textView2"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/textView1"
+         android:layout_marginTop="48dp"
+         android:gravity="center"
+         android:text="@string/shoppinglist_comments" />
    
 </RelativeLayout>

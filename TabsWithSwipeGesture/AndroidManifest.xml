@@ -75,6 +75,18 @@
         <activity
             android:name="info.androidhive.tabsswipe.ResultsActivity"
             android:label="@string/app_name" />
+        <activity
+            android:name="info.androidhive.tabsswipe.CreateList"
+            android:label="@string/app_name" />
+        <activity
+            android:name="info.androidhive.tabsswipe.ItemsData"
+            android:label="@string/app_name" />
+        <activity
+            android:name="info.androidhive.tabsswipe.ViewAllLists"
+            android:label="@string/app_name" />
+        <activity
+            android:name="info.androidhive.tabsswipe.ViewList"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>
