@@ -35,11 +35,12 @@ public class EmailActivity extends Activity
 		errorMsg = (TextView)findViewById(R.id.emailError);
 		
 		email_ = getEmailID();
+		if(email_ != null){
 		email.setText(email_, TextView.BufferType.EDITABLE);
+		}
 		
 		Intent i = getIntent();
 		name_ = i.getExtras().getString("name");
-		username_ = getUsername(email_);
 		
 		continueEmail.setOnClickListener(new View.OnClickListener()
 		{
@@ -48,6 +49,7 @@ public class EmailActivity extends Activity
 			{
 				//Checking whether input is null or not
 				email_= email.getText().toString();
+				username_ = getUsername(email_);
 				if(isEmailValid(email_) && !(email_.equals("")))
 				{
 					errorMsg.setVisibility(View.GONE);
