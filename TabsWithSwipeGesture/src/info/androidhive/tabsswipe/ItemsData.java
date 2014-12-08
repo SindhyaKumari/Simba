@@ -1,15 +1,12 @@
 package info.androidhive.tabsswipe;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.TextView;
 
 public class ItemsData extends Activity{
 
@@ -19,7 +16,7 @@ public class ItemsData extends Activity{
 	
 	private static final String DATABASE_NAME = "ShoppingListDB";
 	private static final String DATABASE_TABLE1 = "ListTable";
-	private static final int DATABASE_VERSION = 7;
+	private static final int DATABASE_VERSION = 8;
 
 	private DBHelper ourHelper;
 	private final Context ourContext;
@@ -131,7 +128,11 @@ public class ItemsData extends Activity{
 		return result_list;
 	}
 
+	public void deleteList(String value) {
 
+		ourDatabase.delete(DATABASE_TABLE1, KEY_LIST + "=?", new String[]{value});
+	
+	}
 	
 }
 

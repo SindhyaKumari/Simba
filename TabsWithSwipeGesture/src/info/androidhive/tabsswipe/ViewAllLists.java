@@ -3,24 +3,16 @@ package info.androidhive.tabsswipe;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class ViewAllLists extends ListActivity{
@@ -55,16 +47,6 @@ public class ViewAllLists extends ListActivity{
         		adapter.notifyDataSetChanged();
         		}
         datacount.close();
-/*
-        ItemsData info = new ItemsData(this);
-		info.open();
-		for (int s=1; s<=counter; s++){
-		String data = info.getDataList(s);
-		list.add(data);
-        adapter.notifyDataSetChanged();
-		}
-		info.close();
-*/		
 //        adapter.notifyDataSetChanged();
          
         Button createlist;
@@ -81,9 +63,9 @@ public class ViewAllLists extends ListActivity{
 		});
 		
 		 getListView().setOnItemLongClickListener(new OnItemLongClickListener(){
-			    public boolean onItemLongClick(    AdapterView<?> arg0,    View v,    int position,    long id){
+			    public boolean onItemLongClick(AdapterView<?> arg0, View v, int position, long id){
 			       
-			    	Dialog d = new Dialog(ViewAllLists.this);
+			 /*   	Dialog d = new Dialog(ViewAllLists.this);
 					d.setTitle("list created. item added.");
 					TextView display = new TextView (ViewAllLists.this);
 					display.setText("Success!!"+"\nview: "+v+"\nposition: "+position+"\nid: "+id);
@@ -100,26 +82,35 @@ public class ViewAllLists extends ListActivity{
 					listViewOptions.setAdapter(dogsAdapter(popUpContents));
 			    */	
 					
-					final CharSequence[] items = {"Red", "Green", "Blue"};
+					final CharSequence[] items = {"Delete List", "Add an Item"};
 
 					AlertDialog.Builder builder = new AlertDialog.Builder(ViewAllLists.this);
 
-					builder.setTitle("Pick a color");
+					builder.setTitle("Select an Option");
 					builder.setItems(items, new DialogInterface.OnClickListener() {
 
 					   public void onClick(DialogInterface dialog, int item) {
-					        Toast.makeText(getApplicationContext(), items[item], Toast.LENGTH_SHORT).show();
-					   }
 
+						   	int opt_num;
+							opt_num= item ;
+	
+					        if (opt_num == 0)
+					        {
+					        	ItemsData info = new ItemsData(ViewAllLists.this);
+					    		info.open();
+					    		info.deleteList(itemValue);
+					    		info.close();
+					   }
+					   }
 					});
 
 					AlertDialog alert = builder.create();
-
 					alert.show();
 			        return false;
 			      }
 			    }
 			  );
+		 adapter.notifyDataSetChanged();
     }
     
 	@Override
@@ -152,22 +143,4 @@ public class ViewAllLists extends ListActivity{
 		
 
 	}
-
-/*	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		// TODO Auto-generated method stub
-		super.onCreateContextMenu(menu, v, menuInfo);
-		if (v.getId()==R.id.ll1) {
-		    AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-		    menu.setHeaderTitle(Countries[info.position]);
-		    String[] menuItems = getResources().getStringArray(R.array.menu);
-		    for (int i = 0; i<menuItems.length; i++) {
-		      menu.add(Menu.NONE, i, i, menuItems[i]);
-		    }
-
-	}
-	
-*/
-
 }
