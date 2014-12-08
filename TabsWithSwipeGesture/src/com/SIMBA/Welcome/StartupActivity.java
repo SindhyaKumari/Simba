@@ -32,7 +32,7 @@ public class StartupActivity extends Activity
         loginObj = new LoginSession(StartupActivity.this);
         
         //Checking login status whether user already logged in or not
-        if(loginObj.checkLoginStatus()){
+      /*  if(loginObj.checkLoginStatus()){
         	userDetails =loginObj.getUserDetails();
         	String email = userDetails.get("email");
         	Intent mainIntent = new Intent(StartupActivity.this,MainActivity.class);
@@ -41,7 +41,7 @@ public class StartupActivity extends Activity
 			
 			//close startup activity
 			finish();
-        }
+        }*/
         
                 
         /*Performing action on login button */

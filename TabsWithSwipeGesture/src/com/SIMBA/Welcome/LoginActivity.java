@@ -224,20 +224,16 @@ public class LoginActivity extends Activity
 							   // Clear all previous data in sharedpreferences
 							   loginSession.clearDataAfterLogout();
 				               loginSession.createLoginSession(jsonUser.getString(emailKey),jsonUser.getString(passwordKey)); 
-<<<<<<< HEAD
+
 				               // Launch Main Screen
 				               Intent mainIntent = new Intent(LoginActivity.this,MainActivity.class);
 				               mainIntent.putExtra("email",email_);
 				               startActivity(mainIntent);
 				               
-				               // Close Login Screen
-=======
-				               // Launch Dashboard Screen
-				               Intent dashBoardIntent = new Intent(LoginActivity.this,MainActivity.class);
-				               startActivity(dashBoardIntent);
+				              
 				               // Close Login Screen
 				               dialog.dismiss();
->>>>>>> origin/master
+
 				               finish();
 						   }
 						   else
