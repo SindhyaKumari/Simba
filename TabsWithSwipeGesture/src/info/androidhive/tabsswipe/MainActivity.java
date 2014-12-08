@@ -44,7 +44,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private ViewPager viewPager;
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;
-	String mCurrentPhotoPath,email;
+	String mCurrentPhotoPath;
 	// Tab titles
 	private String[] tabs = { "ShoppingList Manager", "Upload Receipt", "Promotional Offers" };
 	
@@ -63,11 +63,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		viewPager.setAdapter(mAdapter);
 		actionBar.setHomeButtonEnabled(false);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);		
-    
-		//get intent 
-		Intent i = getIntent();
-		email = i.getExtras().getString("email");
-		
+
 		// Adding Tabs
 		for (String tab_name : tabs)
 		{
@@ -358,7 +354,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item)
 	{
-	
+		//get intent 
+		Intent i = getIntent();
+		final String email = i.getExtras().getString("email");
 		// checking which item is being selected
 		LoginSession loginObj = new LoginSession(getApplicationContext());
 		String str = (String) item.getTitle();

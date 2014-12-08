@@ -17,7 +17,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,7 +54,6 @@ public class ResetPasswordActivity  extends Activity{
 		
 		Intent i = getIntent();
 		email_ = i.getExtras().getString("email");
-		Log.e("reset password", email_);
 		confirmButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -104,7 +102,7 @@ public class ResetPasswordActivity  extends Activity{
 				   repass_ = retypePassword.getText().toString();
 				   if (checkFieldIsEmpty(pass_,repass_)){
 					   if(pass_.length() > 5) { 
-					      if(pass_.equals(repass_)){
+					   if(pass_.equals(repass_)){
 					   jsonParser = new JSONParser();
 					   errorMsg.setText(" "); 
 					   }else{
