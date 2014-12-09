@@ -59,10 +59,6 @@ public class LoginSession
 	//Clear editor data after logout
 	public void clearDataAfterLogout()
 	{
-		editorLogin.remove(emailKey);
-		editorLogin.remove(loginKey);
-		editorLogin.remove(passwordKey);
-		editorLogin.remove(loginFile_);
 		editorLogin.clear();
 		editorLogin.commit();
 	}

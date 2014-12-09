@@ -367,7 +367,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		if(str.equals("Logout"))
 		{
 			Toast.makeText(MainActivity.this, "Logout!", Toast.LENGTH_SHORT).show();
-			loginObj.checkLoginStatus();
+			loginObj.clearDataAfterLogout();
 			
 			//calling login activity
 			Intent startUpIntent = new Intent(MainActivity.this, LoginActivity.class);
