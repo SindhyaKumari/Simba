@@ -57,11 +57,12 @@ public class AsyncProcessTask extends AsyncTask<String, String, Boolean>
 			
 			// Name of application you created
 			// sindhya name of application: SIMBA NUCES
-			restClient.applicationId = "Shopping Cart Insight through MBA";
+			//restClient.applicationId = "Shopping Cart Insight through MBA";
+			restClient.applicationId = "FYPSIMBA";
 			// You should get e-mail from ABBYY Cloud OCR SDK service with the application password
 			//sindhya id key = vwUDXNNm9rekWBJ89zWm+UQh
-			restClient.password = "jzJSUuMdJvw06+0nF6b8ybjl";
-			
+			//restClient.password = "jzJSUuMdJvw06+0nF6b8ybjl";
+			restClient.password = "oQsidFZ2VbI1X1+y5d07rXDQ ";
 			// Obtain installation id when running the application for the first time
 			SharedPreferences settings = activity.getPreferences(Activity.MODE_PRIVATE);
 			String instIdName = "installationId";

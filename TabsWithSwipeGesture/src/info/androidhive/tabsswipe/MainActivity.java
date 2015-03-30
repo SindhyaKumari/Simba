@@ -283,6 +283,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	@Override
 	public void onClick(View v)
 	{
+		//MergingText
 		Intent results = new Intent(this, ResultsActivity.class);
     	results.putExtra("IMAGE_PATH", fileName);
     	results.putExtra("RESULT_PATH", resultUrl);

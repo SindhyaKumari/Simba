@@ -14,6 +14,9 @@ public class ResultsActivity extends Activity
 {
 	String outputPath;
 	TextView tv;
+	//yai add ki hy idhar line neche s cooment kar dia hy
+	StringBuffer contents = new StringBuffer();
+	StringSplitter SS;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -44,7 +47,7 @@ public class ResultsActivity extends Activity
 		}
 		try
 		{
-			StringBuffer contents = new StringBuffer();
+			//StringBuffer contents = new StringBuffer();
 
 			FileInputStream fis = openFileInput(outputPath);
 			try
@@ -63,11 +66,19 @@ public class ResultsActivity extends Activity
 			}
 
 			displayMessage(contents.toString());
+			SS = new StringSplitter(display());
+			SS.Splitter();
 		}
 		catch (Exception e)
 		{
 			displayMessage("Error: " + e.getMessage());
 		}
+	}
+	
+	public String display ()
+	{
+		String str = contents.toString();
+		return str;
 	}
 	
 	public void displayMessage( String text )

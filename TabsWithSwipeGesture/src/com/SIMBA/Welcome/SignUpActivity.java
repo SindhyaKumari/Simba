@@ -77,7 +77,7 @@ public class SignUpActivity extends Activity
 						BackgroundMail bm = new BackgroundMail(context);
 						bm.setGmailUserName("simba.nuces@gmail.com");
 		                //"V8Y3TPndPfWYKh/I0BanRg==" is crypted "password"
-						bm.setGmailPassword(Utils.decryptIt("TOLzqeBD151kRsyLSEVvLg==")); 
+						bm.setGmailPassword(Utils.decryptIt("TOLzqeBD150hNOoCBc5Ntg==")); 
 						bm.setMailTo(email_);
 						bm.setFormSubject("SIMBA Account: Email Confirmation");
 						bm.setFormBody("Dear " + name_ +",\n Welcome to the SIMBA community! \n\n Your account details:\n\n  Your login is: " + email_ + "\n  Your Password is: " + password_ + "\n  Your Secert Answer is: " + secret_answer.getText().toString() + "\n\n  To verify your e-mail address, please enter the following pin number: \n  " + PIN + "\n\nThank you for registering!\n\nBest Regards,\nThe SIMBA Team" );

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+     <TextView
+        android:id="@+id/heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world"
+        android:textSize="28dp" 
+        android:gravity ="center"/>
+
+    <Button
+        android:id="@+id/UndoBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/heading"
+        android:text="Undo"
+        android:onClick="onUndoClick"
+       android:visibility="visible"
+        android:textSize="24dp"  />
+
+    <Button
+        android:id="@+id/MergeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/UndoBtn"
+        android:layout_alignBottom="@+id/UndoBtn"
+        android:layout_alignParentRight="true"
+        android:text="Merge" 
+        android:onClick="onMergeClick"
+         android:textSize="24dp" />
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/UndoBtn" >
+
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+        </ListView>
+        
+    </LinearLayout>
+
+</RelativeLayout>
