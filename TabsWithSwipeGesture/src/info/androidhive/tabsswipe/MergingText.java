@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -26,7 +27,8 @@ public class MergingText extends Activity{
     Button mergebtn,undobtn;
     ArrayList<String> Items = new ArrayList<String>();
     int position1= -1 , position2 = -1;
-    String item1,item2;
+    String item1,item2, itemlist;
+    String[] itemslistsplit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,12 +39,18 @@ public class MergingText extends Activity{
         undobtn = (Button) findViewById(R.id.UndoBtn);
         
         undobtn.setEnabled(false);
-        // textview;
-        Items.add("Coca cola");
-        Items.add("Kurkure chips");
-        Items.add("Wheatable Biscuit");
-        Items.add("Green Tea");
         
+      //get intent 
+        Intent intent = getIntent();
+      	itemlist = intent.getExtras().getString("SplittedString");
+      	
+      	//Splitting string
+      	itemslistsplit = itemlist.split("\n");
+        // textview;
+      	
+      	for(int i = 0 ; i< itemslistsplit.length ; i++){
+              Items.add(itemslistsplit[i]);
+      	}
         dataAdapter = new ArrayAdapter<String>(this,
         		android.R.layout.simple_list_item_multiple_choice, Items);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);

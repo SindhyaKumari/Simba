@@ -42,10 +42,10 @@ public class StringSplitter
 	    	{
 	    		// when we find 150ml check forward value is  based on numeric or character 
 	    		// is mein ek condition hoge like khali sirf charaters na hn wala bhi
-	    		if( !(temp[j].matches("[.0-9]+")) && temp[j].matches("[a-zA-Z ]*\\d+.*") && ((j+1)<temp.length) &&  temp[j+1].matches("[.0-9]+"))
+	    		if( !(temp[j].matches("[.0-9]+")) && temp[j].matches("[a-zA-Z ]*\\d+.*") && ((j+1)<temp.length) &&  (temp[j+1].matches("[.0-9]+") || temp[j+1].matches("[A-Za-z0-9$&+,:;=?@#|~`'<>.-^*()%!]+")))
 	    		{
 	    			//System.out.println(" when we find 150ml check forward value is  based on numeric or character ");
-	    			newProducts = newProducts + getValues (0, j, temp) + "\n";
+	    			newProducts = newProducts + getValues (0, j+1, temp) + "\n";
 	    			check = true;
 	    		}
 	    		
@@ -57,15 +57,15 @@ public class StringSplitter
 	    			check = true;
 	    		}
 	    		//Kurkure chips 12g
-	    	    else if( !(temp[j].matches("[.0-9]+")) && temp[j].matches("[a-zA-Z ]*\\d+.*") && ((j+1)==temp.length))
+	    	    else if(!(temp[j].matches("[.0-9]+")) && temp[j].matches("[a-zA-Z ]*\\d+.*") && ((j+1)==temp.length))
 	    	    {
-	    	    	newProducts = newProducts + getValues (0, j, temp) + "\n";
+	    	    	newProducts = newProducts + getValues (0, j+1, temp) + "\n";
 	    	    	check = true;
 	    	    }
 	    		//Kurkure chips 
-	    	    else if( temp[j].matches("[a-zA-Z]+")&&  ((j+1)==temp.length))
+	    	    else if(temp[j].matches("[a-zA-Z]+") &&  ((j+1)==temp.length))
 	    	    {
-	    	    	newProducts = newProducts + getValues (0, j, temp) + "\n";
+	    	    	newProducts = newProducts + getValues (0, j+1, temp) + "\n";
 	    	    	check = true;
 	    	    }
 	    	}

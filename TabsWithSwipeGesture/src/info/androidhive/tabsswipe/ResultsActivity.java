@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.TextView;
@@ -67,12 +68,20 @@ public class ResultsActivity extends Activity
 
 			displayMessage(contents.toString());
 			SS = new StringSplitter(display());
-			SS.Splitter();
+			MergeIntent(SS.Splitter());
 		}
 		catch (Exception e)
 		{
 			displayMessage("Error: " + e.getMessage());
 		}
+	}
+	
+	private void MergeIntent(String outputstr){
+		
+		Intent MergeIntent = new Intent(ResultsActivity.this, MergingText.class);
+		MergeIntent.putExtra("SplittedString", outputstr);
+		startActivity(MergeIntent);
+		
 	}
 	
 	public String display ()
