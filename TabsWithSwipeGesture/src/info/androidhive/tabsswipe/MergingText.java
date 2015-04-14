@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -24,174 +26,205 @@ public class MergingText extends Activity{
 
 	ListView listView;
     ArrayAdapter<String> dataAdapter;
-    Button mergebtn,undobtn;
+    Button mergeUpbtn,undobtn,mergeDownbtn,submit;
     ArrayList<String> Items = new ArrayList<String>();
     int position1= -1 , position2 = -1;
-    String item1,item2, itemlist;
+    String item1, item2, itemlist,storeName,InvoiceNumber;
     String[] itemslistsplit;
+    SharedPreferences sharedpreferences;
+    String MY_PREFS_NAME = "myprefs";
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mergingtext);
         
         listView = (ListView) findViewById(R.id.listView1);
-        mergebtn = (Button) findViewById(R.id.MergeBtn);
+        mergeUpbtn = (Button) findViewById(R.id.mergeupbtn);
+        mergeDownbtn = (Button) findViewById(R.id.mergedownbtn);
         undobtn = (Button) findViewById(R.id.UndoBtn);
-        
+        submit = (Button) findViewById(R.id.submitbtn);
         undobtn.setEnabled(false);
         
-      //get intent 
+        //get Intent
         Intent intent = getIntent();
-      	itemlist = intent.getExtras().getString("SplittedString");
-      	
-      	//Splitting string
-      	itemslistsplit = itemlist.split("\n");
-        // textview;
-      	
-      	for(int i = 0 ; i< itemslistsplit.length ; i++){
-              Items.add(itemslistsplit[i]);
-      	}
+        itemlist = intent.getExtras().getString("SplittedString");
+        storeName = intent.getExtras().getString("StoreName");
+        InvoiceNumber = intent.getExtras().getString("InvoiceNumber");
+        
+        //Store value of store and invoice number in sharedpreferences
+        sharedpreferences=getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        Editor editor=sharedpreferences.edit();
+        editor.putString("StoreName",storeName);
+        editor.putString("InvoiceNumber",InvoiceNumber);
+        editor.commit();
+        
+        //Splitting string
+        itemslistsplit = itemlist.split("\n");
+         // textview;
+        
+        for(int i = 0 ; i< itemslistsplit.length ; i++){
+               Items.add(itemslistsplit[i]);
+        }
+      
         dataAdapter = new ArrayAdapter<String>(this,
-        		android.R.layout.simple_list_item_multiple_choice, Items);
+          android.R.layout.simple_list_item_multiple_choice, Items);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         listView.setAdapter(dataAdapter);
  
-        listView.setOnItemLongClickListener(new OnItemLongClickListener() {
-			
-		
-			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				EditItemName(view,position);
-				return false;
-			}
-		});
-			
-			
         
+        submit.setOnClickListener(new View.OnClickListener() {
+   
+   @Override
+   public void onClick(View v) {
+    new ProductsAsyncTask(MergingText.this).execute(Items);
+   }
+  });
+         
     }
     
-    private String  EditItemName(final View view, final int pos){
-       final String result = "";
-    	// get edititemnamedailog.xml view
-		LayoutInflater li = LayoutInflater.from(MergingText.this);
-		View promptsView = li.inflate(R.layout.edititemnamedialog, null);
-
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				MergingText.this);
-
-		// set edititemnamedailog  to alertdialog builder
-		alertDialogBuilder.setView(promptsView);
-
-		 final EditText userInput = (EditText) promptsView
-				.findViewById(R.id.editTextDialogUserInput);
-
-		// set dialog message
-		alertDialogBuilder.setCancelable(false).setPositiveButton("OK",new DialogInterface.OnClickListener() {
-			    public void onClick(DialogInterface dialog,int id) {
-				// get user input and set it to result
-				
-		    		dataAdapter.remove(dataAdapter.getItem(pos)); 
-		    		NotifyAdapterChanges();
-		           	dataAdapter.insert(userInput.getText().toString(), pos);
-		            NotifyAdapterChanges();
-			    	  
-
-			    }
-			  })
-			.setNegativeButton("Cancel",
-			  new DialogInterface.OnClickListener() {
-			    public void onClick(DialogInterface dialog,int id) {
-				dialog.cancel();
-			    }
-			  });
-
-		// create alert dialog
-		AlertDialog alertDialog = alertDialogBuilder.create();
-
-		// show it
-		alertDialog.show();
-
-		
-		return result;
-	
-    }
+ 
     public void onUndoClick(View v) {
-    	
-    	
-		dataAdapter.remove(dataAdapter.getItem(position1)); 
-		NotifyAdapterChanges();
-       	dataAdapter.insert(item1, position1);
+     
+     
+  dataAdapter.remove(dataAdapter.getItem(position1)); 
+  NotifyAdapterChanges();
+        dataAdapter.insert(item1, position1);
         NotifyAdapterChanges();
-      	dataAdapter.insert(item2, position2);
+       dataAdapter.insert(item2, position2);
         NotifyAdapterChanges();
-       
-    
+        
+        undobtn.setEnabled(false);
     }
+    
+ public void onMergeUpClick(View v) {
+    
+    SparseBooleanArray checked = listView.getCheckedItemPositions();
+       ArrayList<String> selectedItems = new ArrayList<String>();
+       String selected = "";
+       int cntChoice = checked.size();
+       position1 = -1;
+      
+       if(cntChoice < 3){
+         for (int i = 0; i < cntChoice ; i++) {
+             // Item position in adapter
+             int position = checked.keyAt(i);
+             // Add sport if it is checked i.e.) == TRUE!
+             if (checked.valueAt(i) && (position1 != -1)){
+                 selectedItems.add(dataAdapter.getItem(position));
+               position2 = position;
+              }else{
+               selectedItems.add(dataAdapter.getItem(position));
+               position1 = position;
+              }
+         
+             }
+         
+         String[] outputStrArr = new String[selectedItems.size()];
+     
+         for (int i = 0; i < selectedItems.size(); i++) {
+             outputStrArr[i] = selectedItems.get(i);
+             selected +=  outputStrArr[i] + ",";
+         }
+         
+         
+         Toast.makeText(getApplicationContext(),"Selected items list " +  selected, Toast.LENGTH_LONG).show();
+         checkPostionOfItemsAndNewItem(position1 ,position2,true);
+      }
+         else {
+          
+          Toast.makeText(getApplicationContext(), "Please select only 2 items", Toast.LENGTH_LONG).show();
+         }
 
-	public void onMergeClick(View v) {
-		undobtn.setEnabled(true);	
-	  SparseBooleanArray checked = listView.getCheckedItemPositions();
-      //  ArrayList<String> selectedItems = new ArrayList<String>();
+      checked.clear();
+   
+  }
+ public void onMergeDownClick(View v) {
+  
+   SparseBooleanArray checked = listView.getCheckedItemPositions();
+      ArrayList<String> selectedItems = new ArrayList<String>();
       String selected = "";
       int cntChoice = checked.size();
-      
-     if(cntChoice < 3){
+      position1 = -1;
+     
+      if(cntChoice < 3){
         for (int i = 0; i < cntChoice ; i++) {
             // Item position in adapter
             int position = checked.keyAt(i);
             // Add sport if it is checked i.e.) == TRUE!
             if (checked.valueAt(i) && (position1 != -1)){
-            	    //selectedItems.add(dataAdapter.getItem(position));
-            		position2 = position;
-            	}else{
-            		position1 = position;
-            	}
+                selectedItems.add(dataAdapter.getItem(position));
+              position2 = position;
+             }else{
+              selectedItems.add(dataAdapter.getItem(position));
+              position1 = position;
+             }
         
             }
         
-        /*String[] outputStrArr = new String[selectedItems.size()];
+        String[] outputStrArr = new String[selectedItems.size()];
     
         for (int i = 0; i < selectedItems.size(); i++) {
             outputStrArr[i] = selectedItems.get(i);
             selected +=  outputStrArr[i] + ",";
-        }*/
+        }
         
         
-        Toast.makeText(getApplicationContext(), selected, Toast.LENGTH_LONG).show();
-        checkPostionOfItemsAndNewItem(position1 ,position2);
+        Toast.makeText(getApplicationContext(),"Selected items list " +  selected, Toast.LENGTH_LONG).show();
+        checkPostionOfItemsAndNewItem(position1 ,position2,false);
      }
         else {
-        	
-        	Toast.makeText(getApplicationContext(), "check more than 2", Toast.LENGTH_LONG).show();
+         
+         Toast.makeText(getApplicationContext(), "Please select only 2 items", Toast.LENGTH_LONG).show();
         }
 
      checked.clear();
-		
-	}
+  
+ }
+ 
 
-    private void checkPostionOfItemsAndNewItem(int pos1 ,int pos2){
-    	
-    	String tempitem = "";
-    	
-    	if( (pos1+1) == pos2 ){
-    		
-    		item1 = dataAdapter.getItem(pos1);
-    		item2 =  dataAdapter.getItem(pos2);
-    		tempitem = item1+item2;
-    		dataAdapter.remove(dataAdapter.getItem(pos1)); 
-    		NotifyAdapterChanges();
-           	dataAdapter.insert(tempitem, pos1);
+    private void checkPostionOfItemsAndNewItem(int pos1 ,int pos2, boolean up){
+     
+     String tempitem = "";
+     
+     if(up && (pos1+1) == pos2){
+      
+      item1 = dataAdapter.getItem(pos1);
+      item2 =  dataAdapter.getItem(pos2);
+      tempitem = item1+ " " +item2;
+      dataAdapter.remove(dataAdapter.getItem(pos1)); 
+      NotifyAdapterChanges();
+            dataAdapter.insert(tempitem, pos1);
             NotifyAdapterChanges();
             dataAdapter.remove(dataAdapter.getItem(pos2)); 
-        	NotifyAdapterChanges();
-    	}
-    	
+         NotifyAdapterChanges();
+         
+         // Enabling undo button 
+         undobtn.setEnabled(true);
+         
+     }else if((!up) && ((pos2-1) == pos1)){
+      item1 = dataAdapter.getItem(pos1);
+      item2 =  dataAdapter.getItem(pos2);
+      tempitem = item2 +  " " + item1;
+      dataAdapter.remove(dataAdapter.getItem(pos1)); 
+      NotifyAdapterChanges();
+            dataAdapter.insert(tempitem, pos1);
+            NotifyAdapterChanges();
+            dataAdapter.remove(dataAdapter.getItem(pos2)); 
+         NotifyAdapterChanges();
+         
+         // Enabling undo button 
+         undobtn.setEnabled(true);
+     }
+     else{
+      Toast.makeText(getApplicationContext(),"Incorrect items selected please item in sequence" , Toast.LENGTH_LONG).show();
+     }
+     
     }
+    
     private void NotifyAdapterChanges(){
-       	dataAdapter.notifyDataSetChanged();
-    	
+       
+     dataAdapter.notifyDataSetChanged();
+     
     }
-	
 }

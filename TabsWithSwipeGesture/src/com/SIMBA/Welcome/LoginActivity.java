@@ -22,6 +22,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -159,8 +161,10 @@ public class LoginActivity extends Activity
 	   private static final String passwordKey  = "password";
 	   private static final String nameKey  = "name";
 	   private static final String loginTag = "login";
+	   public static final String MyPREFERENCES = "MyPrefs" ;
 	   ProgressDialog dialog;
 	   JSONParser jsonParser;
+	   SharedPreferences sharedpreferences;
 		
 	   //Before starting background thread show progress dailog
 	   @Override
@@ -226,6 +230,10 @@ public class LoginActivity extends Activity
 				               loginSession.createLoginSession(jsonUser.getString(emailKey),jsonUser.getString(passwordKey)); 
 
 				               // Launch Main Screen
+				               //sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+				               Editor editor=sharedpreferences.edit();
+				               editor.putString("email",email_);
+				               editor.commit();
 				               Intent mainIntent = new Intent(LoginActivity.this,MainActivity.class);
 				               mainIntent.putExtra("email",email_);
 				               startActivity(mainIntent);

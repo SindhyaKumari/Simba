@@ -8,6 +8,7 @@ import java.io.Reader;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
 
@@ -68,7 +69,8 @@ public class ResultsActivity extends Activity
 
 			displayMessage(contents.toString());
 			SS = new StringSplitter(display());
-			MergeIntent(SS.Splitter());
+			Log.e("this is output: ", "as");
+			MergeIntent(SS.Stringsplitter());
 		}
 		catch (Exception e)
 		{
@@ -78,8 +80,11 @@ public class ResultsActivity extends Activity
 	
 	private void MergeIntent(String outputstr){
 		
+		
 		Intent MergeIntent = new Intent(ResultsActivity.this, MergingText.class);
 		MergeIntent.putExtra("SplittedString", outputstr);
+		MergeIntent.putExtra("StoreName", SS.getStoreName());
+		MergeIntent.putExtra("InvoiceNumber", SS.getInvoiceNumber());
 		startActivity(MergeIntent);
 		
 	}

@@ -1,27 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-    <CheckBox
-        android:id = "@+id/checkBox1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:layout_alignParentLeft="true"
-        android:focusable="false"
-        android:focusableInTouchMode="false"  
-     />
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="com.example.mergingtext.MainActivity" >
 
     <TextView
-        android:id="@+id/itemname"
+        android:id="@+id/heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Items List"
+        android:textSize="28sp" 
+        android:gravity ="center"/>
+
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/UndoBtn" >
+
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+        </ListView>
+        
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/mergedownbtn"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/checkBox1"
-        android:layout_alignBottom="@+id/checkBox1"
+        android:layout_alignBaseline="@+id/UndoBtn"
+        android:layout_alignBottom="@+id/UndoBtn"
+        android:layout_marginLeft="33dp"
+        android:layout_toRightOf="@+id/mergeupbtn"
+        android:background="@drawable/mergedown"
+        android:onClick="onMergeDownClick" />
+
+    <Button
+        android:id="@+id/submitbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/mergedownbtn"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/checkBox1"
-        android:text="Textview"
-         />
+        android:text="Submit" />
+
+    <Button
+        android:id="@+id/mergeupbtn"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/mergedownbtn"
+        android:layout_alignBottom="@+id/mergedownbtn"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/mergeup"
+        android:onClick="onMergeUpClick" />
+
+    <Button
+        android:id="@+id/UndoBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/heading"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/submitbtn"
+        android:background="@drawable/undo"
+        android:onClick="onUndoClick"
+        android:textSize="24sp"
+        android:visibility="visible" />
 
 </RelativeLayout>
