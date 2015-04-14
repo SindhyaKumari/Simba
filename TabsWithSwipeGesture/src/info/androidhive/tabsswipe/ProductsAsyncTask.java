@@ -15,6 +15,22 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
+
 public class ProductsAsyncTask  extends AsyncTask<ArrayList<String> ,String ,String>{
 
 	JSONParser jsonParser;
@@ -31,20 +47,6 @@ public class ProductsAsyncTask  extends AsyncTask<ArrayList<String> ,String ,Str
 	public ProductsAsyncTask (Context context)
 	{
 		context1 = context;
-	}
-	
-	@Override
-	protected void onPreExecute() {
-		// TODO Auto-generated method stub
-		super.onPreExecute();
-	
-	}
-
-	
-	@Override
-	protected void onPostExecute(String result) {
-		// TODO Auto-generated method stub
-		super.onPostExecute(result);
 	}
 
 	@Override
@@ -96,6 +98,7 @@ public class ProductsAsyncTask  extends AsyncTask<ArrayList<String> ,String ,Str
         return message;
 	}
 
+	
 	
  
 }

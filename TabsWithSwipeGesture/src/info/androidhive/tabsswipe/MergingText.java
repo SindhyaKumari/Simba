@@ -2,6 +2,9 @@ package info.androidhive.tabsswipe;
 
 import java.util.ArrayList;
 
+import com.example.mergingtext.InvoiceAndStoreNamePreferences;
+import com.example.mergingtext.ProductsAsyncTask;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -37,7 +40,7 @@ public class MergingText extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mergingtext);
+        setContentView(R.layout.activity_main);
         
         listView = (ListView) findViewById(R.id.listView1);
         mergeUpbtn = (Button) findViewById(R.id.mergeupbtn);
@@ -51,17 +54,14 @@ public class MergingText extends Activity{
         itemlist = intent.getExtras().getString("SplittedString");
         storeName = intent.getExtras().getString("StoreName");
         InvoiceNumber = intent.getExtras().getString("InvoiceNumber");
+   
         
-        //Store value of store and invoice number in sharedpreferences
-        sharedpreferences=getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        Editor editor=sharedpreferences.edit();
-        editor.putString("StoreName",storeName);
-        editor.putString("InvoiceNumber",InvoiceNumber);
-        editor.commit();
-        
+        InvoiceAndStoreNamePreferences s = new InvoiceAndStoreNamePreferences(MainActivity.this);
+        s.clearData();
+        s.createSession(storeName, InvoiceNumber);
         //Splitting string
         itemslistsplit = itemlist.split("\n");
-         // textview;
+
         
         for(int i = 0 ; i< itemslistsplit.length ; i++){
                Items.add(itemslistsplit[i]);
@@ -77,7 +77,7 @@ public class MergingText extends Activity{
    
    @Override
    public void onClick(View v) {
-    new ProductsAsyncTask(MergingText.this).execute(Items);
+    new ProductsAsyncTask(MainActivity.this).execute(Items);
    }
   });
          
@@ -194,24 +194,24 @@ public class MergingText extends Activity{
       tempitem = item1+ " " +item2;
       dataAdapter.remove(dataAdapter.getItem(pos1)); 
       NotifyAdapterChanges();
-            dataAdapter.insert(tempitem, pos1);
-            NotifyAdapterChanges();
-            dataAdapter.remove(dataAdapter.getItem(pos2)); 
-         NotifyAdapterChanges();
+      dataAdapter.insert(tempitem, pos1);
+      NotifyAdapterChanges();
+      dataAdapter.remove(dataAdapter.getItem(pos2)); 
+      NotifyAdapterChanges();
          
          // Enabling undo button 
          undobtn.setEnabled(true);
          
      }else if((!up) && ((pos2-1) == pos1)){
-      item1 = dataAdapter.getItem(pos1);
-      item2 =  dataAdapter.getItem(pos2);
-      tempitem = item2 +  " " + item1;
-      dataAdapter.remove(dataAdapter.getItem(pos1)); 
-      NotifyAdapterChanges();
-            dataAdapter.insert(tempitem, pos1);
-            NotifyAdapterChanges();
-            dataAdapter.remove(dataAdapter.getItem(pos2)); 
-         NotifyAdapterChanges();
+       item1 = dataAdapter.getItem(pos1);
+       item2 =  dataAdapter.getItem(pos2);
+       tempitem = item2 +  " " + item1;
+       dataAdapter.remove(dataAdapter.getItem(pos1)); 
+       NotifyAdapterChanges();
+       dataAdapter.insert(tempitem, pos1);
+       NotifyAdapterChanges();
+       dataAdapter.remove(dataAdapter.getItem(pos2)); 
+       NotifyAdapterChanges();
          
          // Enabling undo button 
          undobtn.setEnabled(true);
@@ -222,9 +222,9 @@ public class MergingText extends Activity{
      
     }
     
-    private void NotifyAdapterChanges(){
-       
-     dataAdapter.notifyDataSetChanged();
-     
+    private void NotifyAdapterChanges(){     
+        dataAdapter.notifyDataSetChanged();     
     }
+    
+   
 }

@@ -11,7 +11,7 @@ public class LevenshteinDistance {
 	
 	private List<HashMap<Integer,String>> product_list;
 	private ArrayList<String> Product;
-	private int PIDList [];
+	private String PIDList [];
 	private String tempPro, tempPrev;
 	private int calDistanceOfEachString [], size;
 	
@@ -21,10 +21,10 @@ public class LevenshteinDistance {
 		this.Product = Product;
 		this.product_list = product_list;
 		calDistanceOfEachString = new int[size];
-		PIDList = new int[Product.size()];
+		PIDList = new String[Product.size()];
     }
 
-	public int[] findDistanceOfAllProducts(){
+	public String[] findDistanceOfAllProducts(){
 		int mostMatchedStringIndex;
 		
 		Log.e("before ","Before distance"+size);
@@ -52,7 +52,7 @@ public class LevenshteinDistance {
 	        for(Entry<Integer, String> mapEntry: map.entrySet()) {
 	            if(mapEntry.getKey() == (index+1)){
 	                tempPrev = mapEntry.getValue();
-	                PIDList[i] = mapEntry.getKey();
+	                PIDList[i] = String.valueOf(mapEntry.getKey());
 	                 check = true;
 	                break;
 	            }
@@ -168,6 +168,4 @@ public class LevenshteinDistance {
 			   Log.e("Product" ,Product.get(i));
 		   }
 	   }
-
 }
-
