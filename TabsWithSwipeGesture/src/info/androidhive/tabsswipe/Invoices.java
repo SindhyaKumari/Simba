@@ -130,10 +130,11 @@ public class Invoices extends AsyncTask<String[],String,String> {
 		return uid;
 	}
 	private int getDataFromStoreTable(){
-		
+	
 		List<NameValuePair> storeParams_ = new ArrayList<NameValuePair>();
 		storeParams_ .add(new BasicNameValuePair("tag", getStoreTag));
-		storeParams_.add(new BasicNameValuePair("StoreName",temp.get("StoreName")));
+		storeParams_.add(new BasicNameValuePair("StoreName","Sunny Medico"));
+		Log.e("storename", " " + temp.get("StoreName"));
 		String message =null;
 		int sid = 0;
 		JSONObject json = jsonParser.getJSONFromUrl("POST",useridandstoreURL_, storeParams_);

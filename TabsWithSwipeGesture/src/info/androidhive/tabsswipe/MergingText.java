@@ -2,9 +2,7 @@ package info.androidhive.tabsswipe;
 
 import java.util.ArrayList;
 
-import com.example.mergingtext.InvoiceAndStoreNamePreferences;
-import com.example.mergingtext.ProductsAsyncTask;
-
+import dataAccessPackage.InvoiceAndStoreNamePreferences;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -40,7 +38,7 @@ public class MergingText extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_mergingtext);
         
         listView = (ListView) findViewById(R.id.listView1);
         mergeUpbtn = (Button) findViewById(R.id.mergeupbtn);
@@ -56,7 +54,7 @@ public class MergingText extends Activity{
         InvoiceNumber = intent.getExtras().getString("InvoiceNumber");
    
         
-        InvoiceAndStoreNamePreferences s = new InvoiceAndStoreNamePreferences(MainActivity.this);
+        InvoiceAndStoreNamePreferences s = new InvoiceAndStoreNamePreferences(MergingText.this);
         s.clearData();
         s.createSession(storeName, InvoiceNumber);
         //Splitting string
@@ -77,7 +75,7 @@ public class MergingText extends Activity{
    
    @Override
    public void onClick(View v) {
-    new ProductsAsyncTask(MainActivity.this).execute(Items);
+    new ProductsAsyncTask(MergingText.this).execute(Items);
    }
   });
          
