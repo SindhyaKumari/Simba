@@ -150,12 +150,16 @@ public class EmailActivity extends Activity
    }
 	class UserExistingTask extends AsyncTask<String , String,String>{
 
+		boolean IsNetworkAvail= false;
+		String message = null;
 		@Override
 		protected void onPreExecute() {
 			   if(isNetworkAvailable())
 			   {
 				  jsonParser = new JSONParser();
+				  IsNetworkAvail = true;
 			   }else{
+				   errorMsg.setVisibility(View.VISIBLE);
 				   errorMsg.setText("No Internet Connection!");
 			   }
 		}
@@ -163,11 +167,12 @@ public class EmailActivity extends Activity
 		@Override
 		protected String doInBackground(String... params) {
 			// Building Parameters
+			
+			if(IsNetworkAvail){
 	        List<NameValuePair> userExistParams_ = new ArrayList<NameValuePair>();
 	        userExistParams_.add(new BasicNameValuePair("tag", userExistTag));
 	        userExistParams_.add(new BasicNameValuePair(emailKey,params[1]));
-	        String message = null;
-		
+	       		
 	        // getting JSON Object
 	        JSONObject json = jsonParser.getJSONFromUrl("POST",params[0],userExistParams_);
 
@@ -195,7 +200,7 @@ public class EmailActivity extends Activity
 	        } catch (JSONException e){
 	        	e.printStackTrace();
 	        }
-	        
+		}   
 	        return message;
 		}     
 		

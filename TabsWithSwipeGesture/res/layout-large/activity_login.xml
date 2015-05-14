@@ -21,7 +21,7 @@
 
 
     <EditText
-        android:id="@+id/emailedittext"
+        android:id="@+id/nameedittext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/emailview"
@@ -29,8 +29,8 @@
         android:layout_alignTop="@+id/emailview"
         android:layout_toRightOf="@+id/emailview"
         android:ems="10"
-        android:inputType="textEmailAddress"
-        android:hint="@string/email"
+        android:inputType="text"
+        android:hint="Enter your UserName"
         android:textColor="#FFFFFF" >
 
         <requestFocus />
@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/passwordview"
-        android:layout_alignLeft="@+id/emailedittext"
+        android:layout_alignLeft="@+id/nameedittext"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/passwordview"
         android:ems="10"
@@ -86,7 +86,7 @@
         android:id="@+id/errortextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/emailedittext"
+        android:layout_above="@+id/nameedittext"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="32dp"
         android:textColor="#000000"

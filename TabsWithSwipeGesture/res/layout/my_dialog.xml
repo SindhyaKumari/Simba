@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f7f7f7"
     android:orientation="vertical" >
 
     <TextView
@@ -13,6 +14,7 @@
         android:layout_margin="16dp"
         android:layout_marginTop="17dp"
         android:text="Choose Any Option"
+        android:textColor="#3B5998"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
@@ -22,6 +24,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textView"
+        android:background="@drawable/continuebtn"
+        android:textColor="#409ed3"
         android:text="Choose Image from Gallery" />
 
     <Button
@@ -31,6 +35,8 @@
         android:layout_alignLeft="@+id/yes"
         android:layout_alignRight="@+id/yes"
         android:layout_below="@+id/yes"
+        android:background="@drawable/continuebtn"
+        android:textColor="#409ed3"
         android:text="Take Picture from Camera" />
 
     <Button
@@ -40,6 +46,8 @@
         android:layout_alignLeft="@+id/yes"
         android:layout_alignRight="@+id/yes"
         android:layout_below="@+id/camera"
+        android:background="@drawable/continuebtn"
+        android:textColor="#409ed3"
         android:text="Cancel" />
     
 </RelativeLayout>

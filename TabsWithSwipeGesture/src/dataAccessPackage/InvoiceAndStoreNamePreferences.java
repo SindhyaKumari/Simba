@@ -15,7 +15,7 @@ public class InvoiceAndStoreNamePreferences {
 	private static final String invoiceFile_ = "InvoiceSession";  //Shared pref file name
 	private static final String storeKey = "StoreName" ; //SharedPreference store key
 	private static final String invoiceKey = "InvoiceNumber"; //SharedPreference invoice key
-	
+	private static final String storeLocationKey = "StoreLocation"; //SharedPreference Store Location key
 	//Invoice And StoreName Preferences Constructor
 	public InvoiceAndStoreNamePreferences(Context context_)
 	{
@@ -25,10 +25,11 @@ public class InvoiceAndStoreNamePreferences {
 	}
 	
 	//Storing store name and invoice in sharedpreferences
-	public void createSession(String store_, String invoice_)
+	public void createSession(String store_, String invoice_, String storeloc_)
 	{
 		editorInvoice.putString(storeKey, store_);
 		editorInvoice.putString(invoiceKey, invoice_);
+		editorInvoice.putString(storeLocationKey, storeloc_);
 		editorInvoice.commit();
 	}
 	
@@ -38,6 +39,7 @@ public class InvoiceAndStoreNamePreferences {
 		HashMap<String,String> storeAndInvoice = new HashMap<String,String>();
 		storeAndInvoice.put(storeKey, prefInvoice.getString(storeKey, null));
 		storeAndInvoice.put(invoiceKey, prefInvoice.getString(invoiceKey, null));
+		storeAndInvoice.put(storeLocationKey, prefInvoice.getString(storeLocationKey, null));
 		return storeAndInvoice;
 	}
 	

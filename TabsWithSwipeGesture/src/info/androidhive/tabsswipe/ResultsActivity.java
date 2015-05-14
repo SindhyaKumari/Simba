@@ -6,27 +6,36 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ResultsActivity extends Activity
 {
-	String outputPath;
-	TextView tv;
+	private String outputPath,userName,ocresult;
+	private TextView tv;
+	private Button mergeBtn;
 	//yai add ki hy idhar line neche s cooment kar dia hy
 	StringBuffer contents = new StringBuffer();
-	StringSplitter SS;
+	StringSplitter SS,SS1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		
-		tv = new TextView(this);
-		setContentView(tv);
+		setContentView(R.layout.ocrresult_activity);
+		tv = (TextView) findViewById(R.id.ocrResult);
+		mergeBtn= (Button) findViewById(R.id.continueMergeText);
+		mergeBtn.setEnabled(false);
 		
 		String imageUrl = "unknown";
 		
@@ -35,6 +44,7 @@ public class ResultsActivity extends Activity
 		{
 			imageUrl = extras.getString("IMAGE_PATH" );
 			outputPath = extras.getString( "RESULT_PATH" );
+			userName = extras.getString("name");
 		}
 		
 		// Starting recognition process
@@ -67,24 +77,81 @@ public class ResultsActivity extends Activity
 				fis.close();
 			}
 
-			displayMessage(contents.toString());
-			SS = new StringSplitter(display());
-			Log.e("this is output: ", "as");
-			MergeIntent(SS.Stringsplitter());
+			
+		    ocresult= display();
+		    SS = new StringSplitter(ocresult);
+			if(SS.checkOCRResult()){
+		       displayMessage(contents.toString());	
+			   mergeBtn.setEnabled(true);
+			   mergeBtn.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub		
+					Log.e("this is output: ", ocresult);
+					SS1 = new StringSplitter(ocresult);
+					MergeIntent(SS1.Stringsplitter());
+				}
+			  });
+		  }else{
+			   displayMessage(contents.toString());
+		    	createIncorrectImageFormatAlertDailog();
+		    }		
 		}
 		catch (Exception e)
 		{
-			displayMessage("Error: " + e.getMessage());
+			displayMessage("Error: " + e);
+			createIncorrectImageFormatAlertDailog();
 		}
+		
+		
 	}
 	
+	void createIncorrectImageFormatAlertDailog(){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ResultsActivity.this);
+ 
+			// set title
+			alertDialogBuilder.setTitle("Extract Result");
+ 
+			// set dialog message
+			alertDialogBuilder
+				.setMessage("Incorrect Image Format")
+				.setCancelable(false)
+				.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						// if this button is clicked, just close
+						// the dialog box and do nothing
+						dialog.cancel();
+						Intent i = new Intent(ResultsActivity.this,MainActivity.class);
+				    	i.putExtra("name", userName);
+				    	i.putExtra("tab", "Upload Receipt");
+				    	startActivity(i);
+				    	finish();
+					}
+				  });
+				
+ 
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+ 
+				// show it
+				alertDialog.show();
+	}
+	
+	
+	@Override
+	public void onBackPressed() {
+		finish();
+	}
+
 	private void MergeIntent(String outputstr){
 		
 		
 		Intent MergeIntent = new Intent(ResultsActivity.this, MergingText.class);
 		MergeIntent.putExtra("SplittedString", outputstr);
-		MergeIntent.putExtra("StoreName", SS.getStoreName());
-		MergeIntent.putExtra("InvoiceNumber", SS.getInvoiceNumber());
+		MergeIntent.putExtra("StoreName", SS1.getStoreName());
+		MergeIntent.putExtra("InvoiceNumber", SS1.getInvoiceNumber());
+		MergeIntent.putExtra("StoreLocation", SS1.getStoreLocation());
+		MergeIntent.putExtra("name", userName);
 		startActivity(MergeIntent);
 		
 	}
@@ -118,7 +185,7 @@ public class ResultsActivity extends Activity
 		public void run()
 		{
 			tv.append( _message + "\n" );
-			setContentView( tv );
+			//setContentView( tv );
 		}
 
 		private final String _message;

@@ -91,8 +91,11 @@
             android:name="info.androidhive.tabsswipe.ViewAllLists"
             android:label="@string/app_name" />
         <activity
-            android:name="info.androidhive.tabsswipe.ViewList"
+            android:name="info.androidhive.tabsswipe.ViewItemsList"
             android:label="@string/app_name" />
+        <activity
+            android:name="info.androidhive.tabsswipe.NewProductsListActivity"
+            android:label="SIMBA - New Products List" />
     </application>
 
 </manifest>

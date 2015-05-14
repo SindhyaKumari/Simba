@@ -67,8 +67,10 @@ public class PinVerificationActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				Intent passwordIntent = new Intent(PinVerificationActivity.this,LoginActivity.class);
-				startActivity(passwordIntent);
+				Intent startupIntent = new Intent(PinVerificationActivity.this,StartupActivity.class);
+				startupIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(startupIntent);
+				finish();
 			}
 		});
 		
@@ -135,13 +137,23 @@ public class PinVerificationActivity extends Activity
 			return null;
 		}
 	}
+	 @Override
+		public void onBackPressed() {
+		 Intent signupintent = new Intent(PinVerificationActivity.this,StartupActivity.class);
+		 signupintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		 startActivity( signupintent);
+		 this.finish();
+		}
 	
 	/*
 	 * Asyntask for registration purpose making request to global(mysql) database
 	 * for storing user details 
 	 */
 	
-   class RegistrationTask extends AsyncTask<String,String,String>
+  
+
+
+class RegistrationTask extends AsyncTask<String,String,String>
    {
 	   private ProgressDialog pDialog;
 	   private static final String successKey  = "success";
@@ -247,8 +259,9 @@ public class PinVerificationActivity extends Activity
 			   {
 				   Toast.makeText(getApplicationContext(), "Your account has been verified , please login", Toast.LENGTH_LONG).show();
 				   //Opening login activity after successful registration
-				   Intent registerIntent = new Intent(PinVerificationActivity.this,LoginActivity.class);
-				   startActivity(registerIntent);
+				   Intent startupIntent = new Intent(PinVerificationActivity.this,StartupActivity.class);
+				   startupIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				   startActivity(startupIntent);
 				   // Close Registration Activity
 				   finish();
 			   }

@@ -1,12 +1,25 @@
 package info.androidhive.tabsswipe;
 
+
 import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import dataAccessPackage.InvoiceAndStoreNamePreferences;
+import dataAccessPackage.JSONParser;
+import dataAccessPackage.LoginSession;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -20,13 +33,10 @@ public class ViewAllLists extends ListActivity{
     int counter;
 	AlertDialog.Builder alert;
 	String data = "";
-	int itemPosition;
-    String  itemValue = "";
-    
-	
+	int itemPosition,userid;
+    String  itemValue = "";	
     ArrayList<String> list = new ArrayList<String>();
     ArrayAdapter<String> adapter;
-
     
     
     @Override
@@ -34,22 +44,16 @@ public class ViewAllLists extends ListActivity{
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.viewalllists);
+        Intent i = getIntent();
+        String name = i.getExtras().getString("userName");
         
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
         setListAdapter(adapter);
-        
-        ItemsData datacount = new ItemsData(this);
-        datacount.open();
-        counter = datacount.getCountDataList();
-        	for (int s=1; s<=counter; s++){
-        		String data = datacount.getDataList(s);
-        		list.add(data);
-        		adapter.notifyDataSetChanged();
-        		}
-        datacount.close();
-//        adapter.notifyDataSetChanged();
+ 
+        new UserIdAsynTask().execute(name);
+
          
-        Button createlist;
+       /* Button createlist;
 		createlist = (Button) findViewById(R.id.bcreate);
 		createlist.setOnClickListener(new View.OnClickListener() {
 			
@@ -57,10 +61,10 @@ public class ViewAllLists extends ListActivity{
 			public void onClick(View v) {
 				
 				finish();
-				Intent myIntent2 = new Intent(getApplicationContext(), CreateList.class);
-				startActivity(myIntent2);
+				Intent createListIntent = new Intent(getApplicationContext(), CreateList.class);
+				startActivity(createListIntent);
 			}
-		});
+		});*/
 		
 		 getListView().setOnItemLongClickListener(new OnItemLongClickListener(){
 			    public boolean onItemLongClick(AdapterView<?> arg0, View v, int position, long id){
@@ -122,12 +126,11 @@ public class ViewAllLists extends ListActivity{
         itemValue = (String) l.getItemAtPosition(position);
         ItemsData info = new ItemsData(this);
 		info.open();
-		data = info.getDataItems(itemPosition, itemValue );
+		data = info.getDataItems(itemValue );
 		info.close();
 		
-		Intent myIntent = new Intent(getApplicationContext(), ViewList.class);
-		myIntent.putExtra("itemValue", itemValue);
-		myIntent.putExtra("key", itemPosition);
+		Intent myIntent = new Intent(getApplicationContext(), ViewItemsList.class);
+		myIntent.putExtra("items", data);
 		startActivity(myIntent);
 	}
 		
@@ -143,4 +146,79 @@ public class ViewAllLists extends ListActivity{
 		
 
 	}
+	
+	public class UserIdAsynTask extends AsyncTask<String,String,String> {
+    	private static final String successKey  = "success";
+    	private static final String errorKey  = "error_msg";
+    	private static final String nameKey  = "name";
+    	private static final String getUserTag = "getuser";
+    	private static final String useridandstoreURL_ = "http://eblueberry.hostoi.com/simba/UserIDAndStoreName.php";
+        InvoiceAndStoreNamePreferences storePref;
+        LoginSession loginPref;
+    	JSONParser jsonParser = new JSONParser();
+
+	@Override
+	protected String doInBackground(String... params) {
+		 List<NameValuePair> userParams_ = new ArrayList<NameValuePair>();
+		    userParams_ .add(new BasicNameValuePair("tag", getUserTag));
+		    userParams_ .add(new BasicNameValuePair(nameKey,params[0]));
+		    String message =null;
+		    JSONObject json = jsonParser.getJSONFromUrl("POST",useridandstoreURL_, userParams_);
+	     	// check for login response
+		try
+		{
+			if (json.getString(successKey) != null)
+			{
+				String res = json.getString(successKey);
+				if(Integer.parseInt(res) == 1)
+				{
+					
+					JSONObject jsonUser = json.getJSONObject("User");
+				   userid = jsonUser.getInt("UID");
+				  // updateid(userid);
+					
+				}
+				else
+				{
+					// Error in login
+					message = json.getString(errorKey) ;
+				}
+			}
+			else
+			{
+				message = json.getString(errorKey);
+			}
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+		
+		      return String.valueOf(userid);
+	}
+	
+	@Override
+	protected void onPostExecute(String result) {
+		// TODO Auto-generated method stub
+		String[] listnames;
+		 ItemsData datacount = new ItemsData(ViewAllLists.this);
+	        datacount.open();
+	//  datacount.deleteAllItems();
+	  
+	        int  counter = datacount.getCountDataList(Integer.parseInt(result));
+	        Log.e("counter",String.valueOf( counter)+ Integer.parseInt(result));
+	                if(counter > 0){
+	        		String data = datacount.getDataList(Integer.parseInt(result));
+	        		Log.e("data", data);
+	        		listnames = data.split("\n");
+	        		for(int i = 0; i < listnames.length ; i++){
+	        		list.add(listnames[i]);
+	        		adapter.notifyDataSetChanged();
+	        		}
+	                }
+	        datacount.close();
+	}
+
+	
+}     
 }

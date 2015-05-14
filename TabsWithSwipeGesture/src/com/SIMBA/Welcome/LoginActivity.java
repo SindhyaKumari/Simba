@@ -1,6 +1,7 @@
 package com.SIMBA.Welcome;
 
 import info.androidhive.tabsswipe.MainActivity;
+import info.androidhive.tabsswipe.NewProductsListActivity;
 import info.androidhive.tabsswipe.R;
 
 import java.util.ArrayList;
@@ -39,11 +40,14 @@ public class LoginActivity extends Activity
 {
 	private Button loginButton;
 	private Button forgotButton;
-	private EditText emailAddress;
+	private EditText userName;
 	private EditText password;
 	private TextView loginErrorMsg;
-	String email_, check_ ;
-	String password_;
+	private String email_;
+	private String check_;
+	private String name_ ;
+	private String password_;
+	private String[] splitEmail_;	
 	boolean found = false;
 	// using  http://eblueberry.hostoi.com/blueberry/
 	private static String loginURL_ = "http://eblueberry.hostoi.com/simba/";
@@ -58,14 +62,15 @@ public class LoginActivity extends Activity
 		//Passing reference to layout resources
 		loginButton = (Button)findViewById(R.id.loggedinbtn);
 		forgotButton = (Button)findViewById(R.id.forgotbtn);
-		emailAddress = (EditText)findViewById(R.id.emailedittext);
+		userName = (EditText)findViewById(R.id.nameedittext);
 		password = (EditText)findViewById(R.id.passwordedittext);
 		loginErrorMsg = (TextView)findViewById(R.id.errortextview);
 		check_ = getEmailID();
 		if (check_ != null)
 		{
 			email_ = getEmailID();
-			emailAddress.setText(email_, TextView.BufferType.EDITABLE);
+	    	splitEmail_ = email_.split("@");
+			userName.setText(splitEmail_[0], TextView.BufferType.EDITABLE);
 		}
 		/* Login Button  ClickListener  */
 		loginButton.setOnClickListener(new View.OnClickListener()
@@ -76,6 +81,7 @@ public class LoginActivity extends Activity
 				if(isNetworkAvailable())
 				{
        				new LoginTask().execute(loginURL_);
+       				Log.e("i am here ", loginURL_);
 				}
 				else
 				{
@@ -162,6 +168,7 @@ public class LoginActivity extends Activity
 	   private static final String nameKey  = "name";
 	   private static final String loginTag = "login";
 	   public static final String MyPREFERENCES = "MyPrefs" ;
+	   String name ;
 	   ProgressDialog dialog;
 	   JSONParser jsonParser;
 	   SharedPreferences sharedpreferences;
@@ -172,9 +179,9 @@ public class LoginActivity extends Activity
 	   {
 		   if(isNetworkAvailable())
 		   {
-			   email_ = emailAddress.getText().toString();
+			   name_ = userName.getText().toString();
 			   password_ = password.getText().toString();
-			   if (!(email_.equals("")) && !(password_.equals("")))
+			   if (!(name_.equals("")) && !(password_.equals("")))
 			   {
 				   dialog = ProgressDialog.show( LoginActivity.this, "Wait..", "Logging In", true, false);
 				   jsonParser = new JSONParser();
@@ -205,10 +212,10 @@ public class LoginActivity extends Activity
 			   if (isNetworkAvailable())
 			   {
 				   // Building Parameters
-				   System.out.println("name: " + password_ + email_);
+				   System.out.println("name: " + password_ + name_);
 				   List<NameValuePair> loginParams_ = new ArrayList<NameValuePair>();
 				   loginParams_.add(new BasicNameValuePair("tag", loginTag));
-				   loginParams_.add(new BasicNameValuePair(emailKey, email_));
+				   loginParams_.add(new BasicNameValuePair(nameKey, name_));
 				   loginParams_.add(new BasicNameValuePair(passwordKey, password_));
 				   JSONObject json = jsonParser.getJSONFromUrl("POST",params[0], loginParams_);
 				   
@@ -227,17 +234,25 @@ public class LoginActivity extends Activity
 							   
 							   // Clear all previous data in sharedpreferences
 							   loginSession.clearDataAfterLogout();
-				               loginSession.createLoginSession(jsonUser.getString(emailKey),jsonUser.getString(passwordKey)); 
-
-				               // Launch Main Screen
-				               //sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-				               Editor editor=sharedpreferences.edit();
-				               editor.putString("email",email_);
-				               editor.commit();
-				               Intent mainIntent = new Intent(LoginActivity.this,MainActivity.class);
-				               mainIntent.putExtra("email",email_);
-				               startActivity(mainIntent);
-				               
+				               loginSession.createLoginSession(jsonUser.getString(emailKey),jsonUser.getString(passwordKey),jsonUser.getString(nameKey)); 
+                               
+				               name = jsonUser.getString(nameKey);
+				               if(name != null){
+				            	   Log.e("name",name);
+				            	    if(name.equals("maahaa.says")){
+				            	    	Intent mainIntent = new Intent(LoginActivity.this,NewProductsListActivity.class);
+							            startActivity(mainIntent);
+				            	    }
+				            	    else{
+				            	    	 Intent mainIntent = new Intent(LoginActivity.this,MainActivity.class);
+							             mainIntent.putExtra("name",name_);
+							             mainIntent.putExtra("tab","Shopping List");
+							             mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+							             startActivity(mainIntent);	
+				            	    }
+				            	   
+				               }
+				              
 				              
 				               // Close Login Screen
 				               dialog.dismiss();

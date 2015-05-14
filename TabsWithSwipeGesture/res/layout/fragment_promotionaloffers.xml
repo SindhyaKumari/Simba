@@ -30,16 +30,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="#409ed3"
+            android:background="@drawable/continuebtn"
             android:onClick="start"
-            android:text="start" />
+            android:text="Start" />
  
         <Button
             android:id="@+id/buttonStop"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/continuebtn"
             android:onClick="stop"
-            android:text="stop" />
+            android:textColor="#409ed3"
+            android:text="Stop" />
     </LinearLayout>
     
     

@@ -2,23 +2,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#f7f7f7"
     tools:context="com.example.mergingtext.MainActivity" >
 
     <TextView
         android:id="@+id/heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="Items List"
-        android:textSize="28sp" 
-        android:gravity ="center"/>
+        android:textSize="28sp" />
 
-    
     <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/UndoBtn" >
+        android:layout_below="@+id/UndoBtn"
+        android:background="#f7f7f7" >
 
         <ListView
             android:id="@+id/listView1"
@@ -26,20 +28,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1" >
         </ListView>
-        
     </LinearLayout>
-
-    <Button
-        android:id="@+id/mergedownbtn"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/UndoBtn"
-        android:layout_alignBottom="@+id/UndoBtn"
-        android:layout_marginLeft="33dp"
-        android:layout_toRightOf="@+id/mergeupbtn"
-        android:background="@drawable/mergedown"
-        android:onClick="onMergeDownClick" />
 
     <Button
         android:id="@+id/submitbtn"
@@ -47,7 +36,10 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/mergedownbtn"
         android:layout_alignParentRight="true"
-        android:text="Submit" />
+        android:background="@drawable/continuebtn"
+        android:text="Submit"
+        android:textColor="#409ed3"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/mergeupbtn"
@@ -57,19 +49,37 @@
         android:layout_alignBaseline="@+id/mergedownbtn"
         android:layout_alignBottom="@+id/mergedownbtn"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/mergeup"
-        android:onClick="onMergeUpClick" />
+        android:background="@drawable/continuebtn"
+        android:onClick="onMergeUpClick"
+        android:text="MergeUp"
+        android:textColor="#409ed3"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/mergedownbtn"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout1"
+        android:layout_marginLeft="22dp"
+        android:layout_toRightOf="@+id/mergeupbtn"
+        android:background="@drawable/continuebtn"
+        android:onClick="onMergeDownClick"
+        android:text="MergeDown"
+        android:textColor="#409ed3"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/UndoBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/heading"
-        android:layout_marginRight="20dp"
-        android:layout_toLeftOf="@+id/submitbtn"
-        android:background="@drawable/undo"
+        android:layout_toRightOf="@+id/mergedownbtn"
+        android:background="@drawable/continuebtn"
         android:onClick="onUndoClick"
-        android:textSize="24sp"
+        android:text="Undo"
+        android:textColor="#409ed3"
+        android:textSize="16sp"
         android:visibility="visible" />
 
 </RelativeLayout>

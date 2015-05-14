@@ -29,7 +29,7 @@
         android:textColor="#FFFFFF" />
 
     <EditText
-        android:id="@+id/emailedittext"
+        android:id="@+id/nameedittext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/emailbtn"
@@ -37,8 +37,8 @@
         android:layout_alignTop="@+id/emailbtn"
         android:layout_toRightOf="@+id/emailbtn"
         android:ems="10"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
+        android:hint="Enter your UserName"
+        android:inputType="text"
         android:textColor="#FFFFFF" />
 
     <ImageView
@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/passwordbtn"
-        android:layout_alignLeft="@+id/emailedittext"
+        android:layout_alignLeft="@+id/nameedittext"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/passwordbtn"
         android:ems="10"
@@ -103,7 +103,7 @@
         android:id="@+id/errortextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/emailedittext"
+        android:layout_alignLeft="@+id/nameedittext"
         android:layout_below="@+id/welcomenotetxt"
         android:layout_marginLeft="52dp"
         android:layout_marginTop="14dp"

@@ -7,6 +7,8 @@ import java.util.Date;
 
 import com.SIMBA.Welcome.LoginActivity;
 import com.SIMBA.Welcome.ResetPasswordActivity;
+import com.SIMBA.Welcome.SignUpActivity;
+import com.SIMBA.Welcome.StartupActivity;
 
 import dataAccessPackage.LoginSession;
 import info.androidhive.tabsswipe.adapter.TabsPagerAdapter;
@@ -26,6 +28,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,7 +47,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private ViewPager viewPager;
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;
-	String mCurrentPhotoPath,email;
+	String mCurrentPhotoPath,userName,tabCondition;
+	Button convertButton ;
 	// Tab titles
 	private String[] tabs = { "ShoppingList Manager", "Upload Receipt", "Promotional Offers" };
 	
@@ -63,17 +67,32 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		viewPager.setAdapter(mAdapter);
 		actionBar.setHomeButtonEnabled(false);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);		
+		
+	
         
 		//get intent 
 		Intent i = getIntent();
-		email = i.getExtras().getString("email");
+		userName = i.getExtras().getString("name");
+		tabCondition = i.getExtras().getString("tab");
+		
+		Bundle bundle = new Bundle();
+		bundle.putString("name", userName);
+		ShoppingListManager fragment = new ShoppingListManager();
+		fragment.setArguments(bundle);
 		
 		// Adding Tabs
 		for (String tab_name : tabs)
 		{
+			
 			actionBar.addTab(actionBar.newTab().setText(tab_name).setTabListener(this));
+			
 		}
 
+		
+		
+		if(tabCondition.equals("Upload Receipt")){
+			actionBar.setSelectedNavigationItem(1);
+		}
 		/**
 		 * on swiping the viewpager make respective tab selected
 		 * 
@@ -87,6 +106,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				// on changing the page
 				// make respected tab selected
 				actionBar.setSelectedNavigationItem(position);
+							
 			}
 
 			@Override
@@ -109,6 +129,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		// on tab selected
 		// show respected fragment view
 		viewPager.setCurrentItem(tab.getPosition());
+
+		/*Bundle bundle = new Bundle();
+		bundle.putString("name", userName);
+        ShoppingListManager newFragment = new ShoppingListManager ();
+        newFragment.setArguments(bundle);*/
 	}
 
 	@Override
@@ -212,7 +237,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	
 	public void showDialog1(View v)
 	{
-		final Button convertButton = (Button) findViewById(R.id.convert);
+		 Button convertButton = (Button) findViewById(R.id.convert);
 		convertButton.setOnClickListener(this);
 	}
 	
@@ -277,9 +302,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	    fileName = mCurrentPhotoPath;
 	    return image;
 	}
-
-	// Start of onClick
+    
 	
+	
+	@Override
+	public void onBackPressed() {
+		finish();
+		super.onBackPressed();
+	}
+	// Start of onClick
 	@Override
 	public void onClick(View v)
 	{
@@ -287,6 +318,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		Intent results = new Intent(this, ResultsActivity.class);
     	results.putExtra("IMAGE_PATH", fileName);
     	results.putExtra("RESULT_PATH", resultUrl);
+    	results.putExtra("name", userName);
     	startActivity(results);
 		// TODO Auto-generated method stub
     	//This is online OCR Api code
@@ -361,7 +393,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	{
 		//get intent 
 		Intent i = getIntent();
-		final String email = i.getExtras().getString("email");
+    	final String name = i.getExtras().getString("name");
 		// checking which item is being selected
 		LoginSession loginObj = new LoginSession(getApplicationContext());
 		String str = (String) item.getTitle();
@@ -371,18 +403,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			loginObj.clearDataAfterLogout();
 			
 			//calling login activity
-			Intent startUpIntent = new Intent(MainActivity.this, LoginActivity.class);
+			Intent startUpIntent = new Intent(MainActivity.this, StartupActivity.class);
 			startActivity(startUpIntent);
 			
 	       //closing main activity			
 			finish();
 		}else if(str.equals("Delete Account")){
-			  createDeleteAccountAlertDailog(email);			
+			  createDeleteAccountAlertDailog(name);			
 		}else if(str.equals("Change Password")){
 			//calling login activity
 			
 			Intent resetPasswordIntent = new Intent(MainActivity.this,ResetPasswordActivity.class);
-			resetPasswordIntent.putExtra("email", email);
+			resetPasswordIntent.putExtra("name", name);
 			startActivity(resetPasswordIntent);
 		}
 		return super.onMenuItemSelected(featureId, item);
@@ -390,7 +422,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	
 	
 
-	void createDeleteAccountAlertDailog(final String email){
+	void createDeleteAccountAlertDailog(final String name){
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
  
 			// set title
@@ -409,7 +441,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				  })
 				.setNegativeButton("OK",new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,int id) {
-						new DeleteAccountTask().execute(email);
+						new DeleteAccountTask().execute(name);
 						 dialog.dismiss();
 					}
 				});

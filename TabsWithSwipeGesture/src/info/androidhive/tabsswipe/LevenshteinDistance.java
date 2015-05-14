@@ -11,51 +11,65 @@ public class LevenshteinDistance {
 	
 	private List<HashMap<Integer,String>> product_list;
 	private ArrayList<String> Product;
-	private String PIDList [];
+	private ArrayList<String> newProductlist;
+	private ArrayList<Integer> PIDList;
 	private String tempPro, tempPrev;
 	private int calDistanceOfEachString [], size;
+	private int thershold = 5;
+	private int thersholdPercentage = 50;
 	
 	public LevenshteinDistance (ArrayList<String> Product ,List<HashMap<Integer,String>> product_list){
     
 		size = product_list.size();
+		newProductlist = new ArrayList<String>();
 		this.Product = Product;
 		this.product_list = product_list;
 		calDistanceOfEachString = new int[size];
-		PIDList = new String[Product.size()];
+		PIDList = new ArrayList<Integer>();
     }
 
 	public String[] findDistanceOfAllProducts(){
 		int mostMatchedStringIndex;
 		
-		Log.e("before ","Before distance"+size);
-		print();
+	//	Log.e("before ","Before distance"+size);
+	////	print();
 		for(int i = 0 ; i < Product.size() ; i++){
 			initialize();
 			tempPro = Product.get(i);	
-				getValuefromMapAndCalculateDistance(tempPro);
+			getValuefromMapAndCalculateDistance(tempPro);
 			
 			mostMatchedStringIndex = (minDistance());
-			Log.e("min distance"," "+ mostMatchedStringIndex);
-	        Product.set(i, getValueFromMapThatMatches(mostMatchedStringIndex,i));
+			//Log.e("min distance"," "+ mostMatchedStringIndex);
+			Product.set(i, getValueFromMapThatMatches(mostMatchedStringIndex,i,tempPro));
 		}
-		Log.e("after "," \n \n After distance");
-		print();
-		return PIDList;
+	//	Log.e("after "," \n \n After distance");
+	//	print();
+		return convertPIDListIntoArray();
 	}
 	
 	/*
 	 * Getting value that matches at particular index of map
 	 */
-	private String getValueFromMapThatMatches(int index, int i){
+	private String getValueFromMapThatMatches(int index, int i,String tempProduct){
 		boolean check = false;
 		for(HashMap<Integer, String> map: product_list) {
 	        for(Entry<Integer, String> mapEntry: map.entrySet()) {
-	            if(mapEntry.getKey() == (index+1)){
-	                tempPrev = mapEntry.getValue();
-	                PIDList[i] = String.valueOf(mapEntry.getKey());
-	                 check = true;
-	                break;
-	            }
+	        	  if(mapEntry.getKey() == (index+1)){
+		                tempPrev = mapEntry.getValue();
+						if(checkThershold(tempProduct,tempPrev,index)){
+							//    Log.e("tempPrev", tempPrev);
+							//    Log.e("id new ", String.valueOf(mapEntry.getKey()));
+		                        PIDList.add(mapEntry.getKey());       
+		                        check = true;
+		                        break;
+		                }
+						else{
+							  //  Log.e("else - tempPrev", tempProduct);
+						        newProductlist.add(tempProduct);
+		                        check = true;
+		                        break;  
+						}
+					}
 	        }
 	        if(check)
 	        	break;
@@ -66,6 +80,34 @@ public class LevenshteinDistance {
 	}
 	
 	/*
+	 * Check  thershold and thershold percentage
+	 */
+	private boolean checkThershold(String tempPro, String tempNew, int index){
+            
+        int tempProlen = tempPro.length();
+		int newtemplen = tempNew.length();
+	//	Log.e("TempProduct", tempPro);
+//		Log.e("TempNewProduct", tempNew);
+		int distance = calDistanceOfEachString[index];
+
+	//	Log.e("DIstnace", String.valueOf(distance));
+		double differencePercentage;
+		boolean check = false;
+		if(tempProlen > newtemplen){
+		     differencePercentage = distance/newtemplen;
+		}else{
+		     differencePercentage = distance/tempProlen;
+		}
+		
+		if((distance < thershold) && (differencePercentage < thersholdPercentage))
+                 check = true;
+        				 
+	    return check;
+		 
+	}
+	
+	
+	/*
 	 * Get value from list by iterating Hashmap and than calculate distance
 	 */
 	private void getValuefromMapAndCalculateDistance(String tempPro){
@@ -73,9 +115,16 @@ public class LevenshteinDistance {
 		for(HashMap<Integer, String> map: product_list) {
 	        for(Entry<Integer, String> mapEntry: map.entrySet()) {
 	            calDistanceOfEachString[(mapEntry.getKey()-1)] = calculateDistance(tempPro,mapEntry.getValue());
-	            Log.e("distance", calDistanceOfEachString[(mapEntry.getKey()-1)]+" ");
+	          //  Log.e("distance", calDistanceOfEachString[(mapEntry.getKey()-1)]+" ");
 	        }
 	    }
+	}
+	
+	/*
+	 * Getting new Product List
+	 */
+	public ArrayList<String> getNewProductList(){
+		return newProductlist;
 	}
 	
 	/*
@@ -100,6 +149,17 @@ public class LevenshteinDistance {
 			calDistanceOfEachString[i] = 0;
 		}
 	}
+		
+	private String[] convertPIDListIntoArray(){
+		
+		String[] temp= new String[PIDList.size()];
+		for(int i = 0; i < PIDList.size() ; i++){
+			temp[i] = String.valueOf(PIDList.get(i));
+			Log.e("temp stirng " , temp[i]);
+		}
+		return temp;
+	}
+
 	 
 	/*
 	 * Compute Levenshtein Distance

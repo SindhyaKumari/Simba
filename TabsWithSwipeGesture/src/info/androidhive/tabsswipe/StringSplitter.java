@@ -1,13 +1,15 @@
 package info.androidhive.tabsswipe;
 
+import java.util.Random;
 import java.util.regex.Pattern;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 
 public class StringSplitter 
 {
 
-	private String Products , newProducts , StoreName , InvoiceNumber ;
+	private String Products , newProducts , StoreName , InvoiceNumber , StoreLocation ;
 	private String numericPattern = "[.0-9]+";
 	private String alphaNumericPattern = "[a-zA-Z ]*\\d+.*";
 	private String alphaNumericAndSpecialCharactersPattern = "[A-Za-z0-9$&+,:;=?@#/|~`'<>.-^*()%!]+";
@@ -23,13 +25,14 @@ public class StringSplitter
 	
 	
 	public String Stringsplitter(){
-		String[] product_,temp;
-		boolean check = false;
 		
+		String[] temp;
+		boolean check = false;
+		String[] product_;
 		removeUnnecessarySpacesAndNextLine();
 		product_ = splitStringOnBasisOfNextLine();
 		getStoreNameAndInvoice(product_);
-		
+		newProducts = "";
 		for(int i = 9 ; i < product_.length; i++){
 		   check = false;	
 		   temp = splitStringOnBasisOfSpace(i,product_);
@@ -97,13 +100,48 @@ public class StringSplitter
 	 * 
 	 */
 	private void getStoreNameAndInvoice(String[] product_){
+	
 		String [] t;
+		if(product_.length > 6){
 		StoreName = product_[0];
+		StoreLocation = product_[2];
 	    InvoiceNumber = product_[5];
 	    t = InvoiceNumber.split("#");
+	    if(t.length > 1){
 	    InvoiceNumber = t[1];
-	    
-	    System.out.print("StoreName" + StoreName + "\n " + "Invoice Number" + InvoiceNumber);
+	    Log.e("invoice", InvoiceNumber);
+	    if(!(InvoiceNumber.matches(numericPattern)) && (InvoiceNumber.matches(alphaNumericAndSpecialCharactersPattern) && (InvoiceNumber.matches(alphabetsPattern)))){	    	
+	    	Random rn = new Random();
+	    	int j = rn.nextInt() % 99999;
+	    	j = j+4;
+	    	InvoiceNumber =  String.valueOf((j));
+	    	Log.e("invoice", InvoiceNumber);
+	    }
+	    }
+		}
+	}
+	
+	/*
+	 * Check OCR Result
+	 */
+	public boolean checkOCRResult(){
+		boolean check = false;
+		String[] temp1,products;
+		String tempInvoice;
+		removeUnnecessarySpacesAndNextLine();
+
+		products = splitStringOnBasisOfNextLine();
+	
+		tempInvoice = products[5];
+	    temp1 = tempInvoice.split("#");
+	    tempInvoice = temp1[0];
+	    if(((products[0].equals("Sunny Medico")) || products[0].contains("Sunny Medico"))|| (products[4].equals("Sale Receipt")
+	    		|| products[4].contains("Sunny Medico")) || (tempInvoice.equals("Invoice") || tempInvoice.contains("Sunny Medico"))){
+	    	check = true;
+	    	
+	    }
+	 
+		return check;
 	}
 	
 	/*
@@ -200,7 +238,8 @@ public class StringSplitter
      */
     private String getValues(int start, int end, String[] tem){
 		
-		String str = "" ;
+		String str="";
+	
 		for(int i = start ; i < end ; i++){
             if(!(tem[i].equals("\n")))
 			   str = str + tem[i] + " ";	
@@ -226,6 +265,13 @@ public class StringSplitter
      */
     public String getInvoiceNumber(){
      return InvoiceNumber;
+    }
+    
+    /*
+     * Get Store Location
+     */
+    public String getStoreLocation(){
+     return StoreLocation;
     }
 	
 }

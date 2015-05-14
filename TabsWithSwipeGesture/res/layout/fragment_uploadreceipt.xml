@@ -15,23 +15,30 @@
     </ImageView>
 
     <Button
-        android:id="@+id/up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_weight="0"
-        android:onClick="showDialog"
-        android:text="Upload Options" />
-
-    <Button
         android:id="@+id/convert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/up"
+        android:background="@drawable/continuebtn"
         android:onClick="showDialog1"
-        android:text="Convert" />
+        android:text="Extract Text"
+        android:textColor="#409ed3"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/convert"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_weight="0"
+        android:background="@drawable/continuebtn"
+        android:onClick="showDialog"
+        android:text="Upload Receipt"
+        android:textColor="#409ed3"
+        android:textSize="20sp" />
 
 </RelativeLayout>

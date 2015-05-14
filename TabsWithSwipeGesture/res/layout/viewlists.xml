@@ -5,14 +5,18 @@
     android:orientation="vertical"
     android:padding="20dp" >
     
-
    <TextView
-        
-        android:id="@+id/viewitem"
-        android:layout_width="fill_parent"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:text="hiiiii"
-     />
+       android:id="@+id/viewitem"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center"
+       android:textSize="24sp"
+       android:text="Item List" />
+
+   <ListView
+       android:id="@+id/listView1"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content" >
+   </ListView>
     
 </LinearLayout>

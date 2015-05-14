@@ -26,7 +26,7 @@ public class DeleteAccountTask  extends AsyncTask<String,String,String>{
 	private static final String successKey  = "success";
 	private static final String errorKey  = "error_msg";
     private static final String deleteAccountTag = "deleteAccount";
-	private static final String emailKey  = "email";
+	private static final String nameKey  = "name";
 	JSONParser jsonParser;
 
 	@Override
@@ -40,7 +40,7 @@ public class DeleteAccountTask  extends AsyncTask<String,String,String>{
 		// Building Parameters
         List<NameValuePair> deleteAccountParams_ = new ArrayList<NameValuePair>();
         deleteAccountParams_.add(new BasicNameValuePair("tag", deleteAccountTag));
-        deleteAccountParams_.add(new BasicNameValuePair(emailKey,params[0]));
+        deleteAccountParams_.add(new BasicNameValuePair(nameKey,params[0]));
         String message = null;
 	
         // getting JSON Object

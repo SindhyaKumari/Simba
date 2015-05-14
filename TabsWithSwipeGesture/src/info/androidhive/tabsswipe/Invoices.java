@@ -1,6 +1,8 @@
 package info.androidhive.tabsswipe;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import org.json.JSONObject;
 
 import dataAccessPackage.InvoiceAndStoreNamePreferences;
 import dataAccessPackage.JSONParser;
+import dataAccessPackage.LoginSession;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -23,78 +26,86 @@ public class Invoices extends AsyncTask<String[],String,String> {
 	private static final String UIDKey  = "UID";
 	private static final String SIDKey  = "SID";
 	private static final String PIDKey  = "PID[]";
-	private static final String emailKey  = "email";
+	private static final String nameKey  = "name";
 	private static final String insertInvoices = "insertInvoices";
 	private static final String getUserTag = "getuser";
 	private static final String getStoreTag = "getstore";
 	private HashMap<String,String>  temp;
-    InvoiceAndStoreNamePreferences pref;
+	private ArrayList<Integer> PIDList;
 	private static String invoiceURL_ = "http://eblueberry.hostoi.com/simba/Invoices.php";
 	private static String useridandstoreURL_ = "http://eblueberry.hostoi.com/simba/UserIDAndStoreName.php";
-
-	
-	SharedPreferences settings;
+	private String userName;
+    InvoiceAndStoreNamePreferences storePref;
+    LoginSession loginPref;
 	JSONParser jsonParser = new JSONParser();
 	
-	public  Invoices(Context context)
+	public  Invoices(Context context,String username)
     {
-		pref = new InvoiceAndStoreNamePreferences(context);
+		storePref = new InvoiceAndStoreNamePreferences(context);
 		temp = new HashMap<String,String> ();
+		userName = username;
+
     }
 
 	@Override
 	protected String doInBackground(String[]... params) {
 		// TODO Auto-generated method stub
-		temp = pref.getStoreAndInvoiceDetails();
-		String message = null;
-		String[] PIDArray = params[0];
-		// Building Parameters
-		List<NameValuePair> invoiceParams_ = new ArrayList<NameValuePair>();
-		invoiceParams_.add(new BasicNameValuePair("tag", insertInvoices));
-		invoiceParams_.add(new BasicNameValuePair(UIDKey, String.valueOf(getDataFromAccount())));
-		invoiceParams_.add(new BasicNameValuePair("SerialNo",temp.get("InvoiceNumber")));
-		invoiceParams_.add(new BasicNameValuePair(SIDKey,String.valueOf(getDataFromStoreTable())));
-		//Add all items in basicNameValuePair
-		for(int i = 0 ; i < PIDArray.length ; i++){	
-			  
-	        	invoiceParams_.add(new BasicNameValuePair(PIDKey,PIDArray[i]));
-		}
-		
-		JSONObject json = jsonParser.getJSONFromUrl("POST",invoiceURL_, invoiceParams_);
-		// check for login response
-		try
-		{
-			if (json.getString(successKey) != null)
-			{
-				String res = json.getString(successKey);
-				if(Integer.parseInt(res) == 1)
-				{
-					message = "success";
+				temp = storePref.getStoreAndInvoiceDetails();
+				String message = null;
+				String[] pidListArray = params[0];
+				
+				// Building Parameters
+				List<NameValuePair> invoiceParams_ = new ArrayList<NameValuePair>();
+				invoiceParams_.add(new BasicNameValuePair("tag", insertInvoices));
+				invoiceParams_.add(new BasicNameValuePair(UIDKey, String.valueOf(getDataFromAccount())));
+				invoiceParams_.add(new BasicNameValuePair("SerialNo",temp.get("InvoiceNumber")));
+				invoiceParams_.add(new BasicNameValuePair(SIDKey,String.valueOf(getDataFromStoreTable())));
+				//Add all items in basicNameValuePair
+				
+				if(pidListArray.length > 0){
+				for(int i = 0 ; i < pidListArray.length ; i++){	
+					    
+			        	invoiceParams_.add(new BasicNameValuePair(PIDKey,pidListArray[i]));
 				}
-				else
+				
+				JSONObject json = jsonParser.getJSONFromUrl("POST",invoiceURL_, invoiceParams_);
+				// check for login response
+				try
 				{
-					// Error in login
-					message = json.getString(errorKey) ;
+					if (json.getString(successKey) != null)
+					{
+						String res = json.getString(successKey);
+						if(Integer.parseInt(res) == 1)
+						{
+							message = "success";
+						}
+						else
+						{
+							// Error in login
+							message = json.getString(errorKey) ;
+						}
+					}
+					else
+					{
+						message = json.getString(errorKey);
+						Log.e("err2", message);
+					}
 				}
-			}
-			else
-			{
-				message = json.getString(errorKey);
-				Log.e("err2", message);
-			}
-		}
-		catch (JSONException e)
-		{
-			e.printStackTrace();
-		}
-		return message;
+				catch (JSONException e)
+				{
+					e.printStackTrace();
+				}
+				}else{
+					message = "no item needed to insert";
+				}
+				return message;
 	}
-	
-	private int getDataFromAccount(){
+    
+private int getDataFromAccount(){
 		
 		List<NameValuePair> userParams_ = new ArrayList<NameValuePair>();
 		userParams_ .add(new BasicNameValuePair("tag", getUserTag));
-		userParams_ .add(new BasicNameValuePair(emailKey, "fasihtt@gmail.com"));
+		userParams_ .add(new BasicNameValuePair(nameKey,userName));
 		String message =null;
 		int uid = 0;
 		JSONObject json = jsonParser.getJSONFromUrl("POST",useridandstoreURL_, userParams_);
@@ -130,11 +141,17 @@ public class Invoices extends AsyncTask<String[],String,String> {
 		return uid;
 	}
 	private int getDataFromStoreTable(){
-	
+	    
+		String tempStore;
 		List<NameValuePair> storeParams_ = new ArrayList<NameValuePair>();
 		storeParams_ .add(new BasicNameValuePair("tag", getStoreTag));
-		storeParams_.add(new BasicNameValuePair("StoreName","Sunny Medico"));
-		Log.e("storename", " " + temp.get("StoreName"));
+		tempStore =temp.get("StoreName");
+		if(tempStore !=null){
+		tempStore = tempStore.replaceAll("[\t ]+","");
+		Log.e("invoice storename",tempStore);
+		}
+		storeParams_.add(new BasicNameValuePair("StoreName",tempStore));
+		storeParams_.add(new BasicNameValuePair("StoreLocation",temp.get("StoreLocation")));
 		String message =null;
 		int sid = 0;
 		JSONObject json = jsonParser.getJSONFromUrl("POST",useridandstoreURL_, storeParams_);
@@ -149,7 +166,7 @@ public class Invoices extends AsyncTask<String[],String,String> {
 					
 					JSONObject jsonUser = json.getJSONObject("Store");
 					sid = jsonUser.getInt("SID");
-				
+				   // Log.e("store loc from table",json.getString("StoreLoc"));
 				}
 				else
 				{
@@ -170,5 +187,5 @@ public class Invoices extends AsyncTask<String[],String,String> {
 		return sid;
 	}
 
-
+	
 }

@@ -30,12 +30,12 @@ public class ResetPasswordActivity  extends Activity{
 	EditText retypePassword;
 	Button confirmButton;
 	TextView errorMsg;
-	private String pass_,email_,repass_;
+	private String pass_,name_,repass_;
 	private static String updateURL_ = "http://eblueberry.hostoi.com/simba/resetPassword.php";
 	private static final String successKey  = "success";
 	private static final String errorKey  = "error_msg";
     private static final String updateTag = "update";
-	private static final String emailKey  = "email";
+	private static final String nameKey  = "name";
 	private static final String passwordKey  = "password";
 	JSONParser jsonParser;
 
@@ -53,13 +53,13 @@ public class ResetPasswordActivity  extends Activity{
 		jsonParser = new JSONParser();
 		
 		Intent i = getIntent();
-		email_ = i.getExtras().getString("email");
+		name_ = i.getExtras().getString("name");
 		confirmButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-				new ResetPasswordTask().execute(updateURL_,email_);
+				new ResetPasswordTask().execute(updateURL_,name_);
 			}
 		});
 	}
@@ -132,7 +132,7 @@ public class ResetPasswordActivity  extends Activity{
 			// Building Parameters
 	        List<NameValuePair> resetPasswordParams_ = new ArrayList<NameValuePair>();
 	        resetPasswordParams_.add(new BasicNameValuePair("tag", updateTag));
-	        resetPasswordParams_.add(new BasicNameValuePair(emailKey, params[1]));
+	        resetPasswordParams_.add(new BasicNameValuePair(nameKey, params[1]));
 	        resetPasswordParams_.add(new BasicNameValuePair(passwordKey, pass_));
 	        String message = null;
 		

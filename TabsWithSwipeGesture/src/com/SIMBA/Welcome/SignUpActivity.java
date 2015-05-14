@@ -96,8 +96,17 @@ public class SignUpActivity extends Activity
 				}
 			}
 		});
+		
 	}
 	
+	@Override
+	public void onBackPressed() {
+		Intent signupintent = new Intent(SignUpActivity.this,StartupActivity.class);
+		signupintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity( signupintent);
+		this.finish();
+	}
+
 	private boolean isNetworkAvailable()
 	{
 		boolean isConnected = false;

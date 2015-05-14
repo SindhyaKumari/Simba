@@ -135,7 +135,7 @@ public class CreateList extends ListActivity implements OnClickListener{
 		try{
 		ItemsData entry = new ItemsData (CreateList.this);
 		entry.open();
-		entry.createListEntry(listname, itemnamepush);
+		entry.createListEntry(listname);
 		entry.close();
 				
 		} 

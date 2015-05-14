@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import dataAccessPackage.JSONParser;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -25,6 +26,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.SIMBA.Welcome.LoginActivity;
 
 
 import android.content.Context;
@@ -42,11 +45,22 @@ public class ProductsAsyncTask  extends AsyncTask<ArrayList<String> ,String ,Str
 	private static final String productidKey  = "PID";
 	private List<HashMap<Integer,String>> product_list = new ArrayList<HashMap<Integer,String>>() ;
 	private ArrayList<String> Product = new ArrayList<String>();
-	private Context context1;
+	private Context storecontext1;
+	private String userName;
+	ProgressDialog dialog;
 	
-	public ProductsAsyncTask (Context context)
+	
+
+	public ProductsAsyncTask (Context context,String username)
 	{
-		context1 = context;
+		storecontext1 = context;
+		userName = username;
+	}
+	
+	@Override
+	protected void onPreExecute() {
+		// TODO Auto-generated method stub
+		dialog = ProgressDialog.show(storecontext1, "Wait..", "Invoices are being inserted", true, false);
 	}
 
 	@Override
@@ -67,10 +81,10 @@ public class ProductsAsyncTask  extends AsyncTask<ArrayList<String> ,String ,Str
         	{
         		String res = json.getString(successKey); 
                 if(Integer.parseInt(res) == 1){
-                	
+                	 dialog.dismiss();
                 	  JSONArray jsonProduct = json.getJSONArray("Productdetails");        
                 	 
-                     int count = jsonProduct.length(); // get totalCount of all jsonObjects
+                      int count = jsonProduct.length(); // get totalCount of all jsonObjects
              		for(int i=0 ; i< count; i++){   // iterate through jsonArray 
              				 // get jsonObject @ i position
              			 JSONObject json_obj = jsonProduct.getJSONObject(i);
@@ -83,12 +97,15 @@ public class ProductsAsyncTask  extends AsyncTask<ArrayList<String> ,String ,Str
              			Log.e("jsonObject "  ,": " + json_obj);
              		}
                	  LevenshteinDistance  e = new LevenshteinDistance (Product ,product_list);
-               	  new Invoices(context1).execute(e.findDistanceOfAllProducts());
-                	
-                	
+              	  new Invoices(storecontext1,userName).execute(e.findDistanceOfAllProducts());
+                  new InsertNewProductsAsyncTask(storecontext1,userName).execute(e.getNewProductList());
+                
+               	  dialog.dismiss();
+	
                 }else{
                 	message =json.getString(errorKey);
-                }
+                    dialog.dismiss();
+                } 
             
             }
         } catch (JSONException e){
@@ -98,6 +115,7 @@ public class ProductsAsyncTask  extends AsyncTask<ArrayList<String> ,String ,Str
         return message;
 	}
 
+	
 	
 	
  

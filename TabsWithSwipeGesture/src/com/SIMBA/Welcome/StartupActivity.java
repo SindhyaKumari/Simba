@@ -4,7 +4,9 @@ import java.util.HashMap;
 
 import dataAccessPackage.LoginSession;
 import info.androidhive.tabsswipe.MainActivity;
+import info.androidhive.tabsswipe.NewProductsListActivity;
 import info.androidhive.tabsswipe.R;
+import info.androidhive.tabsswipe.ShoppingListManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,9 +37,21 @@ public class StartupActivity extends Activity
        if(loginObj.checkLoginStatus()){
         	userDetails =loginObj.getUserDetails();
         	String email = userDetails.get("email");
-        	Intent mainIntent = new Intent(StartupActivity.this,MainActivity.class);
-        	mainIntent.putExtra("email",email);
-			startActivity(mainIntent);
+        	String name = userDetails.get("name");
+        	
+        	if(name.equals("maahaa.says")){
+        		Intent mainIntent = new Intent(StartupActivity.this,NewProductsListActivity.class);
+	            startActivity(mainIntent);
+        	}
+        	else{
+        		
+        			
+        		Intent mainIntent = new Intent(StartupActivity.this,MainActivity.class);
+            	mainIntent.putExtra("name",name);
+            	mainIntent.putExtra("tab","Shopping List");
+    			startActivity(mainIntent);
+        	}
+        	
 			
 			//close startup activity
 			finish();

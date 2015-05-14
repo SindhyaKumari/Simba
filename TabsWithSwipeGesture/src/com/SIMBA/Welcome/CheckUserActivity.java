@@ -128,9 +128,10 @@ public class CheckUserActivity  extends Activity
 	        		String res = json.getString(successKey); 
 	                if(Integer.parseInt(res) == 1){
 	                	
+	                	String[] splitEmail = email_.split("@");
 	                    //Reset Password intent created for calling reset password activity
 	                    Intent resetPasswordIntent = new Intent(CheckUserActivity.this,ResetPasswordActivity.class);
-	                    resetPasswordIntent.putExtra("email", email_);
+	                    resetPasswordIntent.putExtra("name", splitEmail[0]);
 	    	    		startActivity(resetPasswordIntent);
 	    	    		
 	    	    	    // Close CheckUser Activity
